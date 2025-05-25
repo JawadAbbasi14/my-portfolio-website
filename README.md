@@ -1,35 +1,39 @@
-# Jawad Abbasi's Portfolio Website
+# 💼 Jawad Abbasi - Portfolio Website
 
-Welcome to my personal portfolio website! 👋
+Welcome to my **personal portfolio website**!  
+This site showcases my skills, projects, and passion for technology. Built using pure HTML and CSS, it's designed to be clean, professional, and responsive across devices. 🌐✨
 
-## Purpose
+🔗 **Live Website**: [Click here to visit my portfolio](https://jawadabbasi14.github.io/my-portfolio-website/)
 
-This website showcases my skills, projects, and professional journey as a Python Developer and Programmer.  
-It's designed to give visitors a quick overview of my work, experiences, and how to contact me.
+## 🧑‍💻 About the Website
 
-- Explore my **About Me** section to know more about my background.  
-- Check out **My Skills** to see the technologies I work with.  
-- Browse through **Projects** to see my real-world work.  
-- Visit the **Blog** to read my articles and thoughts.  
-- Contact me directly through the **Contact** page.
+This website includes:
 
-## Live Demo
+- 👨‍🎨 A modern and minimal UI
+- 🧩 Sections like Home, Services, Projects, and Contact
+- 🌗 Dark Mode & Light Mode switch
+- 📱 Fully responsive design for mobile, tablet, and desktop
 
-🌐 [Visit my live portfolio website here](https://jawadabbasi14.github.io/my-portfolio-website/)
+## 🖼️ Preview Screenshots
 
-## Preview
+### 🌞 Light Mode Preview
 
-![Portfolio Screenshot 1](images/preview1.jpg)  
-*Home page with animated heading and portfolio items.*
+![Light Mode](litemode.png)
 
-![Portfolio Screenshot 2](images/preview2.jpg)  
-*Projects and contact section overview.*
+### 🌙 Dark Mode Preview
 
----
-
-Thank you for visiting my portfolio!  
-Feel free to explore and reach out if you have any questions.
+![Dark Mode](darkmode.png)
 
 ---
 
-*This README was created by Jawad Abbasi.*
+## 🚀 Technologies Used
+
+- HTML5  
+- CSS3  
+- Git & GitHub for version control
+
+---
+
+## 🙌 Thank you!
+
+Feel free to explore, fork, or contribute. Let’s build something great together! 💻🚀
