@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intro Page - Jawad</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex; min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: background 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Dark Mode Styles */
+    .dark {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #e0e0e0;
+    }
+
+    /* Light Mode Styles */
+    .light {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      color: #334e68;
+    }
+
+    /* Switch Button Styles */
+    .switch-mode {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 60px;
+      height: 30px;
+      background: #333;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+
+    .switch-mode::before {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      transition: transform 0.3s ease;
+    }
+
+    .dark .switch-mode {
+      background: #4caf50;
+    }
+
+    .dark .switch-mode::before {
+      transform: translateX(30px);
+    }
+
+    .switch-mode:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px; padding: 30px;
+      background: linear-gradient(135deg, #1b262c, #0f4c75);
+      color: #ffffff;
+      flex-shrink: 0;
+      display: flex; flex-direction: column;
+      box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    .dark .sidebar {
+      background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+    }
+
+    .sidebar:hover {
+      transform: translateX(-10px);
+      background: linear-gradient(135deg, #0f4c75, #4caf50);
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+    }
+
+    .sidebar-header h1 {
+      font-size: 2rem; letter-spacing: 3px;
+      margin-bottom: 5px; text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      color: #4caf50;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.1rem; font-weight: 300;
+      color: #bbe1fa; margin-bottom: 30px;
+    }
+
+    .dark .sidebar-header h2 {
+      color: #a0d0ff;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li + li { margin-top: 15px; }
+    nav ul li a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #4caf50;
+      transform: translateX(5px) scale(1.02);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    nav ul li a span { display: inline-block; font-size: 1.2rem; }
+
+    /* Main Content */
+    .main {
+      flex: 1; padding: 40px; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .intro {
+      max-width: 700px;
+      background: rgba(255,255,255,0.3);
+      padding: 40px; border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: fadeInUp 0.8s ease both;
+    }
+
+    .dark .intro {
+      background: rgba(40,40,60,0.3);
+      border: 1px solid rgba(76,175,80,0.3);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Image – Enhanced Style */
+    .intro img {
+      display: block; width: 160px; height: 160px;
+      object-fit: cover; border-radius: 50%;
+      margin: 0 auto 30px;
+      border: 4px solid transparent;
+      border-image: linear-gradient(135deg, #4caf50, #0077b6) 1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 15px rgba(76,175,80,0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+    }
+
+    .intro img:hover {
+      transform: scale(1.1) rotate(2deg);
+      filter: brightness(1.1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 20px rgba(76,175,80,0.6);
+    }
+
+    /* Headings & Text */
+    .intro h2 {
+      font-size: 2rem;
+      text-align: center; margin-bottom: 20px;
+      position: relative;
+      color: #102a43;
+    }
+
+    .dark .intro h2 {
+      color: #e0e0e0;
+    }
+
+    .intro h2::after {
+      content: '';
+      display: block; width: 60px; height: 4px;
+      background: #4caf50; margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    .intro p {
+      line-height: 1.6; margin-bottom: 20px;
+      color: #334e68;
+    }
+
+    .dark .intro p {
+      color: #b0b0b0;
+    }
+
+    /* Go Home Button */
+    .go-home {
+      margin: 30px auto 0; display: block;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      color: #fff;
+      padding: 12px 28px; border-radius: 6px;
+      font-size: 1rem; border: none;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .go-home:hover {
+      background: linear-gradient(135deg, #388e3c, #66bb6a);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { width: 200px; }
+      .intro { padding: 30px; }
+      .switch-mode {
+        width: 50px;
+        height: 25px;
+      }
+      .switch-mode::before {
+        width: 20px;
+        height: 20px;
+      }
+      .dark .switch-mode::before {
+        transform: translateX(25px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      body { flex-direction: column; }
+      .sidebar {
+        position: relative; width: 100%;
+        display: flex; align-items: center; justify-content: space-between;
+        border-radius: 0;
+      }
+      .main { padding: 20px; }
+      .intro { width: 100%; }
+      .intro img { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body class="light">
+  <button class="switch-mode" onclick="toggleMode()"></button>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Developer</h1>
+      <h2>Jawad</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html"><span>🏠</span> Home</a></li>
+        <li><a href="myintro.html"><span>👨‍💻</span> My Intro</a></li>
+        <li><a href="services.html"><span>⚙️</span> Services</a></li>
+        <li><a href="cv.html"><span>📄</span> CV</a></li>
+        <li><a href="blog.html"><span>📝</span> Blog</a></li>
+        <li><a href="contactme.html"><span>📞</span> Contact Me</a></li>
+        <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main">
+    <div class="intro">
+      <img src="jawad-photo.jpg" alt="Jawad’s Photo">
+      <h2>About Me</h2>
+      <p>Hello! I’m <strong>Jawad</strong>, a motivated learner on the path to becoming an AI developer, cybersecurity expert, and software engineer. Right now I’m deeply studying Python, data structures, and algorithms to build a strong foundation.</p>
+      <p>Every day I practice coding challenges, work on small projects, and explore new technologies like machine learning and web security. I believe hands-on projects help me learn fastest, so I’m constantly building and experimenting.</p>
+      <p>My goal is to create innovative, secure applications that solve real-world problems. I’m committed to continuous improvement, contributing to open-source when I can, and rapidly growing my skills to reach an advanced developer level.</p>
+
+      <a href="index.html" class="go-home">Go Home</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    // Default mode
+    document.body.classList.add('light');
+  </script>
+</body>
+</html>

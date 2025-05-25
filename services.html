@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services – Jawad’s Learning</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex; min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      transition: background 0.4s ease, color 0.4s ease;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Dark Mode Styles */
+    .dark {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #e0e0e0;
+    }
+
+    /* Light Mode Styles */
+    .light {
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      color: #333;
+    }
+
+    /* Switch Button Styles */
+    .switch-mode {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 60px;
+      height: 30px;
+      background: #333;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+
+    .switch-mode::before {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      transition: transform 0.3s ease;
+    }
+
+    .dark .switch-mode {
+      background: #4caf50;
+    }
+
+    .dark .switch-mode::before {
+      transform: translateX(30px);
+    }
+
+    .switch-mode:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px; padding: 30px;
+      background: linear-gradient(135deg, #1b262c, #0f4c75);
+      color: #fff; flex-shrink: 0;
+      display: flex; flex-direction: column;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
+      transition: background 0.4s ease, transform 0.3s ease;
+    }
+
+    .dark .sidebar {
+      background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+    }
+
+    .sidebar:hover {
+      transform: translateX(-10px);
+      background: linear-gradient(135deg, #0f4c75, #4caf50);
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+    }
+
+    .sidebar-header h1 {
+      font-size: 2rem; letter-spacing: 3px;
+      margin-bottom: 5px; text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      color: #4caf50;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.1rem; font-weight: 300;
+      color: #bbe1fa; margin-bottom: 30px;
+    }
+
+    .dark .sidebar-header h2 {
+      color: #a0d0ff;
+    }
+
+    nav ul { list-style: none; }
+    nav ul li + li { margin-top: 15px; }
+    nav ul li a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #4caf50;
+      transform: translateX(8px) scale(1.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    nav ul li a .icon { width: 20px; }
+
+    /* Services Section */
+    #services {
+      flex: 1; padding: 80px 40px;
+      background: rgba(255,255,255,0.9);
+      overflow-y: auto;
+      border-radius: 12px;
+      margin: 20px;
+    }
+
+    .dark #services {
+      background: rgba(40,40,60,0.9);
+    }
+
+    #services h1 {
+      font-size: 3rem; text-align: center; margin-bottom: 15px;
+      background: linear-gradient(90deg, #4caf50, #d32f2f);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: textGradient 4s ease infinite;
+    }
+
+    #services p {
+      font-size: 1.2rem; text-align: center;
+      margin-bottom: 50px; max-width: 700px; margin: auto; line-height: 1.5;
+      color: #555;
+    }
+
+    .dark #services p {
+      color: #b0b0b0;
+    }
+
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px; max-width: 1200px; margin: auto;
+    }
+
+    .service {
+      position: relative;
+      background: rgba(255,255,255,0.3);
+      border-radius: 15px; padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.4s, transform 0.5s, box-shadow 0.5s;
+    }
+
+    .dark .service {
+      background: rgba(40,40,60,0.3);
+      border: 1px solid rgba(76,175,80,0.3);
+    }
+
+    .service i {
+      font-size: 2.2rem; margin-bottom: 15px;
+      display: block; color: #4caf50;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .service h2 {
+      font-size: 1.3rem; color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .dark .service h2 {
+      color: #e0e0e0;
+    }
+
+    .service p {
+      font-size: 1rem; color: #666; line-height: 1.6;
+    }
+
+    .dark .service p {
+      color: #b0b0b0;
+    }
+
+    /* Hover Effects – intensified */
+    .service:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+    }
+
+    .dark .service:hover {
+      background: linear-gradient(135deg, rgba(76,175,80,0.5), rgba(40,40,60,0.3));
+    }
+
+    .service:hover i {
+      color: #d32f2f;
+      transform: scale(1.2);
+    }
+
+    .service.fullstack {} /* backgrounds optional */
+    .service.ai {}
+    .service.solving {}
+    .service.linux {}
+
+    /* Go Home Button */
+    .go-home {
+      display: block; margin: 50px auto 0;
+      background: linear-gradient(135deg, #4caf50, #81c784);
+      color: #fff; padding: 12px 28px; border: none;
+      border-radius: 8px; font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+
+    .go-home:hover {
+      background: linear-gradient(135deg, #388e3c, #66bb6a);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px; padding: 20px;
+      text-align: center; color: #888; font-size: 0.9rem;
+    }
+
+    .dark footer {
+      color: #b0b0b0;
+    }
+
+    @keyframes textGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (max-width: 900px) {
+      #services { padding: 60px 20px; }
+      .switch-mode {
+        width: 50px;
+        height: 25px;
+      }
+      .switch-mode::before {
+        width: 20px;
+        height: 20px;
+      }
+      .dark .switch-mode::before {
+        transform: translateX(25px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%; position: relative;
+        border-radius: 0;
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      #services { margin: 0; border-radius: 0; }
+    }
+  </style>
+</head>
+<body class="light">
+  <button class="switch-mode" onclick="toggleMode()"></button>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h1>Developer</h1>
+      <h2>Jawad</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html"><span class="icon">🏠</span>Home</a></li>
+        <li><a href="myintro.html"><span class="icon">👨‍💻</span>My Intro</a></li>
+        <li><a href="services.html"><span class="icon">⚙️</span>Services</a></li>
+        <li><a href="cv.html"><span class="icon">📄</span>CV</a></li>
+        <li><a href="blog.html"><span class="icon">📝</span>Blog</a></li>
+        <li><a href="contactme.html"><span class="icon">📞</span>Contact Me</a></li>
+        <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <section id="services">
+    <h1>My Learning Paths</h1>
+    <p>I’m currently focusing on building my skills across multiple domains. Here are the key areas I’m working on as a learner:</p>
+
+    <div class="services-container">
+      <div class="service fullstack">
+        <i class="fas fa-code"></i>
+        <h2>Fullstack Developer</h2>
+        <p>Building complete web apps with front-end & back-end skills.</p>
+      </div>
+      <div class="service ai">
+        <i class="fas fa-brain"></i>
+        <h2>AI Developer</h2>
+        <p>Studying ML, neural nets & AI algorithms for smart systems.</p>
+      </div>
+      <div class="service solving">
+        <i class="fas fa-lightbulb"></i>
+        <h2>Problem Solving (DSA)</h2>
+        <p>Practicing data structures & algorithms daily for sharper logic.</p>
+      </div>
+      <div class="service linux">
+        <i class="fab fa-linux"></i>
+        <h2>Linux CLI Mastery</h2>
+        <p>Mastering Arch Linux CLI for full command-line control.</p>
+      </div>
+    </div>
+
+    <a href="index.html" class="go-home">Go Home</a>
+    <footer>© 2025 Jawad’s Portfolio. All Rights Reserved.</footer>
+  </section>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    // Default mode
+    document.body.classList.add('light');
+  </script>
+</body>
+</html>

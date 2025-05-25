@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog by Jawad - Insights</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: white;
+            padding: 20px;
+            transition: transform 0.3s ease;
+            position: fixed;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        .dark .sidebar {
+            background: linear-gradient(135deg, rgba(76,175,80,0.8), rgba(40,40,60,0.8));
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .sidebar-header h2 {
+            font-size: 18px;
+            font-weight: 300;
+            margin: 5px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dark .nav-item:hover, .dark .nav-item.active {
+            background: linear-gradient(135deg, rgba(76,175,80,0.5), rgba(40,40,60,0.3));
+        }
+
+        .nav-item .icon {
+            margin-right: 10px;
+        }
+
+        .main {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin-left: 250px;
+            transition: background-color 0.3s;
+        }
+
+        .dark .main {
+            background: #2a2a2a;
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .blog-header h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 36px;
+            color: #4caf50;
+        }
+
+        .dark .blog-header h1 {
+            color: #81c784;
+        }
+
+        .blog-header .subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .dark .blog-header .subtitle {
+            color: #b0b0b0;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .dark .search-bar input {
+            border-color: #444;
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        .search-bar button {
+            padding: 12px 20px;
+            border: none;
+            background: #4caf50;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dark .search-bar button {
+            background: #81c784;
+        }
+
+        .search-bar button:hover {
+            background: #388e3c;
+        }
+
+        .dark .search-bar button:hover {
+            background: #66bb6a;
+        }
+
+        .blog-item {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .dark .blog-item {
+            background: #2a2a2a;
+        }
+
+        .blog-item:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(76,175,80,0.1), rgba(129,199,132,0.1));
+        }
+
+        .dark .blog-item:hover {
+            background: linear-gradient(135deg, rgba(76,175,80,0.5), rgba(40,40,60,0.3));
+            border: 1px solid rgba(76,175,80,0.3);
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .dark .blog-meta {
+            color: #b0b0b0;
+        }
+
+        .blog-meta i {
+            margin-right: 5px;
+        }
+
+        .blog-item h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 28px;
+            color: #4caf50;
+            margin: 10px 0;
+        }
+
+        .dark .blog-item h2 {
+            color: #81c784;
+        }
+
+        .blog-item p {
+            font-size: 16px;
+            color: #444;
+        }
+
+        .dark .blog-item p {
+            color: #e0e0e0;
+        }
+
+        .author-bio {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .dark .author-bio {
+            background: #333;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            border-image: linear-gradient(135deg, #4caf50, #81c784) 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 15px rgba(76,175,80,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dark .author-avatar {
+            border-image: linear-gradient(135deg, rgba(76,175,80,0.8), rgba(40,40,60,0.8)) 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 15px rgba(76,175,80,0.6);
+        }
+
+        .author-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2), 0 0 20px rgba(76,175,80,0.6);
+        }
+
+        .related-posts {
+            margin: 20px 0;
+        }
+
+        .related-posts h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 20px;
+            color: #4caf50;
+        }
+
+        .dark .related-posts h3 {
+            color: #81c784;
+        }
+
+        .related-posts ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-posts li {
+            margin: 10px 0;
+        }
+
+        .related-posts a {
+            color: #4caf50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .dark .related-posts a {
+            color: #81c784;
+        }
+
+        .related-posts a:hover {
+            color: #388e3c;
+        }
+
+        .dark .related-posts a:hover {
+            color: #66bb6a;
+        }
+
+        .comments-section {
+            margin-top: 20px;
+        }
+
+        .comments-section h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 20px;
+            color: #4caf50;
+        }
+
+        .dark .comments-section h3 {
+            color: #81c784;
+        }
+
+        .comment-list {
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            padding: 10px;
+            background: #f9fafb;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+
+        .dark .comment {
+            background: #333;
+        }
+
+        .comments-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 16px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .dark .comments-section textarea {
+            border-color: #444;
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        .comments-section button {
+            padding: 12px 20px;
+            border: none;
+            background: #4caf50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dark .comments-section button {
+            background: #81c784;
+        }
+
+        .comments-section button:hover {
+            background: #388e3c;
+        }
+
+        .dark .comments-section button:hover {
+            background: #66bb6a;
+        }
+
+        .newsletter {
+            text-align: center;
+            padding: 30px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+
+        .dark .newsletter {
+            background: #333;
+        }
+
+        .newsletter h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 24px;
+            color: #4caf50;
+        }
+
+        .dark .newsletter h3 {
+            color: #81c784;
+        }
+
+        .newsletter input {
+            padding: 12px;
+            width: 60%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .dark .newsletter input {
+            border-color: #444;
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        .newsletter button {
+            padding: 12px 20px;
+            border: none;
+            background: #4caf50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dark .newsletter button {
+            background: #81c784;
+        }
+
+        .newsletter button:hover {
+            background: #388e3c;
+        }
+
+        .dark .newsletter button:hover {
+            background: #66bb6a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #4caf50;
+            color: white;
+            margin-left: 250px;
+            transition: background 0.3s;
+        }
+
+        .dark footer {
+            background: #388e3c;
+        }
+
+        .toggle-sidebar {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .dark .toggle-sidebar {
+            background: #81c784;
+        }
+
+        .toggle-sidebar:hover {
+            background: #388e3c;
+        }
+
+        .dark .toggle-sidebar:hover {
+            background: #66bb6a;
+        }
+
+        .switch-mode {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 25px;
+            background: #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 1100;
+        }
+
+        .dark .switch-mode {
+            background: #444;
+        }
+
+        .switch-mode::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #4caf50;
+            border-radius: 50%;
+            top: 2.5px;
+            left: 2.5px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .dark .switch-mode::before {
+            transform: translateX(25px);
+            background: #81c784;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                display: none;
+                width: 100%;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                display: block;
+                transform: translateX(0);
+            }
+
+            .main, footer {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .blog-header h1 {
+                font-size: 28px;
+            }
+
+            .blog-item h2 {
+                font-size: 24px;
+            }
+
+            .newsletter input {
+                width: 100%;
+            }
+
+            .switch-mode {
+                width: 50px;
+                height: 25px;
+            }
+
+            .switch-mode::before {
+                width: 20px;
+                height: 20px;
+            }
+
+            .dark .switch-mode::before {
+                transform: translateX(25px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .blog-item h2 {
+                font-size: 1.3rem;
+            }
+
+            .author-avatar {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-sidebar" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="switch-mode" onclick="toggleDarkMode()"></div>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1><b>Developer</b></h1>
+                <h2>Jawad</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="nav-item"><span class="icon">🏠</span>Home</a></li>
+                    <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
+                    <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
+                    <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
+                    <li><a href="blog.html" class="nav-item active"><span class="icon">📝</span>Blog</a></li>
+                    <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
+                     <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main">
+            <div class="blog-container">
+                <header class="blog-header">
+                    <h1>INSIGHTS BY JAWAD</h1>
+                    <p class="subtitle">Exploring AI, Software Development, and the Future of Tech</p>
+                </header>
+
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search blog posts..." aria-label="Search blog posts">
+                    <button onclick="searchPosts()">Search</button>
+                </div>
+
+                <div class="blog-item" id="ai-dev">
+                    <div class="blog-image">
+                        <img src="https://via.placeholder.com/800x400?text=AI+Development" alt="AI Development">
+                    </div>
+                    <h2>The Global Impact of AI Development</h2>
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar-alt"></i> May 25, 2025</span>
+                        <span><i class="fas fa-user"></i> Jawad</span>
+                    </div>
+                    <p>Artificial Intelligence (AI) is revolutionizing industries worldwide, from healthcare and finance to entertainment and manufacturing. As an <strong>AI Developer</strong>, I specialize in creating intelligent systems that learn, reason, and make decisions, driving innovation and efficiency. The global demand for AI solutions is skyrocketing, with applications ranging from predictive analytics to advanced natural language processing for seamless human-computer interaction. Understanding and leveraging AI is crucial for staying competitive in today’s digital landscape.</p>
+                    <p>My work involves designing algorithms, training neural networks, and deploying AI models that address real-world challenges. This field offers immense opportunities for groundbreaking advancements, reshaping how we interact with technology and the world.</p>
+                    <div class="author-bio">
+                        <img src="https://via.placeholder.com/50x50?text=Jawad" alt="Jawad's Avatar" class="author-avatar">
+                        <p><strong>Author:</strong> Jawad is a passionate web developer with expertise in AI, software development, and creating interactive web experiences.</p>
+                    </div>
+                    <div class="related-posts">
+                        <h3>Related Posts</h3>
+                        <ul>
+                            <li><a href="#software-dev">Software Development: Building the Digital World</a></li>
+                            <li><a href="#dsa">DSA: The Backbone of Efficient Code</a></li>
+                        </ul>
+                    </div>
+                    <div class="comments-section">
+                        <h3>Comments</h3>
+                        <div class="comment-list" id="comments-ai">
+                            <!-- Comments will be dynamically added here -->
+                        </div>
+                        <textarea id="comment-ai" placeholder="Leave a comment..." aria-label="Comment"></textarea>
+                        <button onclick="submitComment('ai')">Submit</button>
+                    </div>
+                </div>
+
+                <div class="blog-item" id="software-dev">
+                    <div class="blog-image">
+                        <img src="https://via.placeholder.com/800x400?text=Software+Development" alt="Software Development">
+                    </div>
+                    <h2>Software Development: Building the Digital World</h2>
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar-alt"></i> May 20, 2025</span>
+                        <span><i class="fas fa-user"></i> Jawad</span>
+                    </div>
+                    <p>Software development is the foundation of our digital era. Every app, website, and system relies on meticulously crafted code. As a <strong>Software Developer</strong>, I focus on designing, coding, testing, and maintaining applications that power global communication, commerce, and innovation. From robust backend systems handling vast datasets to intuitive front-end interfaces, software development drives the digital experience.</p>
+                    <p>My expertise spans multiple programming languages and methodologies, ensuring scalable, secure, and efficient solutions. Translating complex ideas into functional software is a skill that fuels progress across industries.</p>
+                    <div class="author-bio">
+                        <img src="https://via.placeholder.com/50x50?text=Jawad" alt="Jawad's Avatar" class="author-avatar">
+                        <p><strong>Author:</strong> Jawad is a passionate web developer with expertise in AI, software development, and creating interactive web experiences.</p>
+                    </div>
+                    <div class="related-posts">
+                        <h3>Related Posts</h3>
+                        <ul>
+                            <li><a href="#ai-dev">The Global Impact of AI Development</a></li>
+                            <li><a href="#dsa">DSA: The Backbone of Efficient Code</a></li>
+                        </ul>
+                    </div>
+                    <div class="comments-section">
+                        <h3>Comments</h3>
+                        <div class="comment-list" id="comments-software">
+                            <!-- Comments will be dynamically added here -->
+                        </div>
+                        <textarea id="comment-software" placeholder="Leave a comment..." aria-label="Comment"></textarea>
+                        <button onclick="submitComment('software')">Submit</button>
+                    </div>
+                </div>
+
+                <div class="blog-item" id="dsa">
+                    <div class="blog-image">
+                        <img src="https://via.placeholder.com/800x400?text=DSA" alt="Data Structures and Algorithms">
+                    </div>
+                    <h2>DSA: The Backbone of Efficient Code</h2>
+                    <div class="blog-meta">
+                        <span><i class="fas fa-calendar-alt"></i> May 15, 2025</span>
+                        <span><i class="fas fa-user"></i> Jawad</span>
+                    </div>
+                    <p>Data Structures and Algorithms (DSA) are critical for writing efficient, optimized code, recognized globally in the tech industry. For any <strong>Software Developer</strong> or <strong>AI Developer</strong>, mastering DSA is essential. It enables solving complex problems and designing high-performance systems. DSA provides the tools to organize data and process it efficiently, vital for applications, machine learning models, and AI systems.</p>
+                    <p>My focus on DSA ensures my solutions are performant and scalable, whether optimizing database queries, creating fast algorithms, or enhancing AI model efficiency.</p>
+                    <div class="author-bio">
+                        <img src="https://via.placeholder.com/50x50?text=Jawad" alt="Jawad's Avatar" class="author-avatar">
+                        <p><strong>Author:</strong> Jawad is a passionate web developer with expertise in AI, software development, and creating interactive web experiences.</p>
+                    </div>
+                    <div class="related-posts">
+                        <h3>Related Posts</h3>
+                        <ul>
+                            <li><a href="#ai-dev">The Global Impact of AI Development</a></li>
+                            <li><a href="#software-dev">Software Development: Building the Digital World</a></li>
+                        </ul>
+                    </div>
+                    <div class="comments-section">
+                        <h3>Comments</h3>
+                        <div class="comment-list" id="comments-dsa">
+                            <!-- Comments will be dynamically added here -->
+                        </div>
+                        <textarea id="comment-dsa" placeholder="Leave a comment..." aria-label="Comment"></textarea>
+                        <button onclick="submitComment('dsa')">Submit</button>
+                    </div>
+                </div>
+
+                <div class="newsletter">
+                    <h3>Subscribe to My Newsletter</h3>
+                    <p>Stay updated with the latest insights on AI, software development, and more!</p>
+                    <input type="email" id="newsletterEmail" placeholder="Enter your email" aria-label="Email for newsletter">
+                    <button onclick="subscribeNewsletter()">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Jawad. All rights reserved.</p>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        // Apply saved theme on page load
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+        }
+
+        function searchPosts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const blogItems = document.querySelectorAll('.blog-item');
+
+            blogItems.forEach(item => {
+                const title = item.querySelector('h2').textContent.toLowerCase();
+                const content = Array.from(item.querySelectorAll('p')).map(p => p.textContent.toLowerCase()).join(' ');
+                if (title.includes(searchInput) || content.includes(searchInput)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function submitComment(section) {
+            const textarea = document.getElementById(`comment-${section}`);
+            const commentList = document.getElementById(`comments-${section}`);
+            const commentText = textarea.value.trim();
+
+            if (commentText) {
+                const comment = document.createElement('div');
+                comment.className = 'comment';
+                comment.innerHTML = `<p><strong>Anonymous:</strong> ${commentText}</p>`;
+                commentList.appendChild(comment);
+                textarea.value = '';
+            }
+        }
+
+        function subscribeNewsletter() {
+            const emailInput = document.getElementById('newsletterEmail');
+            const email = emailInput.value.trim();
+
+            if (email) {
+                alert(`Thank you for subscribing, ${email}!`);
+                emailInput.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        }
+    </script>
+</body>
+</html>

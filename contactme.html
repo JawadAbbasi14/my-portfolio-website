@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Page - Jawad</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+            display: flex; min-height: 100vh;
+            transition: background 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* Dark Mode Styles */
+        .dark {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #e0e0e0;
+        }
+
+        /* Light Mode Styles */
+        .light {
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            color: #333;
+        }
+
+        /* Switch Button */
+        .switch-mode {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 30px;
+            background: #333;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            transition: background 0.3s ease;
+            z-index: 1000;
+        }
+
+        .switch-mode::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+
+        .dark .switch-mode {
+            background: #4caf50;
+        }
+
+        .dark .switch-mode::before {
+            transform: translateX(30px);
+        }
+
+        .switch-mode:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            padding: 30px;
+            background: linear-gradient(135deg, #1b262c, #0f4c75);
+            color: #fff;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
+            transition: background 0.4s ease, transform 0.3s ease;
+        }
+
+        .dark .sidebar {
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+        }
+
+        .sidebar:hover {
+            transform: translateX(-10px);
+            background: linear-gradient(135deg, #0f4c75, #4caf50);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h1 {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            color: #4caf50;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #bbe1fa;
+            margin-top: 5px;
+        }
+
+        .dark .sidebar-header h2 {
+            color: #a0d0ff;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar nav ul li a.nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            border-radius: 6px;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .sidebar nav ul li a.nav-item:hover {
+            background: #4caf50;
+            transform: translateX(8px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .sidebar nav ul li a.nav-item .icon {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Hamburger Menu */
+        .hanbarger {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .hanbarger img {
+            cursor: pointer;
+        }
+
+        .cross {
+            display: none;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Contact Form */
+        .contactform {
+            background: rgba(255,255,255,0.3);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 600px;
+            width: 100%;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .dark .contactform {
+            background: rgba(40,40,60,0.3);
+            border: 1px solid rgba(76,175,80,0.3);
+        }
+
+        .contactform:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(76,175,80,0.5);
+        }
+
+        .contactform h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .dark .contactform h1 {
+            color: #e0e0e0;
+        }
+
+        /* Form Inputs with Icons */
+        .mb-3 {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .mb-3 i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4caf50;
+            font-size: 1.2rem;
+        }
+
+        .mb-3 label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .dark .mb-3 label {
+            color: #e0e0e0;
+        }
+
+        .mb-3 input, .mb-3 textarea {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.5);
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dark .mb-3 input, .dark .mb-3 textarea {
+            background: rgba(40,40,60,0.5);
+            border: 1px solid rgba(76,175,80,0.3);
+            color: #e0e0e0;
+        }
+
+        .mb-3 input:focus, .mb-3 textarea:focus {
+            border-color: #4caf50;
+            outline: none;
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(76,175,80,0.5);
+        }
+
+        .mb-3 input::placeholder, .mb-3 textarea::placeholder {
+            color: #888;
+            opacity: 0.8;
+        }
+
+        .dark .mb-3 input::placeholder, .dark .mb-3 textarea::placeholder {
+            color: #b0b0b0;
+        }
+
+        .form-text {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .dark .form-text {
+            color: #b0b0b0;
+        }
+
+        /* Checkbox */
+        #fom-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-check-label {
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .dark .form-check-label {
+            color: #e0e0e0;
+        }
+
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Submit Button */
+        #submitBtn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #submitBtn:hover {
+            background: linear-gradient(135deg, #388e3c, #66bb6a);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Go Home Button */
+        .go-home {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            width: 200px;
+        }
+
+        .go-home:hover {
+            background: linear-gradient(135deg, #388e3c, #66bb6a);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Popup Modal */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.3);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+            width: 300px;
+            text-align: center;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dark .popup {
+            background: rgba(40,40,60,0.3);
+            border: 1px solid rgba(76,175,80,0.3);
+        }
+
+        .popup-content {
+            position: relative;
+        }
+
+        .popup p {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .dark .popup p {
+            color: #e0e0e0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+
+        .dark .close-btn {
+            color: #e0e0e0;
+        }
+
+        .close-btn:hover {
+            color: #d32f2f;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .hanbarger {
+                display: block;
+            }
+            .main {
+                padding: 20px;
+            }
+            .contactform {
+                padding: 20px;
+            }
+            .switch-mode {
+                width: 50px;
+                height: 25px;
+            }
+            .switch-mode::before {
+                width: 20px;
+                height: 20px;
+            }
+            .dark .switch-mode::before {
+                transform: translateX(25px);
+            }
+            .go-home {
+                width: 180px;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contactform h1 {
+                font-size: 1.5rem;
+            }
+            .mb-3 label {
+                font-size: 1rem;
+            }
+            .mb-3 input, .mb-3 textarea {
+                padding: 10px 10px 10px 35px;
+                font-size: 0.9rem;
+            }
+            #submitBtn {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            .go-home {
+                width: 160px;
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body class="light">
+    <button class="switch-mode" onclick="toggleMode()"></button>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar sidebar-go">
+            <div class="sidebar-header">
+                <h1><b>Developer</b></h1>  
+                <h2>Jawad</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
+                    <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
+                    <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
+                    <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
+                    <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
+                    <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
+                    <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="hanbarger">
+            <img class="Ham" src="Hamburger Button.webp" alt="Hamburger Menu" width="23px">
+            <img class="cross" src="cross.webp" alt="Close Menu" width="23px">
+        </div>
+
+        <div class="main">
+            <div class="contactform">
+                <form id="contactForm">
+                    <h1>Contact Me for Work / General</h1>
+                    <div class="mb-3">
+                        <label for="clintInputName1" class="form-label">Enter Your Name</label>
+                        <i class="fas fa-user"></i>
+                        <input type="text" class="form-control" id="clintInputName1" placeholder="JawaD" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clintInputEmail1" class="form-label">Email Address</label>
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" class="form-control" id="clintInputEmail1" placeholder="jawadabbasi1107@gmail.com" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email & phone with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clinetphone" class="form-label">Phone No</label>
+                        <i class="fas fa-phone"></i>
+                        <input type="text" class="form-control" id="clinetphone" placeholder="+92 314 577 899">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clintInputEnquiry" class="form-label">Enquiry</label>
+                        <i class="fas fa-comment"></i>
+                        <input type="text" class="form-control" id="clintInputEnquiry" placeholder="Your message or enquiry">
+                    </div>
+                    <div class="mb-3" id="fom-check">
+                        
+                        <label class="form-check-label" for="isclient">I want you to work on a project with me.</label>
+                        <input type="checkbox" class="form-check-input" id="isclient">
+                    </div>
+                    <button type="submit" id="submitBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href="index.html" class="go-home">Go Home</a>
+    <script>
+        function toggleMode() {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+        }
+
+        // Default mode
+        document.body.classList.add('light');
+    </script>
+</body>
+</html>
