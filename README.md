@@ -1,39 +1,53 @@
 # 💼 Jawad Abbasi - Portfolio Website
 
 Welcome to my **personal portfolio website**!  
-This site showcases my skills, projects, and passion for technology. Built using pure HTML and CSS, it's designed to be clean, professional, and responsive across devices. 🌐✨
+This site represents my work, skills, and creativity as a tech enthusiast. It’s built with clean code and a modern layout — designed to work seamlessly across all devices. 🌐📱
 
-🔗 **Live Website**: [Click here to visit my portfolio](https://jawadabbasi14.github.io/my-portfolio-website/)
+---
 
-## 🧑‍💻 About the Website
+## 🔗 Live Demo
 
-This website includes:
+🚀 **Check it out here:**  
+👉 [Visit My Portfolio Website](https://jawadabbasi14.github.io/my-portfolio-website/) 👈
 
-- 👨‍🎨 A modern and minimal UI
-- 🧩 Sections like Home, Services, Projects, and Contact
-- 🌗 Dark Mode & Light Mode switch
-- 📱 Fully responsive design for mobile, tablet, and desktop
+---
+
+## 🧑‍💻 What's Inside?
+
+- 👋 Introductory section about me  
+- 🛠️ Clean & minimal Services section  
+- 🌟 Highlighted Projects (static layout)  
+- 📫 Contact section  
+- 🌓 **Light/Dark Mode toggle**  
+- 📱 100% responsive design for mobile, tablet, and desktop  
+
+---
 
 ## 🖼️ Preview Screenshots
 
-### 🌞 Light Mode Preview
+### ☀️ Light Mode
 
 ![Light Mode](litemode.png)
 
-### 🌙 Dark Mode Preview
+### 🌑 Dark Mode
 
 ![Dark Mode](darkmode.png)
 
 ---
 
-## 🚀 Technologies Used
+## 📚 Project Structure
 
-- HTML5  
-- CSS3  
-- Git & GitHub for version control
+This website is built using:
+
+- 🧱 **HTML5** – for the basic structure  
+- 🎨 **CSS3** – for all styling and responsive layout  
+- 🗂️ **Organized folders** – all assets managed in a clean way  
+- 🚀 **Git & GitHub** – for version control and live deployment  
 
 ---
 
-## 🙌 Thank you!
+## 🤝 Let's Connect!
 
-Feel free to explore, fork, or contribute. Let’s build something great together! 💻🚀
+Thanks for visiting! Feel free to explore, fork, or share your feedback.  
+I’m always learning and building — this is just the beginning! 💻🚀
+
