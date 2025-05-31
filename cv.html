@@ -7,314 +7,545 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the theme switch and general body layout */
+        /* -------------------------------------- */
+        /* CSS Variables for Theming & Consistency */
+        :root {
+            --color-light-bg: #f0f4f8;
+            --color-light-gradient-1: #f0f4f8;
+            --color-light-gradient-2: #d9e2ec;
+            --color-dark-gradient-1: #1a1a2e;
+            --color-dark-gradient-2: #16213e;
+            --color-light-text: #333;
+            --color-dark-text: #e0e0e0;
+            --color-light-border: #d9e2ec;
+            --color-dark-border: #444a6b;
+            --color-indigo-light: #4f46e5;
+            --color-indigo-dark: #818cf8;
+            --font-primary: 'Inter', sans-serif;
+            --transition-fast: 0.3s ease;
+            --transition-slow: 0.6s ease;
+            --max-width: 800px;
+            --spacing-base: 1rem;
+            --text-size-small: 0.875rem;
+            --text-size-base: 1rem;
+            --text-size-large: 1.25rem;
+        }
+
+        /* -------------------------------------- */
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', sans-serif; /* Apply Inter font globally */
-            transition: background 0.4s ease, color 0.4s ease; /* Smooth transition for theme changes */
-            min-height: 100vh; /* Ensure body takes full viewport height */
-            display: flex; /* Use flexbox for centering content */
-            justify-content: center; /* Center horizontally */
-            align-items: flex-start; /* Align to top for longer content, prevents content from being squashed */
-            padding: 2rem; /* Overall padding around the CV container */
-            overflow-x: hidden; /* Prevent horizontal scrollbar, crucial for responsive design */
+            font-family: var(--font-primary);
+            transition: background var(--transition-fast), color var(--transition-fast);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--color-light-gradient-1), var(--color-light-gradient-2));
+            color: var(--color-light-text);
         }
 
-        /* Dark Mode Styles - Applied when the 'dark' class is on the body */
-        .dark {
-            background: linear-gradient(135deg, #1a1a2e, #16213e); /* Dark blue gradient background */
-            color: #e0e0e0; /* Light grey text color */
+        /* Dark Mode Activation */
+        body.dark {
+            background: linear-gradient(135deg, var(--color-dark-gradient-1), var(--color-dark-gradient-2));
+            color: var(--color-dark-text);
         }
 
-        /* Light Mode Styles - Applied when the 'light' class is on the body */
-        .light {
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Light blue/grey gradient background */
-            color: #333; /* Dark grey text color */
-        }
-
-        /* Switch Button Styling - For the theme toggle */
-        .switch-mode {
-            position: fixed; /* Fixed position so it stays visible on scroll */
-            top: 1.25rem; /* 20px from top */
-            left: 1.25rem; /* 20px from left */
-            width: 3.75rem; /* 60px width */
-            height: 1.875rem; /* 30px height */
-            background: #333; /* Dark background for the switch track */
-            border-radius: 0.9375rem; /* 15px, makes it pill-shaped */
-            cursor: pointer; /* Indicates it's clickable */
-            display: flex; /* Use flexbox for the toggle circle */
-            align-items: center; /* Vertically center the circle */
-            padding: 0 0.25rem; /* 4px horizontal padding */
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-            z-index: 1000; /* Ensure it's on top of other content */
-        }
-
-        .switch-mode .toggle-circle {
-            width: 1.5rem; /* 24px width for the circle */
-            height: 1.5rem; /* 24px height for the circle */
-            background: #fff; /* White background for the circle */
-            border-radius: 50%; /* Makes it a perfect circle */
-            transition: transform 0.3s ease; /* Smooth transition when moving */
-        }
-
-        /* Dark mode active state for the toggle circle */
-        .switch-mode.dark-active .toggle-circle {
-            transform: translateX(1.875rem); /* Move to the right (60px - 24px - 4px*2 = 30px) */
-            background: #fdd835; /* Yellow color for sun icon in dark mode */
-        }
-
-        /* Light mode active state for the toggle circle */
-        .switch-mode.light-active .toggle-circle {
-            transform: translateX(0); /* Keep at the left */
-            background: #90caf9; /* Blue color for moon icon in light mode */
-        }
-
-        /* Specific styles for the main CV container */
+        /* CV Container */
         .cv-container {
-            max-width: 800px; /* Maximum width for optimal readability on larger screens */
-            width: 100%; /* Take full width on smaller screens */
-            background-color: var(--cv-bg-color, #ffffff); /* Default light mode background color, uses CSS variable */
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
-            border-radius: 1rem; /* Rounded corners for the main container */
-            padding: 2rem; /* Internal padding for content */
-            margin-top: 4rem; /* Space from the top to avoid overlapping with the theme switch */
+            max-width: var(--max-width);
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 4rem;
+            transition: background var(--transition-fast), box-shadow var(--transition-fast);
         }
 
-        /* Dark mode specific styles for CV container background */
         .dark .cv-container {
-            background-color: var(--cv-bg-color-dark, #2a2a4a); /* Darker background for the CV in dark mode */
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); /* Slightly stronger shadow in dark mode */
+            background-color: #2a2a4a;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
         }
 
-        /* Responsive adjustments for smaller screens (e.g., mobile) */
-        @media (max-width: 768px) {
+        /* Theme Switch Button */
+        .switch-mode {
+            position: fixed;
+            top: 1.25rem;
+            left: 1.25rem;
+            width: 3.75rem;
+            height: 1.875rem;
+            background: #333;
+            border-radius: 0.9375rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 0.25rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: background var(--transition-fast);
+        }
+
+        .switch-mode.light-active {
+            background: #ccc;
+        }
+
+        .switch-mode.dark-active {
+            background: #444;
+        }
+
+        .toggle-circle {
+            width: 1.5rem;
+            height: 1.5rem;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform var(--transition-fast), background var(--transition-fast);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .switch-mode.dark-active .toggle-circle {
+            transform: translateX(1.875rem);
+            background: #fdd835;
+        }
+
+        .switch-mode.light-active .toggle-circle {
+            transform: translateX(0);
+            background: #90caf9;
+        }
+
+        /* -------------------------------------- */
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-light-border);
+            transition: border-color var(--transition-fast);
+        }
+
+        .dark header {
+            border-color: var(--color-dark-border);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background var(--transition-fast), color var(--transition-fast);
+        }
+
+        .dark header h1 {
+            color: #818cf8;
+        }
+
+        header p.subtitle {
+            font-size: var(--text-size-large);
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .dark header p.subtitle {
+            color: #ccc;
+        }
+
+        header .contact-info {
+            font-size: var(--text-size-small);
+            color: #777;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+            transition: color var(--transition-fast);
+        }
+
+        .dark header .contact-info {
+            color: #aaa;
+        }
+
+        /* -------------------------------------- */
+        /* Section Styles */
+        section {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        section:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        section:nth-child(odd) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h2 {
+            cursor: pointer;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-light-border);
+            transition: color var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .dark section h2 {
+            color: #818cf8;
+            border-color: var(--color-dark-border);
+        }
+
+        section h2:hover {
+            color: #4f46e5;
+            text-decoration: underline;
+            text-decoration-color: #4f46e5;
+        }
+
+        .dark section h2:hover {
+            color: #818cf8;
+            text-decoration-color: #818cf8;
+        }
+
+        .section-content {
+            margin-top: 1rem;
+            line-height: 1.6;
+            word-spacing: 0.05rem;
+        }
+
+        /* -------------------------------------- */
+        /* Typography & Lists */
+        p {
+            font-size: var(--text-size-base);
+            margin-bottom: 0.75rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            list-style-position: inside;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Custom bullet styling */
+        ul.list-disc li::marker {
+            color: #4f46e5;
+            font-size: 1rem;
+        }
+
+        .dark ul.list-disc li::marker {
+            color: #818cf8;
+        }
+
+        /* -------------------------------------- */
+        /* Grid & Flex Utilities */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .grid-2-cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* -------------------------------------- */
+        /* Card & Highlight Boxes */
+        .highlight-box {
+            background-color: #eef2ff;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .dark .highlight-box {
+            background-color: #3a3a5c;
+            border-color: #818cf8;
+        }
+
+        /* -------------------------------------- */
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-light-border);
+            font-size: var(--text-size-small);
+            color: #777;
+            transition: color var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .dark footer {
+            color: #aaa;
+            border-color: var(--color-dark-border);
+        }
+
+        /* -------------------------------------- */
+        /* Print Styles */
+        @media print {
             body {
-                padding: 1rem; /* Reduce overall padding on smaller screens */
+                background: #fff !important;
+                color: #000 !important;
+                padding: 0;
+            }
+            .switch-mode, footer {
+                display: none !important;
             }
             .cv-container {
-                padding: 1.5rem; /* Reduce internal padding */
-                margin-top: 3.5rem; /* Adjust top margin */
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+            section h2 {
+                border-bottom: none;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* -------------------------------------- */
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-base);
+            }
+            .cv-container {
+                padding: 1.5rem;
+                margin-top: 3.5rem;
             }
             .switch-mode {
-                top: 1rem; /* Adjust switch position */
-                left: 1rem; /* Adjust switch position */
+                top: 1rem;
+                left: 1rem;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            section h2 {
+                font-size: 1.5rem;
             }
         }
 
-        /* Custom scrollbar for better aesthetics across browsers */
-        ::-webkit-scrollbar {
-            width: 8px; /* Width of the scrollbar */
+        /* -------------------------------------- */
+        /* Accessibility Focus Styles */
+        a:focus, button:focus, h2:focus {
+            outline: 3px dashed #4f46e5;
+            outline-offset: 2px;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; /* Color of the scrollbar track in light mode */
-            border-radius: 10px; /* Rounded corners for the track */
-        }
-
-        .dark ::-webkit-scrollbar-track {
-            background: #333; /* Darker track color in dark mode */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #888; /* Color of the scrollbar thumb in light mode */
-            border-radius: 10px; /* Rounded corners for the thumb */
-        }
-
-        .dark ::-webkit-scrollbar-thumb {
-            background: #555; /* Darker thumb color in dark mode */
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555; /* Darker thumb on hover in light mode */
-        }
-
-        .dark ::-webkit-scrollbar-thumb:hover {
-            background: #777; /* Even darker thumb on hover in dark mode */
-        }
     </style>
 </head>
 <body class="light">
-    <div class="switch-mode light-active" id="theme-switch">
-        <div class="toggle-circle"></div>
+    <!-- Theme Switch Button -->
+    <div class="switch-mode light-active" id="theme-switch" tabindex="0" aria-label="Toggle theme">
+        <div class="toggle-circle">☀️</div>
     </div>
 
     <div class="cv-container">
-        <header class="text-center mb-8 pb-4 border-b border-gray-300 dark:border-gray-700">
-            <h1 class="text-4xl font-bold text-indigo-700 dark:text-indigo-400 mb-2 rounded-md p-2">Jawad Ali</h1>
-            <p class="text-lg text-gray-700 dark:text-gray-300">Aspiring AI Developer | Passionate about Machine Learning & Data Science</p>
-            <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                <p>Email: jawad.ali@example.com | Phone: +92 3XX XXXXXXX | LinkedIn: linkedin.com/in/jawadali</p>
-                <p>Location: Pakistan</p>
+        <!-- Header Section -->
+        <header>
+            <h1>Jawad Ali</h1>
+            <p class="subtitle">Aspiring AI Developer | Passionate about Machine Learning & Data Science</p>
+            <div class="contact-info">
+                <p>Email: jawad.ali@example.com | Phone: +92 3XX XXXXXXX</p>
+                <p>LinkedIn: <a href="https://linkedin.com/in/jawadali" target="_blank">linkedin.com/in/jawadali</a> | Location: Pakistan</p>
             </div>
         </header>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Summary & Objective</h2>
-            <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
-                A 20-year-old highly motivated and enthusiastic individual with an F.Sc. background and 2 years of hands-on programming experience. Eager to transition into the field of Artificial Intelligence development, I possess a strong foundational understanding of programming principles and a keen interest in machine learning algorithms, data analysis, and neural networks. My objective is to leverage my skills and passion to contribute to innovative AI solutions and grow as a professional AI developer.
-            </p>
-        </section>
-
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Education</h2>
-            <div class="flex justify-between items-center mb-2">
-                <div>
-                    <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">F.Sc. (Faculty of Science)</h3>
-                    <p class="text-gray-700 dark:text-gray-300">Pre-Engineering/Pre-Medical (Specify which one if applicable)</p>
-                </div>
-                <p class="text-gray-600 dark:text-gray-400">20XX - 20XX (e.g., 2021 - 2023)</p>
+        <!-- Summary & Objective -->
+        <section id="summary">
+            <h2 tabindex="0">Summary & Objective</h2>
+            <div class="section-content">
+                <p>A 20-year-old highly motivated and enthusiastic individual with an F.Sc. background and 2 years of hands-on programming experience. Eager to transition into the field of Artificial Intelligence development, I possess a strong foundational understanding of programming principles and a keen interest in machine learning algorithms, data analysis, and neural networks. My objective is to leverage my skills and passion to contribute to innovative AI solutions and grow as a professional AI developer.</p>
             </div>
-            <p class="text-gray-800 dark:text-gray-200">
-                (Add institution name, e.g., Government College University, Lahore)
-                <br>Relevant coursework included Mathematics, Physics, Chemistry/Biology, which provided a strong analytical and problem-solving foundation.
-            </p>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Skills</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-800 dark:text-gray-200">
+        <!-- Education -->
+        <section id="education">
+            <h2 tabindex="0">Education</h2>
+            <div class="flex-between section-content">
                 <div>
-                    <h3 class="font-semibold text-lg mb-2">Programming Languages:</h3>
-                    <ul class="list-disc list-inside ml-4">
+                    <h3 class="font-medium text-xl">F.Sc. (Faculty of Science)</h3>
+                    <p>Pre-Engineering/Pre-Medical (Specify which one if applicable)</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">(Institution: Government College University, Lahore; GPA: X.XX/4.00)</p>
+                </div>
+                <p class="text-sm">2021 &ndash; 2023</p>
+            </div>
+            <p class="section-content">Relevant coursework included Mathematics, Physics, Chemistry/Biology, which provided a strong analytical and problem-solving foundation.</p>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <h2 tabindex="0">Skills</h2>
+            <div class="grid-2-cols section-content">
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">Programming Languages</h3>
+                    <ul class="list-disc list-inside">
                         <li>Python (Strong)</li>
                         <li>JavaScript (Intermediate)</li>
-                        <li>(Add other languages you know, e.g., C++, Java)</li>
+                        <li>C++ (Basic)</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-lg mb-2">AI/ML Concepts:</h3>
-                    <ul class="list-disc list-inside ml-4">
+                    <h3 class="font-semibold text-lg mb-2">AI/ML Concepts</h3>
+                    <ul class="list-disc list-inside">
                         <li>Machine Learning Fundamentals</li>
-                        <li>Data Preprocessing & Analysis</li>
+                        <li>Data Preprocessing &amp; Analysis</li>
                         <li>Basic understanding of Neural Networks</li>
-                        <li>(Add specific algorithms if you've studied them, e.g., Regression, Classification)</li>
+                        <li>Regression, Classification Algorithms</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-lg mb-2">Libraries & Frameworks:</h3>
-                    <ul class="list-disc list-inside ml-4">
-                        <li>NumPy, Pandas (for data manipulation)</li>
-                        <li>Scikit-learn (for machine learning)</li>
-                        <li>(Consider adding TensorFlow/Keras or PyTorch if you have exposure)</li>
+                    <h3 class="font-semibold text-lg mb-2">Libraries &amp; Frameworks</h3>
+                    <ul class="list-disc list-inside">
+                        <li>NumPy, Pandas (Data Manipulation)</li>
+                        <li>Scikit-learn (Machine Learning)</li>
+                        <li>TensorFlow/Keras (Neural Networks)</li>
+                        <li>PyTorch (Basic Exposure)</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-lg mb-2">Tools & Platforms:</h3>
-                    <ul class="list-disc list-inside ml-4">
-                        <li>Git/GitHub</li>
+                    <h3 class="font-semibold text-lg mb-2">Tools &amp; Platforms</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Git &amp; GitHub</li>
                         <li>Jupyter Notebooks</li>
-                        <li>(Add any IDEs like VS Code, PyCharm, or cloud platforms like Google Colab)</li>
+                        <li>VS Code &amp; PyCharm</li>
+                        <li>Google Colab &amp; Kaggle</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Programming Experience</h2>
-            <div class="mb-4">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Self-Taught / Personal Projects</h3>
-                <p class="text-gray-700 dark:text-gray-300">2 Years of Hands-on Programming</p>
-                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
-                    <li>Developed various programming projects demonstrating strong problem-solving abilities and logical thinking.</li>
-                    <li>Gained proficiency in Python for scripting, data manipulation, and basic algorithm implementation.</li>
-                    <li>Explored fundamental concepts of data structures and algorithms through practical coding exercises.</li>
-                    <li>(Add specific examples of projects here, even small ones, to showcase your skills. E.g., "Built a simple calculator application," "Created a text-based adventure game," "Developed a data analysis script for a personal dataset.")</li>
+        <!-- Programming Experience -->
+        <section id="experience">
+            <h2 tabindex="0">Programming Experience</h2>
+            <div class="section-content">
+                <h3 class="text-xl font-medium mb-2">Self-Taught / Personal Projects (2 Years)</h3>
+                <p>Developed various programming projects demonstrating strong problem-solving abilities and logical thinking:</p>
+                <ul class="list-disc list-inside">
+                    <li>Built a <span class="highlight-box">Calculator Application</span> with Python for basic arithmetic operations and memory storage.</li>
+                    <li>Created a <span class="highlight-box">Text-Based Adventure Game</span> using Python’s OOP principles and file I/O for saving progress.</li>
+                    <li>Developed a <span class="highlight-box">Data Analysis Script</span> using Pandas to analyze a personal dataset of daily expenses, including visualizing trends in Jupyter Notebook.</li>
+                    <li>Explored fundamental data structures (linked lists, stacks, queues) and algorithms (sorting, searching) through coding challenges on platforms like HackerRank.</li>
                 </ul>
             </div>
-            <!--
-            <div class="mb-4">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Junior Developer Intern</h3>
-                <p class="text-gray-700 dark:text-gray-300">Tech Solutions Inc. | Jan 2024 - Jun 2024</p>
-                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
-                    <li>Assisted senior developers in building and testing web applications using Python and Django.</li>
-                    <li>Contributed to database design and API development.</li>
-                    <li>Participated in code reviews and agile development sprints.</li>
-                </ul>
-            </div>
-            -->
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Projects</h2>
-            <div class="mb-4">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Simple Regression Model (Personal Project)</h3>
-                <p class="text-gray-700 dark:text-gray-300">Technologies: Python, NumPy, Scikit-learn</p>
-                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
-                    <li>Developed a linear regression model to predict housing prices based on a small dataset.</li>
-                    <li>Implemented data preprocessing steps including normalization and feature scaling.</li>
-                    <li>Evaluated model performance using metrics like Mean Squared Error (MSE).</li>
-                </ul>
+        <!-- Projects -->
+        <section id="projects">
+            <h2 tabindex="0">Projects</h2>
+            <div class="section-content">
+                <div class="mb-4">
+                    <h3 class="text-xl font-medium">Simple Regression Model</h3>
+                    <p>Technologies: Python, NumPy, Scikit-learn</p>
+                    <ul class="list-disc list-inside">
+                        <li>Developed a linear regression model to predict housing prices based on a small dataset.</li>
+                        <li>Implemented data preprocessing steps including normalization and feature scaling.</li>
+                        <li>Evaluated model performance using metrics like Mean Squared Error (MSE) and visualized results using Matplotlib.</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-xl font-medium">Basic Image Classifier</h3>
+                    <p>Technologies: Python, TensorFlow/Keras</p>
+                    <ul class="list-disc list-inside">
+                        <li>Explored basic concepts of image classification using a pre-trained MobileNet model.</li>
+                        <li>Processed and augmented image datasets (e.g., CIFAR-10) for training.</li>
+                        <li>Evaluated model accuracy and demonstrated predictions on sample images in Jupyter Notebook.</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="italic text-sm">Consider creating a <a href="https://github.com/jawadali" target="_blank">GitHub portfolio</a> to showcase code and documentation for these projects.</p>
+                </div>
             </div>
-            <div class="mb-4">
-                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Basic Image Classifier (Learning Project)</h3>
-                <p class="text-gray-700 dark:text-gray-300">Technologies: Python, TensorFlow/Keras (or similar)</p>
-                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
-                    <li>Explored basic concepts of image classification using a pre-trained model or a simple neural network.</li>
-                    <li>Understood the process of loading image datasets and preparing them for model training.</li>
-                    <li>(Even if it's a tutorial project, frame it as your learning experience.)</li>
-                </ul>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 italic">
-                (Consider creating a GitHub portfolio to showcase your code for these projects.)
-            </p>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Interests</h2>
-            <ul class="list-disc list-inside ml-4 text-gray-800 dark:text-gray-200">
-                <li>Deep Learning and Neural Networks</li>
-                <li>Natural Language Processing (NLP)</li>
-                <li>Computer Vision</li>
-                <li>Data Science and Big Data Analytics</li>
-                <li>Staying updated with the latest AI research and advancements</li>
-            </ul>
+        <!-- Interests -->
+        <section id="interests">
+            <h2 tabindex="0">Interests</h2>
+            <div class="section-content">
+                <ul class="list-disc list-inside">
+                    <li>Deep Learning &amp; Neural Networks</li>
+                    <li>Natural Language Processing (NLP)</li>
+                    <li>Computer Vision &amp; Image Processing</li>
+                    <li>Data Science &amp; Big Data Analytics</li>
+                    <li>Staying updated with the latest AI research &amp; advancements</li>
+                </ul>
+            </div>
         </section>
 
-        <footer class="text-center pt-4 border-t border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm">
+        <!-- Footer -->
+        <footer>
             <p>&copy; 2025 Jawad Ali. All rights reserved.</p>
-            <p>This CV is designed to be responsive and visually appealing.</p>
+            <p>This CV is designed to be responsive, accessible, and visually appealing.</p>
         </footer>
     </div>
 
     <script>
-        // JavaScript for theme switching functionality
+        // Theme Switch Functionality
         const themeSwitch = document.getElementById('theme-switch');
         const body = document.body;
+        const toggleCircle = themeSwitch.querySelector('.toggle-circle');
         const cvContainer = document.querySelector('.cv-container');
 
-        // Function to apply the chosen theme (light or dark)
         function setTheme(theme) {
             if (theme === 'dark') {
-                // Remove light classes, add dark classes
-                body.classList.remove('light');
                 body.classList.add('dark');
                 themeSwitch.classList.remove('light-active');
                 themeSwitch.classList.add('dark-active');
-                // Set CSS variable for CV container background in dark mode
-                cvContainer.style.setProperty('--cv-bg-color', '#2a2a4a');
+                toggleCircle.textContent = '🌙';
             } else {
-                // Remove dark classes, add light classes
                 body.classList.remove('dark');
-                body.classList.add('light');
                 themeSwitch.classList.remove('dark-active');
                 themeSwitch.classList.add('light-active');
-                // Reset CSS variable for CV container background in light mode
-                cvContainer.style.setProperty('--cv-bg-color', '#ffffff');
+                toggleCircle.textContent = '☀️';
             }
-            localStorage.setItem('theme', theme); // Save the user's theme preference to local storage
+            localStorage.setItem('theme', theme);
         }
 
-        // Event listener to check for saved theme preference when the page loads
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light'; // Get saved theme or default to 'light'
-            setTheme(savedTheme); // Apply the saved or default theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
         });
 
-        // Event listener for the theme switch button click
         themeSwitch.addEventListener('click', () => {
-            if (body.classList.contains('light')) {
-                setTheme('dark'); // If currently light, switch to dark
-            } else {
-                setTheme('light'); // If currently dark, switch to light
+            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // Keyboard Accessibility for Theme Switch
+        themeSwitch.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+                setTheme(currentTheme === 'light' ? 'dark' : 'light');
             }
         });
     </script>
