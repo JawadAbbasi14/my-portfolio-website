@@ -3,424 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jawad's CV</title>
+    <title>Jawad's AI Developer CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* General Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Custom styles for the theme switch and general body layout */
         body {
-            display: flex; min-height: 100vh;
-            transition: background 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif; /* Apply Inter font globally */
+            transition: background 0.4s ease, color 0.4s ease; /* Smooth transition for theme changes */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex; /* Use flexbox for centering content */
+            justify-content: center; /* Center horizontally */
+            align-items: flex-start; /* Align to top for longer content, prevents content from being squashed */
+            padding: 2rem; /* Overall padding around the CV container */
+            overflow-x: hidden; /* Prevent horizontal scrollbar, crucial for responsive design */
         }
 
-        /* Dark Mode Styles */
+        /* Dark Mode Styles - Applied when the 'dark' class is on the body */
         .dark {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #1a1a2e, #16213e); /* Dark blue gradient background */
+            color: #e0e0e0; /* Light grey text color */
         }
 
-        /* Light Mode Styles */
+        /* Light Mode Styles - Applied when the 'light' class is on the body */
         .light {
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-            color: #333;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Light blue/grey gradient background */
+            color: #333; /* Dark grey text color */
         }
 
-        /* Switch Button */
+        /* Switch Button Styling - For the theme toggle */
         .switch-mode {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 30px;
-            background: #333;
-            border-radius: 15px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 5px;
-            transition: background 0.3s ease;
-            z-index: 1000;
+            position: fixed; /* Fixed position so it stays visible on scroll */
+            top: 1.25rem; /* 20px from top */
+            left: 1.25rem; /* 20px from left */
+            width: 3.75rem; /* 60px width */
+            height: 1.875rem; /* 30px height */
+            background: #333; /* Dark background for the switch track */
+            border-radius: 0.9375rem; /* 15px, makes it pill-shaped */
+            cursor: pointer; /* Indicates it's clickable */
+            display: flex; /* Use flexbox for the toggle circle */
+            align-items: center; /* Vertically center the circle */
+            padding: 0 0.25rem; /* 4px horizontal padding */
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+            z-index: 1000; /* Ensure it's on top of other content */
         }
 
-        .switch-mode::before {
-            content: '';
-            width: 24px;
-            height: 24px;
-            background: #fff;
-            border-radius: 50%;
-            position: absolute;
-            transition: transform 0.3s ease;
+        .switch-mode .toggle-circle {
+            width: 1.5rem; /* 24px width for the circle */
+            height: 1.5rem; /* 24px height for the circle */
+            background: #fff; /* White background for the circle */
+            border-radius: 50%; /* Makes it a perfect circle */
+            transition: transform 0.3s ease; /* Smooth transition when moving */
         }
 
-        .dark .switch-mode {
-            background: #4caf50;
+        /* Dark mode active state for the toggle circle */
+        .switch-mode.dark-active .toggle-circle {
+            transform: translateX(1.875rem); /* Move to the right (60px - 24px - 4px*2 = 30px) */
+            background: #fdd835; /* Yellow color for sun icon in dark mode */
         }
 
-        .dark .switch-mode::before {
-            transform: translateX(30px);
+        /* Light mode active state for the toggle circle */
+        .switch-mode.light-active .toggle-circle {
+            transform: translateX(0); /* Keep at the left */
+            background: #90caf9; /* Blue color for moon icon in light mode */
         }
 
-        .switch-mode:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Container */
-        .container {
-            display: flex;
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 260px;
-            padding: 30px;
-            background: linear-gradient(135deg, #1b262c, #0f4c75);
-            color: #fff;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
-            transition: background 0.4s ease, transform 0.3s ease;
-        }
-
-        .dark .sidebar {
-            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-        }
-
-        .sidebar:hover {
-            transform: translateX(-10px);
-            background: linear-gradient(135deg, #0f4c75, #4caf50);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar-header h1 {
-            font-size: 2rem;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            color: #4caf50;
-        }
-
-        .sidebar-header h2 {
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: #bbe1fa;
-            margin-top: 5px;
-        }
-
-        .dark .sidebar-header h2 {
-            color: #a0d0ff;
-        }
-
-        .sidebar nav ul {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .sidebar nav ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar nav ul li a.nav-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 16px;
-            border-radius: 6px;
-            color: #e0e0e0;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-
-        .sidebar nav ul li a.nav-item:hover {
-            background: #4caf50;
-            transform: translateX(8px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .sidebar nav ul li a.nav-item .icon {
-            margin-right: 8px;
-            font-size: 1.1rem;
-        }
-
-        /* Main Section */
-        .section {
-            margin-left: 270px;
-            padding: 40px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
-            width: calc(100% - 270px);
-            transition: transform 0.3s;
-        }
-
-        .dark .section {
-            background: rgba(40,40,60,0.3);
-            border: 1px solid rgba(76,175,80,0.3);
-        }
-
-        .section:hover {
-            transform: scale(1.01);
-        }
-
-        .section h1 {
-            font-size: 2.5rem;
-            color: #4caf50;
-            text-align: center;
-            border-bottom: 2px solid #4caf50;
-            display: inline-block;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
-
-        /* CV Grid */
+        /* Specific styles for the main CV container */
         .cv-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            max-width: 800px; /* Maximum width for optimal readability on larger screens */
+            width: 100%; /* Take full width on smaller screens */
+            background-color: var(--cv-bg-color, #ffffff); /* Default light mode background color, uses CSS variable */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
+            border-radius: 1rem; /* Rounded corners for the main container */
+            padding: 2rem; /* Internal padding for content */
+            margin-top: 4rem; /* Space from the top to avoid overlapping with the theme switch */
         }
 
-        .cv-container h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #4caf50;
-            display: inline-block;
-            padding-bottom: 5px;
-            color: #2c3e50;
+        /* Dark mode specific styles for CV container background */
+        .dark .cv-container {
+            background-color: var(--cv-bg-color-dark, #2a2a4a); /* Darker background for the CV in dark mode */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); /* Slightly stronger shadow in dark mode */
         }
 
-        .dark .cv-container h2 {
-            color: #e0e0e0;
-        }
-
-        .cv-container ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .cv-container ul li {
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .dark .cv-container ul li {
-            color: #b0b0b0;
-        }
-
-        /* Profile Picture */
-        .profile-picture {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .profile-picture img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid transparent;
-            border-image: linear-gradient(135deg, #4caf50, #0077b6) 1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 15px rgba(76,175,80,0.4);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .profile-picture img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15), 0 0 20px rgba(76,175,80,0.6);
-        }
-
-        /* Sections */
-        .personal-info, .education, .work-experience, .goals {
-            background: rgba(255,255,255,0.3);
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .dark .personal-info, .dark .education, .dark .work-experience, .dark .goals {
-            background: rgba(40,40,60,0.3);
-            border: 1px solid rgba(76,175,80,0.3);
-        }
-
-        .personal-info h2, .education h2, .work-experience h2, .goals h2 {
-            margin-bottom: 15px;
-        }
-
-        .personal-info:hover, .education:hover, .work-experience:hover, .goals:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
-        }
-
-        .dark .personal-info:hover, .dark .education:hover, .dark .work-experience:hover, .dark .goals:hover {
-            background: linear-gradient(135deg, rgba(76,175,80,0.5), rgba(40,40,60,0.3));
-        }
-
-        /* Education Update */
-        .education .school h3 {
-            font-size: 1.2rem;
-            color: #34495e;
-            margin-bottom: 5px;
-        }
-
-        .dark .education .school h3 {
-            color: #e0e0e0;
-        }
-
-        .education .school p {
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .dark .education .school p {
-            color: #b0b0b0;
-        }
-
-        /* Go Home Button */
-        .go-home {
-            display: inline-block;
-            margin: 16px auto 0;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #4caf50, #81c784);
-            color: #fff;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .go-home:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .dark footer {
-            color: #b0b0b0;
-        }
-
-        /* Responsive */
+        /* Responsive adjustments for smaller screens (e.g., mobile) */
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
+            body {
+                padding: 1rem; /* Reduce overall padding on smaller screens */
             }
-            .section {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
+            .cv-container {
+                padding: 1.5rem; /* Reduce internal padding */
+                margin-top: 3.5rem; /* Adjust top margin */
             }
             .switch-mode {
-                width: 50px;
-                height: 25px;
-            }
-            .switch-mode::before {
-                width: 20px;
-                height: 20px;
-            }
-            .dark .switch-mode::before {
-                transform: translateX(25px);
+                top: 1rem; /* Adjust switch position */
+                left: 1rem; /* Adjust switch position */
             }
         }
 
-        @media (max-width: 480px) {
-            .section h1 {
-                font-size: 2rem;
-            }
-            .cv-container h2 {
-                font-size: 1.3rem;
-            }
-            .profile-picture img {
-                width: 120px;
-                height: 120px;
-            }
+        /* Custom scrollbar for better aesthetics across browsers */
+        ::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Color of the scrollbar track in light mode */
+            border-radius: 10px; /* Rounded corners for the track */
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: #333; /* Darker track color in dark mode */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the scrollbar thumb in light mode */
+            border-radius: 10px; /* Rounded corners for the thumb */
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #555; /* Darker thumb color in dark mode */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Darker thumb on hover in light mode */
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #777; /* Even darker thumb on hover in dark mode */
         }
     </style>
 </head>
 <body class="light">
-    <button class="switch-mode" onclick="toggleMode()"></button>
-    <div class="container">
-        <div class="sidebar sidebar-go">
-            <div class="sidebar-header">
-                <h1><b>AI Developer</b></h1>
-                <h2>Jawad Abbasi</h2>
+    <div class="switch-mode light-active" id="theme-switch">
+        <div class="toggle-circle"></div>
+    </div>
+
+    <div class="cv-container">
+        <header class="text-center mb-8 pb-4 border-b border-gray-300 dark:border-gray-700">
+            <h1 class="text-4xl font-bold text-indigo-700 dark:text-indigo-400 mb-2 rounded-md p-2">Jawad Ali</h1>
+            <p class="text-lg text-gray-700 dark:text-gray-300">Aspiring AI Developer | Passionate about Machine Learning & Data Science</p>
+            <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                <p>Email: jawad.ali@example.com | Phone: +92 3XX XXXXXXX | LinkedIn: linkedin.com/in/jawadali</p>
+                <p>Location: Pakistan</p>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
-                    <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
-                    <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
-                    <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
-                    <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
-                    <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
-                    <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
-                </ul>
-            </nav>
-        </div>
-        <section id="cv" class="section">
-            <h1>My CV</h1>
-            <div class="cv-container">
-                <div class="profile-picture"><img src="cv.jpg" alt="Jawad Abbasi"></div>
-                <div class="personal-info">
-                    <h2>Personal Information</h2>
-                    <ul>
-                        <li><strong>Name:</strong> Jawad Abbasi</li>
-                        <li><strong>Email:</strong> Jawadabbasi1107@gmail.com</li>
-                        <li><strong>Phone:</strong> +92 314 577 899</li>
-                        <li><strong>Location:</strong> KPK, Pakistan</li>
+        </header>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Summary & Objective</h2>
+            <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
+                A 20-year-old highly motivated and enthusiastic individual with an F.Sc. background and 2 years of hands-on programming experience. Eager to transition into the field of Artificial Intelligence development, I possess a strong foundational understanding of programming principles and a keen interest in machine learning algorithms, data analysis, and neural networks. My objective is to leverage my skills and passion to contribute to innovative AI solutions and grow as a professional AI developer.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Education</h2>
+            <div class="flex justify-between items-center mb-2">
+                <div>
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">F.Sc. (Faculty of Science)</h3>
+                    <p class="text-gray-700 dark:text-gray-300">Pre-Engineering/Pre-Medical (Specify which one if applicable)</p>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400">20XX - 20XX (e.g., 2021 - 2023)</p>
+            </div>
+            <p class="text-gray-800 dark:text-gray-200">
+                (Add institution name, e.g., Government College University, Lahore)
+                <br>Relevant coursework included Mathematics, Physics, Chemistry/Biology, which provided a strong analytical and problem-solving foundation.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-800 dark:text-gray-200">
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">Programming Languages:</h3>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Python (Strong)</li>
+                        <li>JavaScript (Intermediate)</li>
+                        <li>(Add other languages you know, e.g., C++, Java)</li>
                     </ul>
                 </div>
-                <div class="work-experience">
-                    <h2>Work Experience</h2>
-                    <div class="job"><h3>AI Developer Intern | Tech Innovate</h3><p><strong>2024 – Present</strong></p><p>Assisting in AI model development...</p></div>
-                    <div class="job"><h3>Freelance Software Developer</h3><p><strong>2023 – 2024</strong></p><p>Developed small web applications...</p></div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">AI/ML Concepts:</h3>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Machine Learning Fundamentals</li>
+                        <li>Data Preprocessing & Analysis</li>
+                        <li>Basic understanding of Neural Networks</li>
+                        <li>(Add specific algorithms if you've studied them, e.g., Regression, Classification)</li>
+                    </ul>
                 </div>
-                <div class="education">
-                    <h2>Education</h2>
-                    <div class="school"><h3>FSc Pre-Engineering</h3><p>Completed FSc Pre-Engineering, preparing for university admission.</p></div>
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">Libraries & Frameworks:</h3>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>NumPy, Pandas (for data manipulation)</li>
+                        <li>Scikit-learn (for machine learning)</li>
+                        <li>(Consider adding TensorFlow/Keras or PyTorch if you have exposure)</li>
+                    </ul>
                 </div>
-                <div class="goals">
-                    <h2>Career Goals</h2>
-                    <p>To become a top AI and Software Developer, contribute to innovative projects, and solve real-world problems using technology.</p>
+                <div>
+                    <h3 class="font-semibold text-lg mb-2">Tools & Platforms:</h3>
+                    <ul class="list-disc list-inside ml-4">
+                        <li>Git/GitHub</li>
+                        <li>Jupyter Notebooks</li>
+                        <li>(Add any IDEs like VS Code, PyCharm, or cloud platforms like Google Colab)</li>
+                    </ul>
                 </div>
             </div>
-            <a href="index.html" class="go-home">Go Home</a>
-            <footer><p>© 2025 Jawad Abbasi. All Rights Reserved.</p></footer>
         </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Programming Experience</h2>
+            <div class="mb-4">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Self-Taught / Personal Projects</h3>
+                <p class="text-gray-700 dark:text-gray-300">2 Years of Hands-on Programming</p>
+                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <li>Developed various programming projects demonstrating strong problem-solving abilities and logical thinking.</li>
+                    <li>Gained proficiency in Python for scripting, data manipulation, and basic algorithm implementation.</li>
+                    <li>Explored fundamental concepts of data structures and algorithms through practical coding exercises.</li>
+                    <li>(Add specific examples of projects here, even small ones, to showcase your skills. E.g., "Built a simple calculator application," "Created a text-based adventure game," "Developed a data analysis script for a personal dataset.")</li>
+                </ul>
+            </div>
+            <!--
+            <div class="mb-4">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Junior Developer Intern</h3>
+                <p class="text-gray-700 dark:text-gray-300">Tech Solutions Inc. | Jan 2024 - Jun 2024</p>
+                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <li>Assisted senior developers in building and testing web applications using Python and Django.</li>
+                    <li>Contributed to database design and API development.</li>
+                    <li>Participated in code reviews and agile development sprints.</li>
+                </ul>
+            </div>
+            -->
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Projects</h2>
+            <div class="mb-4">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Simple Regression Model (Personal Project)</h3>
+                <p class="text-gray-700 dark:text-gray-300">Technologies: Python, NumPy, Scikit-learn</p>
+                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <li>Developed a linear regression model to predict housing prices based on a small dataset.</li>
+                    <li>Implemented data preprocessing steps including normalization and feature scaling.</li>
+                    <li>Evaluated model performance using metrics like Mean Squared Error (MSE).</li>
+                </ul>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-gray-100">Basic Image Classifier (Learning Project)</h3>
+                <p class="text-gray-700 dark:text-gray-300">Technologies: Python, TensorFlow/Keras (or similar)</p>
+                <ul class="list-disc list-inside ml-6 mt-2 text-gray-800 dark:text-gray-200 leading-relaxed">
+                    <li>Explored basic concepts of image classification using a pre-trained model or a simple neural network.</li>
+                    <li>Understood the process of loading image datasets and preparing them for model training.</li>
+                    <li>(Even if it's a tutorial project, frame it as your learning experience.)</li>
+                </ul>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 italic">
+                (Consider creating a GitHub portfolio to showcase your code for these projects.)
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-600 dark:text-indigo-300 mb-3 pb-1 border-b border-gray-200 dark:border-gray-600">Interests</h2>
+            <ul class="list-disc list-inside ml-4 text-gray-800 dark:text-gray-200">
+                <li>Deep Learning and Neural Networks</li>
+                <li>Natural Language Processing (NLP)</li>
+                <li>Computer Vision</li>
+                <li>Data Science and Big Data Analytics</li>
+                <li>Staying updated with the latest AI research and advancements</li>
+            </ul>
+        </section>
+
+        <footer class="text-center pt-4 border-t border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-400 text-sm">
+            <p>&copy; 2025 Jawad Ali. All rights reserved.</p>
+            <p>This CV is designed to be responsive and visually appealing.</p>
+        </footer>
     </div>
+
     <script>
-        function toggleMode() {
-            document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
+        // JavaScript for theme switching functionality
+        const themeSwitch = document.getElementById('theme-switch');
+        const body = document.body;
+        const cvContainer = document.querySelector('.cv-container');
+
+        // Function to apply the chosen theme (light or dark)
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                // Remove light classes, add dark classes
+                body.classList.remove('light');
+                body.classList.add('dark');
+                themeSwitch.classList.remove('light-active');
+                themeSwitch.classList.add('dark-active');
+                // Set CSS variable for CV container background in dark mode
+                cvContainer.style.setProperty('--cv-bg-color', '#2a2a4a');
+            } else {
+                // Remove dark classes, add light classes
+                body.classList.remove('dark');
+                body.classList.add('light');
+                themeSwitch.classList.remove('dark-active');
+                themeSwitch.classList.add('light-active');
+                // Reset CSS variable for CV container background in light mode
+                cvContainer.style.setProperty('--cv-bg-color', '#ffffff');
+            }
+            localStorage.setItem('theme', theme); // Save the user's theme preference to local storage
         }
 
-        // Default mode
-        document.body.classList.add('light');
+        // Event listener to check for saved theme preference when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light'; // Get saved theme or default to 'light'
+            setTheme(savedTheme); // Apply the saved or default theme
+        });
+
+        // Event listener for the theme switch button click
+        themeSwitch.addEventListener('click', () => {
+            if (body.classList.contains('light')) {
+                setTheme('dark'); // If currently light, switch to dark
+            } else {
+                setTheme('light'); // If currently dark, switch to light
+            }
+        });
     </script>
 </body>
 </html>
