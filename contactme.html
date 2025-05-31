@@ -35,12 +35,20 @@
             --accent: #4CAF50; /* Green accent for light mode */
             --accent-light: #81C784;
             --accent-gradient: linear-gradient(135deg, #4CAF50, #81C784);
-            --sidebar-bg: linear-gradient(160deg, #e0e0e0, #ffffff);
+            --sidebar-bg: linear-gradient(160deg, #f7f7f7, #e9e9e9); /* Slightly adjusted sidebar bg */
             --input-bg: rgba(255, 255, 255, 0.8);
             --icon-color: #4CAF50;
             --toggle-bg: #ffffff; /* Changed to white for light mode */
             --glow: 0 0 15px rgba(76, 175, 80, 0.3);
             --particles-color: #4CAF50; /* Green particles */
+            --sidebar-nav-item-hover-bg: rgba(76, 175, 80, 0.15); /* New for light theme nav hover */
+            --sidebar-nav-item-active-bg: rgba(76, 175, 80, 0.25); /* New for light theme nav active */
+            --sidebar-nav-item-active-border: #4CAF50; /* New for light theme nav active */
+            --ai-assistant-bg: rgba(240, 240, 240, 0.8);
+            --message-idea-bg: #e9f5e9;
+            --message-idea-border: #c8e6c9;
+            --message-idea-text: #388e3c;
+            --message-idea-hover-bg: #d7edd7;
         }
 
         /* Dark Theme (Black Background - Keeping Horror Pink Accents) */
@@ -54,12 +62,20 @@
             --accent: #ff007a; /* Horror pink accent for dark mode */
             --accent-light: #ff4da6;
             --accent-gradient: linear-gradient(135deg, #ff007a, #ff4da6);
-            --sidebar-bg: linear-gradient(160deg, #1a1a1a, #0a0a0a);
+            --sidebar-bg: linear-gradient(160deg, #1f1f1f, #121212); /* Slightly adjusted sidebar bg */
             --input-bg: rgba(10, 10, 10, 0.8);
             --icon-color: #ff4da6;
             --toggle-bg: #000000; /* Changed to black for dark mode */
             --glow: 0 0 20px rgba(255, 0, 122, 0.6);
             --particles-color: #ff007a; /* Pink particles */
+            --sidebar-nav-item-hover-bg: rgba(255, 0, 122, 0.15); /* New for dark theme nav hover */
+            --sidebar-nav-item-active-bg: rgba(255, 0, 122, 0.25); /* New for dark theme nav active */
+            --sidebar-nav-item-active-border: #ff007a; /* New for dark theme nav active */
+            --ai-assistant-bg: rgba(25, 25, 25, 0.8);
+            --message-idea-bg: #4a0e2e;
+            --message-idea-border: #6b1543;
+            --message-idea-text: #ff80bf;
+            --message-idea-hover-bg: #5e113a;
         }
 
         body {
@@ -67,16 +83,14 @@
             color: var(--text-primary);
         }
 
-        /* Particle Background */
         #particles-js {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: transparent; /* Particles.js will handle the background color via JS */
+            background: transparent;
         }
 
-        /* Enhanced Toggle Switch with Horror Flicker */
         .mode-toggle {
             position: fixed;
             top: 30px;
@@ -84,7 +98,7 @@
             width: 80px;
             height: 36px;
             border-radius: 50px;
-            background: var(--toggle-bg); /* Controlled by theme variable */
+            background: var(--toggle-bg);
             box-shadow: var(--glow);
             display: flex;
             align-items: center;
@@ -92,7 +106,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: background 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s, transform 0.3s;
-            animation: flicker 2s infinite alternate; /* Kept flicker for horror theme */
+            animation: flicker 2s infinite alternate;
         }
 
         @keyframes flicker {
@@ -102,7 +116,7 @@
 
         .mode-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px var(--glow); /* Use glow variable for hover */
+            box-shadow: 0 6px 25px var(--glow);
         }
 
         .toggle-circle {
@@ -117,30 +131,14 @@
             box-shadow: var(--glow);
         }
 
-        .light .toggle-circle {
-            left: 6px;
-            background: var(--accent); /* Green circle for light mode */
-        }
-
-        .dark .toggle-circle {
-            left: 46px;
-            background: var(--accent); /* Pink circle for dark mode */
-        }
-
-        .toggle-icon {
-            position: absolute;
-            color: #fff;
-            font-size: 16px;
-            transition: opacity 0.3s ease;
-        }
-
+        .light .toggle-circle { left: 6px; background: var(--accent); }
+        .dark .toggle-circle { left: 46px; background: var(--accent); }
+        .toggle-icon { position: absolute; color: #fff; font-size: 16px; transition: opacity 0.3s ease; }
         .sun-icon { left: 12px; }
         .moon-icon { right: 12px; }
         .light .moon-icon, .dark .sun-icon { opacity: 0; }
-        .light .sun-icon, .dark .moon-icon { opacity: 1; } /* Ensure correct icon visibility */
+        .light .sun-icon, .dark .moon-icon { opacity: 1; }
 
-
-        /* Container */
         .container {
             display: flex;
             width: 90%;
@@ -152,468 +150,351 @@
             perspective: 1200px;
         }
 
-        /* Enhanced Sidebar with Horror Effects */
         .sidebar {
-            width: 300px;
-            padding: 40px 30px;
+            width: 320px;
+            padding: 35px 25px;
             background: var(--sidebar-bg);
-            color: var(--text-primary); /* Sidebar text color now adapts */
+            color: var(--text-primary);
             flex-shrink: 0;
-            border-radius: 25px;
-            box-shadow: var(--card-shadow);
-            transition: background var(--transition-speed), transform 0.3s ease, box-shadow var(--transition-speed);
+            border-radius: 28px;
+            box-shadow: var(--card-shadow), 0 0 10px rgba(0,0,0,0.05);
+            transition: background 0.6s, transform 0.4s ease-out, box-shadow 0.6s;
             position: relative;
             overflow: hidden;
             z-index: 2;
             transform-style: preserve-3d;
-            animation: eerieGlow 3s infinite alternate;
-        }
-
-        @keyframes eerieGlow {
-            0% { box-shadow: var(--glow); }
-            100% { box-shadow: 0 0 30px var(--accent-light); }
+            border: 1px solid var(--card-border);
         }
 
         .sidebar::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--accent) 0.1, rgba(0, 0, 0, 0.7) 70%); /* Use accent color */
-            transform: rotate(45deg);
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--accent) 0.05, rgba(0, 0, 0, 0.7) 80%);
+            transform: rotate(30deg);
             z-index: -1;
-            opacity: 0.1;
+            opacity: 0.08;
+            transition: opacity 0.5s;
         }
-
+        .sidebar:hover::before { opacity: 0.15; }
         .sidebar:hover {
-            transform: translateY(-15px) translateZ(30px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            transform: translateY(-10px) translateZ(20px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2), var(--glow);
         }
 
         .profile-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             position: relative;
+            text-align: center;
         }
 
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 120px; height: 120px;
             border-radius: 50%;
-            border: 5px solid rgba(255, 0, 122, 0.3);
-            background: linear-gradient(45deg, var(--accent-light), var(--accent)); /* Profile image background adapts */
-            margin-bottom: 25px;
+            border: 4px solid var(--accent);
+            background: linear-gradient(45deg, var(--accent-light), var(--accent));
+            margin-bottom: 20px;
             overflow: hidden;
             position: relative;
-            box-shadow: var(--glow);
-            animation: glitch 1.5s infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1), var(--glow);
+            display: flex; /* For centering placeholder image if used */
+            align-items: center; /* For centering placeholder image if used */
+            justify-content: center; /* For centering placeholder image if used */
         }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(2px, -2px); }
-            60% { transform: translate(-2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        .profile-img img { /* Style for actual image if you add one */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .sidebar-header h1 {
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            font-size: 2.2rem; letter-spacing: 1.5px; margin-bottom: 6px;
             text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow for text */
-            background: linear-gradient(to right, var(--accent), var(--text-primary)); /* Text gradient adapts */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: glitchText 2s infinite;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, var(--accent), var(--text-primary) 70%);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
         }
-
-        @keyframes glitchText {
-            0% { transform: translate(0); }
-            10% { transform: translate(-3px, 3px); }
-            20% { transform: translate(3px, -3px); }
-            30% { transform: translate(0); }
-        }
-
         .sidebar-header h2 {
-            font-size: 1.2rem;
-            font-weight: 300;
-            color: var(--accent-light); /* Subheading color adapts */
-            margin-top: 8px;
-            letter-spacing: 3px;
+            font-size: 1.1rem; font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 5px; letter-spacing: 2px;
         }
 
-        .sidebar nav ul {
-            list-style: none;
-            margin-top: 30px;
+        .sidebar nav ul { list-style: none; margin-top: 25px; padding: 0; }
+        .sidebar nav ul li { margin-bottom: 10px; }
+        .sidebar nav ul li a {
+            display: flex; align-items: center;
+            padding: 15px 20px; border-radius: 12px;
+            color: var(--text-primary); text-decoration: none;
+            font-size: 1.05rem; font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+            position: relative; overflow: hidden; z-index: 1;
+            border-left: 4px solid transparent;
         }
-
-        .sidebar nav ul li {
-            margin-bottom: 15px;
+        .sidebar nav ul li a:hover {
+            background-color: var(--sidebar-nav-item-hover-bg);
+            color: var(--accent);
+            transform: translateX(5px);
+            border-left-color: var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-
-        .sidebar nav ul li a.nav-item {
-            display: flex;
-            align-items: center;
-            padding: 14px 25px;
-            border-radius: 12px;
-            color: var(--text-primary); /* Nav item text color adapts */
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+        .sidebar nav ul li a.active {
+            background-color: var(--sidebar-nav-item-active-bg);
+            color: var(--accent); font-weight: 600;
+            border-left-color: var(--sidebar-nav-item-active-border);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.05);
         }
-
-        .sidebar nav ul li a.nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: rgba(255, 0, 122, 0.2); /* Base for hover effect */
-            transition: width 0.4s ease;
-            z-index: -1;
+        .sidebar nav ul li a .icon {
+            margin-right: 18px; font-size: 1.35rem;
+            min-width: 28px; text-align: center;
+            color: var(--icon-color);
+            transition: color 0.3s ease, transform 0.3s ease;
         }
-
-        .light .sidebar nav ul li a.nav-item::before {
-            background: rgba(76, 175, 80, 0.2); /* Green for light theme */
+        .sidebar nav ul li a:hover .icon, .sidebar nav ul li a.active .icon {
+            color: var(--accent);
         }
+        .sidebar nav ul li a:hover .icon { transform: scale(1.1); }
 
-        .sidebar nav ul li a.nav-item:hover::before {
-            width: 100%;
-        }
-
-        .sidebar nav ul li a.nav-item:hover {
-            transform: translateX(15px) translateZ(10px);
-            box-shadow: var(--glow);
-        }
-
-        .sidebar nav ul li a.nav-item .icon {
-            margin-right: 15px;
-            font-size: 1.3rem;
-            min-width: 26px;
-            text-align: center;
-            color: var(--icon-color); /* Icon color adapts */
-        }
-
-        /* Main Content Area */
         .main {
-            flex: 1;
-            padding: 0 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex: 1; padding: 0 50px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* Enhanced Contact Form with Horror Effects */
         .contact-card {
             background: var(--card-bg);
             border: 2px solid var(--card-border);
-            border-radius: 25px;
-            padding: 50px;
+            border-radius: 25px; padding: 50px;
             box-shadow: var(--card-shadow);
             backdrop-filter: blur(15px);
-            max-width: 650px;
-            width: 100%;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            max-width: 650px; width: 100%;
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            position: relative; overflow: hidden;
             transform-style: preserve-3d;
             animation: flicker 3s infinite alternate;
         }
-
         .contact-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--accent) 0.05, rgba(0, 0, 0, 0.7) 70%); /* Use accent color */
-            z-index: -1;
-            opacity: 0.1;
+            content: ''; position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--accent) 0.05, rgba(0, 0, 0, 0.7) 70%);
+            z-index: -1; opacity: 0.1;
         }
-
         .contact-card:hover {
-            transform: translateY(-15px) scale(1.03) translateZ(30px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), var(--glow);
+            transform: translateY(-10px) scale(1.02) translateZ(20px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2), var(--glow);
         }
-
         .contact-card h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            font-weight: 700;
+            text-align: center; margin-bottom: 30px; /* Reduced margin */
+            font-size: 2.5rem; font-weight: 700;
             background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            padding-bottom: 20px;
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            position: relative; padding-bottom: 20px;
             animation: glitchText 2.5s infinite;
         }
-
         .contact-card h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
+            content: ''; position: absolute;
+            bottom: 0; left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 5px;
+            width: 100px; height: 5px;
             background: var(--accent-gradient);
-            border-radius: 3px;
-            box-shadow: var(--glow);
+            border-radius: 3px; box-shadow: var(--glow);
         }
 
-        /* Form Elements */
-        .form-group {
-            position: relative;
-            margin-bottom: 35px;
+        /* AI Message Assistant Styles */
+        .ai-message-assistant {
+            background-color: var(--ai-assistant-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--card-border);
         }
-
-        .form-label {
-            position: absolute;
-            top: 20px;
-            left: 55px;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            pointer-events: none;
-            font-size: 1.1rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 22px 22px 22px 55px;
-            border-radius: 15px;
-            border: 1px solid var(--card-border); /* Border color adapts */
-            font-size: 1.1rem;
-            background: var(--input-bg);
-            transition: var(--transition);
-            color: var(--text-primary);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: var(--glow);
-        }
-
-        .form-input:focus + .form-label,
-        .form-input:not(:placeholder-shown) + .form-label {
-            top: -15px;
-            left: 45px;
-            background: var(--card-bg);
-            padding: 0 10px;
-            font-size: 0.9rem;
-            color: var(--accent);
-        }
-
-        .form-icon {
-            position: absolute;
-            left: 22px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--icon-color);
+        .ai-message-assistant h3 {
             font-size: 1.3rem;
-            transition: var(--transition);
-        }
-
-        .form-input:focus ~ .form-icon {
             color: var(--accent);
-            transform: translateY(-50%) scale(1.3);
+            margin-bottom: 15px;
+            text-align: center;
         }
-
-        textarea.form-input {
-            min-height: 180px;
-            resize: vertical;
+        .ai-message-assistant .form-group {
+            margin-bottom: 15px;
         }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin: 30px 0;
-        }
-
-        .checkbox-container input {
-            width: 22px;
-            height: 22px;
-            margin-right: 15px;
-            accent-color: var(--accent);
-            cursor: pointer;
-        }
-
-        .checkbox-container label {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            cursor: pointer;
-        }
-
-        /* Submit Button */
-        #submitBtn {
+        #generateMessageIdeasBtn {
+            display: block;
             width: 100%;
-            padding: 18px;
+            padding: 12px;
             background: var(--accent-gradient);
             color: white;
             border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        #generateMessageIdeasBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px var(--glow);
+        }
+        #ideasLoadingIndicator {
+            text-align: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+        #messageIdeasContainer {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .message-idea {
+            background-color: var(--message-idea-bg);
+            border: 1px solid var(--message-idea-border);
+            color: var(--message-idea-text);
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .message-idea:hover {
+            background-color: var(--message-idea-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        .form-group { position: relative; margin-bottom: 30px; } /* Adjusted margin slightly */
+        .form-label {
+            position: absolute; top: 20px; left: 55px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            pointer-events: none; font-size: 1.1rem;
+        }
+        .form-input {
+            width: 100%; padding: 22px 22px 22px 55px;
+            border-radius: 15px;
+            border: 1px solid var(--card-border);
+            font-size: 1.1rem; background: var(--input-bg);
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+            color: var(--text-primary);
+        }
+        .form-input:focus {
+            outline: none; border-color: var(--accent);
             box-shadow: var(--glow);
         }
-
-        #submitBtn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--glow);
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -15px; left: 45px;
+            background: var(--card-bg);
+            padding: 0 10px; font-size: 0.9rem;
+            color: var(--accent); border-radius: 4px;
         }
-
-        #submitBtn:active {
-            transform: translateY(1px);
+        .form-icon {
+            position: absolute; left: 22px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--icon-color); font-size: 1.3rem;
+            transition: color 0.3s, transform 0.3s;
         }
+        .form-input:focus ~ .form-icon {
+            color: var(--accent);
+            transform: translateY(-50%) scale(1.2);
+        }
+        textarea.form-input { min-height: 150px; resize: vertical; } /* Reduced min-height slightly */
 
+        .checkbox-container { display: flex; align-items: center; margin: 25px 0; } /* Adjusted margin */
+        .checkbox-container input {
+            width: 22px; height: 22px;
+            margin-right: 15px;
+            accent-color: var(--accent); cursor: pointer;
+        }
+        .checkbox-container label { color: var(--text-primary); font-size: 1.1rem; cursor: pointer; }
+
+        #submitBtn {
+            width: 100%; padding: 18px;
+            background: var(--accent-gradient); color: white;
+            border: none; border-radius: 15px;
+            font-size: 1.2rem; font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative; overflow: hidden;
+            box-shadow: var(--glow);
+        }
+        #submitBtn:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--glow); }
+        #submitBtn:active { transform: translateY(1px); }
         #submitBtn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            content: ''; position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: left 0.6s ease;
         }
+        #submitBtn:hover::after { left: 100%; }
 
-        #submitBtn:hover::after {
-            left: 100%;
-        }
-
-        /* Go Home Button */
         .go-home {
-            display: block;
-            margin: 50px auto 0;
+            display: block; margin: 50px auto 0;
             padding: 16px 40px;
-            background: var(--accent-gradient);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            transition: var(--transition);
-            max-width: 250px;
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
+            background: var(--accent-gradient); color: white;
+            border: none; border-radius: 15px;
+            font-size: 1.1rem; font-weight: 600;
+            text-align: center; text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 250px; position: relative;
+            overflow: hidden; z-index: 10;
             box-shadow: var(--glow);
         }
+        .go-home:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--glow); }
+        .go-home:active { transform: translateY(1px); }
 
-        .go-home:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--glow);
-        }
-
-        .go-home:active {
-            transform: translateY(1px);
-        }
-
-        /* Footer */
         .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-top: auto;
-            position: relative;
-            z-index: 10;
-            background: var(--card-bg); /* Footer background adapts */
-            backdrop-filter: blur(10px);
+            text-align: center; padding: 30px 0;
+            color: var(--text-secondary); font-size: 1rem;
+            margin-top: auto; position: relative; z-index: 10;
+            background: var(--card-bg); backdrop-filter: blur(10px);
         }
 
-        /* Responsive Design */
         @media (max-width: 992px) {
-            .container {
-                flex-direction: column;
-                margin: 70px auto 40px;
-            }
-
-            .sidebar {
-                width: 100%;
-                max-width: 550px;
-                margin: 0 auto 50px;
-                border-radius: 20px;
-            }
-
-            .main {
-                padding: 0;
-            }
+            .container { flex-direction: column; margin: 70px auto 40px; }
+            .sidebar { width: 100%; max-width: 550px; margin: 0 auto 50px; border-radius: 20px; }
+            .main { padding: 0; }
         }
-
         @media (max-width: 768px) {
-            .container {
-                width: 95%;
-            }
-
-            .contact-card {
-                padding: 35px;
-            }
-
-            .contact-card h1 {
-                font-size: 2.2rem;
-            }
-
-            .mode-toggle {
-                top: 25px;
-                right: 25px;
-            }
+            .container { width: 95%; }
+            .contact-card { padding: 35px; }
+            .contact-card h1 { font-size: 2.2rem; }
+            .mode-toggle { top: 25px; right: 25px; }
+            .sidebar { padding: 30px 20px; }
+            .sidebar nav ul li a { padding: 12px 15px; }
+            .ai-message-assistant { padding: 15px; }
+            .ai-message-assistant h3 { font-size: 1.15rem; }
         }
-
         @media (max-width: 480px) {
-            .contact-card {
-                padding: 30px 25px;
-            }
-
-            .contact-card h1 {
-                font-size: 1.9rem;
-            }
-
-            .form-input {
-                padding: 18px 18px 18px 50px;
-            }
-
-            .form-label {
-                left: 50px;
-            }
-
-            .form-icon {
-                left: 18px;
-            }
-
-            .go-home {
-                padding: 14px 30px;
-                font-size: 1rem;
-            }
+            .contact-card { padding: 30px 20px; } /* Adjusted padding */
+            .contact-card h1 { font-size: 1.9rem; }
+            .form-input { padding: 18px 18px 18px 50px; }
+            .form-label { left: 50px; }
+            .form-icon { left: 18px; }
+            .go-home { padding: 14px 30px; font-size: 1rem; }
+            .sidebar { padding: 25px 15px; border-radius: 15px; }
+            .profile-img { width: 100px; height: 100px; }
+            .sidebar-header h1 { font-size: 1.8rem; }
+            .sidebar-header h2 { font-size: 0.9rem; }
+            .sidebar nav ul li a { padding: 10px 12px; font-size: 0.95rem; }
+            .sidebar nav ul li a .icon { font-size: 1.2rem; margin-right: 12px; }
+            .ai-message-assistant { padding: 15px; }
+            .ai-message-assistant h3 { font-size: 1.1rem; margin-bottom: 10px;}
+            #generateMessageIdeasBtn { font-size: 0.9rem; padding: 10px;}
+            .message-idea { font-size: 0.9rem; padding: 10px;}
+            textarea.form-input { min-height: 120px; }
         }
 
-        /* Keyframes for message box animations */
         @keyframes fadeInScale {
             from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
-
         @keyframes fadeOutScale {
             from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
             to { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
@@ -632,22 +513,26 @@
     <div class="container">
         <div class="sidebar">
             <div class="profile-container">
-                <div class="profile-img"></div>
+                <div class="profile-img">
+                     <img src="https://placehold.co/120x120/E0E0E0/777?text=Profile" alt="Profile Placeholder"
+                     onerror="this.onerror=null; this.src='https://placehold.co/120x120/CCCCCC/777?text=Img+Error';"
+                     >
+                </div>
                 <div class="sidebar-header">
                     <h1>Jawad</h1>
                     <h2>Full Stack Developer</h2>
                 </div>
             </div>
             <nav>
-                 <ul>
-        <li><a href="index.html"><span>🏠</span> Home</a></li>
-        <li><a href="myintro.html"><span>👨‍💻</span> My Intro</a></li>
-        <li><a href="services.html"><span>⚙️</span> Services</a></li>
-        <li><a href="cv.html"><span>📄</span> CV</a></li>
-        <li><a href="blog.html"><span>📝</span> Blog</a></li>
-        <li><a href="contactme.html"><span>📞</span> Contact Me</a></li>
-        <li><a href="myProject..html"><span>📽</span> My Projects</a></li>
-      </ul>
+                <ul>
+                    <li><a href="index.html"><span class="icon">🏠</span> Home</a></li>
+                    <li><a href="myintro.html"><span class="icon">👨‍💻</span> My Intro</a></li>
+                    <li><a href="services.html"><span class="icon">⚙️</span> Services</a></li>
+                    <li><a href="cv.html"><span class="icon">📄</span> CV</a></li>
+                    <li><a href="blog.html"><span class="icon">📝</span> Blog</a></li>
+                    <li><a href="contactme.html" class="active"><span class="icon">📞</span> Contact Me</a></li>
+                    <li><a href="myProject..html"><span class="icon">📽️</span> My Projects</a></li>
+                </ul>
             </nav>
         </div>
 
@@ -655,6 +540,19 @@
             <div class="contact-card">
                 <form id="contactForm">
                     <h1>Connect with Me</h1>
+
+                    <div class="ai-message-assistant">
+                        <h3>✨ Smart Message Assistant</h3>
+                        <div class="form-group">
+                            <i class="form-icon fas fa-lightbulb"></i>
+                            <input type="text" class="form-input" id="messageTopicInput" placeholder=" ">
+                            <label for="messageTopicInput" class="form-label">Briefly, what's your query about?</label>
+                        </div>
+                        <button type="button" id="generateMessageIdeasBtn">Get Message Ideas</button>
+                        <div id="ideasLoadingIndicator">Generating ideas... <i class="fas fa-spinner fa-spin"></i></div>
+                        <div id="messageIdeasContainer">
+                            </div>
+                    </div>
                     
                     <div class="form-group">
                         <i class="form-icon fas fa-user"></i>
@@ -702,21 +600,28 @@
         // Function to update particles.js color
         function updateParticlesColor(color) {
             if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.particles) {
-                window.pJSDom[0].pJS.particles.array.forEach(p => {
-                    p.color.value = color;
-                });
-                window.pJSDom[0].pJS.fn.particlesDraw(); // Redraw particles
+                if (window.pJSDom[0].pJS.particles.array && window.pJSDom[0].pJS.particles.array.length > 0) {
+                    window.pJSDom[0].pJS.particles.array.forEach(p => {
+                        if (p.color) { p.color.value = color; }
+                        else { p.color = { value: color }; }
+                    });
+                }
+                window.pJSDom[0].pJS.fn.particlesDraw();
             }
         }
 
         // Theme toggle function
         function toggleMode() {
-            const isDark = document.body.classList.contains('light'); // If currently light, it will become dark
-            document.body.classList.toggle('light');
-            document.body.classList.toggle('dark');
-            localStorage.setItem('darkMode', isDark); // Save the *new* state
-
-            // Update particles color based on the new theme
+            const body = document.body;
+            const isCurrentlyLight = body.classList.contains('light');
+            
+            if (isCurrentlyLight) {
+                body.classList.remove('light'); body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark'); body.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
             const computedStyle = getComputedStyle(document.body);
             const particlesColor = computedStyle.getPropertyValue('--particles-color').trim();
             updateParticlesColor(particlesColor);
@@ -724,90 +629,176 @@
 
         // Initial theme setup on page load
         document.addEventListener('DOMContentLoaded', () => {
-            const savedDarkMode = localStorage.getItem('darkMode');
-            if (savedDarkMode === 'true') {
-                document.body.classList.add('dark');
-                document.body.classList.remove('light');
-            } else {
-                document.body.classList.add('light');
-                document.body.classList.remove('dark');
-            }
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
 
-            // Initialize particles.js
-            particlesJS("particles-js", {
+            if (savedTheme === 'dark') {
+                body.classList.remove('light'); body.classList.add('dark');
+            } else {
+                body.classList.remove('dark'); body.classList.add('light');
+            }
+            
+            const initialParticlesColor = getComputedStyle(body).getPropertyValue('--particles-color').trim();
+            particlesJS("particles-js", { /* particles.js config */
                 particles: {
                     number: { value: 60, density: { enable: true, value_area: 800 } },
-                    color: { value: getComputedStyle(document.body).getPropertyValue('--particles-color').trim() }, /* Initial color from CSS variable */
+                    color: { value: initialParticlesColor }, 
                     shape: { type: "circle" },
                     opacity: { value: 0.4, random: true },
                     size: { value: 4, random: true },
                     line_linked: { enable: false },
-                    move: {
-                        enable: true,
-                        speed: 0.5,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out"
-                    }
+                    move: { enable: true, speed: 0.5, direction: "none", random: true, straight: false, out_mode: "out" }
                 },
                 interactivity: {
                     detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "repulse" },
-                        onclick: { enable: true, mode: "push" },
-                        resize: true
-                    }
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true }
                 }
             });
+
+            const currentPage = window.location.pathname.split("/").pop() || "index.html"; // Default to index.html if path is empty
+            const navLinks = document.querySelectorAll('.sidebar nav ul li a');
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href').split("/").pop();
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // AI Message Assistant Logic
+            const generateIdeasBtn = document.getElementById('generateMessageIdeasBtn');
+            const messageTopicInput = document.getElementById('messageTopicInput');
+            const ideasContainer = document.getElementById('messageIdeasContainer');
+            const mainMessageTextarea = document.getElementById('clintInputEnquiry');
+            const ideasLoadingIndicator = document.getElementById('ideasLoadingIndicator');
+            const clientNameInput = document.getElementById('clintInputName1');
+            const projectCheckbox = document.getElementById('isclient');
+
+            if (generateIdeasBtn) {
+                generateIdeasBtn.addEventListener('click', async () => {
+                    const topic = messageTopicInput.value.trim();
+                    const clientName = clientNameInput.value.trim() || "The user";
+                    const wantsProject = projectCheckbox.checked;
+                    const projectInterestText = wantsProject ? "interested in discussing a project" : "making a general inquiry";
+
+                    if (!topic) {
+                        // Simple inline message instead of alert
+                        ideasContainer.innerHTML = '<p style="color: var(--accent); text-align: center;">Please enter a topic for your message.</p>';
+                        setTimeout(() => { ideasContainer.innerHTML = ''; }, 3000);
+                        return;
+                    }
+
+                    ideasLoadingIndicator.style.display = 'block';
+                    ideasContainer.innerHTML = ''; // Clear previous ideas
+
+                    const prompt = `My name is ${clientName}. I am ${projectInterestText}. My query is about: "${topic}". Please generate 3 concise and professional message opening suggestions or key points I can include in my message to Jawad, a Full Stack Developer. Each suggestion should be distinct and under 30 words.`;
+                    
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = {
+                        contents: chatHistory,
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                type: "OBJECT",
+                                properties: {
+                                    "suggestions": {
+                                        type: "ARRAY",
+                                        items: { type: "STRING" }
+                                    }
+                                },
+                                required: ["suggestions"]
+                            }
+                        }
+                    };
+                    const apiKey = ""; // API key will be injected by the environment
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error("API Error:", errorData);
+                            throw new Error(`API request failed with status ${response.status}: ${errorData?.error?.message || 'Unknown error'}`);
+                        }
+
+                        const result = await response.json();
+                        
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            
+                            const rawJsonText = result.candidates[0].content.parts[0].text;
+                            const parsedJson = JSON.parse(rawJsonText); // Parse the text part which contains the JSON string
+
+                            if (parsedJson.suggestions && Array.isArray(parsedJson.suggestions)) {
+                                parsedJson.suggestions.forEach(suggestionText => {
+                                    const ideaElement = document.createElement('div');
+                                    ideaElement.classList.add('message-idea');
+                                    ideaElement.textContent = suggestionText;
+                                    ideaElement.onclick = () => {
+                                        mainMessageTextarea.value = suggestionText;
+                                        // Trigger input event for label animation if any
+                                        mainMessageTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+                                    };
+                                    ideasContainer.appendChild(ideaElement);
+                                });
+                            } else {
+                                ideasContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">No suggestions received in the expected format.</p>';
+                            }
+                        } else {
+                            ideasContainer.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Could not generate suggestions at this time. The response structure was unexpected.</p>';
+                            console.error("Unexpected API response structure:", result);
+                        }
+                    } catch (error) {
+                        console.error('Error calling Gemini API:', error);
+                        ideasContainer.innerHTML = `<p style="color: var(--accent); text-align: center;">Error: ${error.message}. Check console for details.</p>`;
+                    } finally {
+                        ideasLoadingIndicator.style.display = 'none';
+                    }
+                });
+            }
         });
 
         // Form submission handling
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Using a custom message box instead of alert()
             const messageBox = document.createElement('div');
             messageBox.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: var(--card-bg);
-                border: 2px solid var(--accent);
-                border-radius: 15px;
-                padding: 30px;
-                box-shadow: var(--card-shadow);
-                z-index: 9999;
-                text-align: center;
-                font-size: 1.2rem;
-                color: var(--text-primary);
-                animation: fadeInScale 0.3s ease-out forwards;
+                position: fixed; top: 50%; left: 50%;
+                transform: translate(-50%, -50%) scale(0.9); opacity: 0;
+                background: var(--card-bg); border: 2px solid var(--accent);
+                border-radius: 15px; padding: 30px; box-shadow: var(--card-shadow);
+                z-index: 9999; text-align: center; font-size: 1.2rem;
+                color: var(--text-primary); animation: fadeInScale 0.3s ease-out forwards;
             `;
             messageBox.innerHTML = `
-                <p>Thank you for your message! I will get back to you soon.</p>
+                <p style="margin-bottom: 20px;">Thank you for your message! I will get back to you soon.</p>
                 <button style="
-                    margin-top: 20px;
-                    padding: 10px 20px;
-                    background: var(--accent-gradient);
-                    color: white;
-                    border: none;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    font-size: 1rem;
-                    transition: transform 0.2s;
-                " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Close</button>
+                    padding: 12px 25px; background: var(--accent-gradient); color: white;
+                    border: none; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 500;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.15)';" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.1)';">Close</button>
             `;
             document.body.appendChild(messageBox);
-
             messageBox.querySelector('button').onclick = () => {
                 messageBox.style.animation = 'fadeOutScale 0.3s ease-in forwards';
-                messageBox.addEventListener('animationend', () => messageBox.remove());
+                messageBox.addEventListener('animationend', () => messageBox.remove(), { once: true });
             };
-
             this.reset();
             document.querySelectorAll('.form-input').forEach(input => {
-                input.dispatchEvent(new Event('input'));
+                const event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
             });
+             // Clear AI assistant fields as well
+            const messageTopicInput = document.getElementById('messageTopicInput');
+            if(messageTopicInput) messageTopicInput.value = '';
+            const ideasContainer = document.getElementById('messageIdeasContainer');
+            if(ideasContainer) ideasContainer.innerHTML = '';
         });
     </script>
 </body>
