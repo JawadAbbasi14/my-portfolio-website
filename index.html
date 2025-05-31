@@ -16,6 +16,8 @@
             --glass: rgba(255, 255, 255, 0.1);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
         }
         
         .dark {
@@ -26,6 +28,8 @@
             --light: #f1f5f9;
             --glass: rgba(15, 23, 42, 0.6);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
         }
         
         * {
@@ -36,15 +40,11 @@
         
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            color: var(--light);
+            background: var(--bg-color);
+            color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
             transition: var(--transition);
-        }
-        
-        body.dark {
-            background: linear-gradient(135deg, #020617, #0f172a);
         }
         
         /* Glass Morphism Overlay */
@@ -55,9 +55,14 @@
             left: 0;
             width: 100%;
             height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+        
+        .dark body::before {
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
-            z-index: -1;
         }
         
         /* Glass Morphism Container */
@@ -89,10 +94,8 @@
             position: relative;
             width: 60px;
             height: 30px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
+            background: #e2e8f0;
             border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             cursor: pointer;
             overflow: hidden;
             transition: var(--transition);
@@ -105,15 +108,20 @@
             left: 3px;
             width: 24px;
             height: 24px;
-            background: var(--light);
+            background: #ffd700;
             border-radius: 50%;
             transition: var(--transition);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
-        .theme-switch.dark:before {
+        .dark .theme-switch {
+            background: #1e293b;
+        }
+        
+        .dark .theme-switch:before {
             transform: translateX(30px);
-            background: var(--dark);
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
         /* Hero Section */
@@ -161,7 +169,7 @@
         .subtitle {
             font-size: 1.4rem;
             margin-top: 1rem;
-            color: #cbd5e1;
+            color: var(--text-color);
             max-width: 600px;
             margin: 2rem auto;
             line-height: 1.6;
@@ -173,13 +181,16 @@
         
         /* Portfolio Grid */
         .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-wrap: nowrap;
             gap: 2rem;
             margin: 4rem 0;
+            overflow-x: auto;
+            padding-bottom: 1rem;
         }
         
         .portfolio-item {
+            flex: 0 0 280px;
             position: relative;
             border-radius: 16px;
             overflow: hidden;
@@ -273,7 +284,7 @@
         
         .btn-secondary {
             background: transparent;
-            color: var(--light);
+            color: var(--text-color);
             border: 2px solid var(--primary);
         }
         
@@ -329,7 +340,7 @@
             text-align: center;
             padding: 3rem 0;
             margin-top: 4rem;
-            color: #94a3b8;
+            color: var(--text-color);
             font-size: 0.9rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -349,7 +360,7 @@
             justify-content: center;
             border-radius: 50%;
             background: var(--glass);
-            color: var(--light);
+            color: var(--text-color);
             font-size: 1.2rem;
             transition: var(--transition);
         }
@@ -371,7 +382,11 @@
             }
             
             .portfolio-grid {
-                grid-template-columns: 1fr;
+                flex-wrap: wrap;
+            }
+            
+            .portfolio-item {
+                flex: 1 1 100%;
             }
             
             .button-container {
@@ -396,7 +411,7 @@
             
             <div class="portfolio-grid">
                 <a href="myintro.html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1536104968055-4d61aa56f46a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="About Me" class="portfolio-img">
+                    <img src="myintro.jpg" alt="About Me" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">About Me</h3>
                         <p class="portfolio-description">Get to know my background, skills, and professional journey.</p>
@@ -404,7 +419,7 @@
                 </a>
                 
                 <a href="services.html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="My Skills" class="portfolio-img">
+                    <img src="services.avif" alt="My Skills" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">My Skills</h3>
                         <p class="portfolio-description">Discover my technical expertise and professional competencies.</p>
@@ -412,7 +427,7 @@
                 </a>
                 
                 <a href="cv.html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="My CV" class="portfolio-img">
+                    <img src="cv.jpg" alt="My CV" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">My CV</h3>
                         <p class="portfolio-description">Download my professional resume and qualifications.</p>
@@ -420,7 +435,7 @@
                 </a>
                 
                 <a href="myProject..html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Projects" class="portfolio-img">
+                    <img src="project.png" alt="Projects" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">Projects</h3>
                         <p class="portfolio-description">Explore my completed projects and case studies.</p>
@@ -428,7 +443,7 @@
                 </a>
                 
                 <a href="contactme.html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Contact" class="portfolio-img">
+                    <img src="contact.png" alt="Contact" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">Contact</h3>
                         <p class="portfolio-description">Get in touch with me for collaboration or inquiries.</p>
@@ -436,7 +451,7 @@
                 </a>
                 
                 <a href="blog.html" class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1545239351-ef35f43d514b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Blog" class="portfolio-img">
+                    <img src="blog.webp" alt="Blog" class="portfolio-img">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">Blog</h3>
                         <p class="portfolio-description">Read my thoughts on development, design, and technology.</p>
