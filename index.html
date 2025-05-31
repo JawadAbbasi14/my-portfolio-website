@@ -1,14 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Adjusted to 'en' for "Jawad's Portfolio". Change to "ur-Latn" if content is Roman Urdu. -->
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jawad's Portfolio | Developer & Programmer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Jawad's professional portfolio showcasing development and programming projects, skills, and experience. Contact Jawad for collaboration.">
+    <meta name="keywords" content="Jawad, portfolio, developer, programmer, web development, software development, coding, projects">
+
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="Jawad's Portfolio | Developer & Programmer">
+    <meta property="og:description" content="Explore Jawad's work in development and programming. Discover projects, skills, and how to get in touch.">
+    <meta property="og:image" content="https://example.com/images/jawad-portfolio-og-image.jpg"> <!-- Replace with an actual URL to an image -->
+    <meta property="og:url" content="https://example.com/portfolio/"> <!-- Replace with your actual portfolio URL -->
+    <meta property="og:type" content="website">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Ensure styles.css exists in the same directory or correct path -->
+
+    <!-- Font Awesome CDN (HTTPS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Inline Styles (Primarily for :root variables, though typically more styles would be in external CSS) -->
     <style>
-        /* Advanced Reset & Variables */
         :root {
-…        });
+            /* Color Variables */
+            --primary-color: #007bff; /* Example: Blue */
+            --secondary-color: #6c757d; /* Example: Gray */
+            --accent-color: #28a745; /* Example: Green */
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-text-color: #fefefe;
+            --border-color: #dee2e6;
+
+            /* Typography Variables (can be used directly or as fallbacks) */
+            --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --base-font-size: 16px;
+            --line-height-base: 1.6;
+
+            /* Spacing Variables */
+            --spacing-unit: 8px; /* Base unit for margins/paddings */
+        }
+
+        /* Basic Reset & Body Styling (more extensive reset can be in styles.css) */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family-sans-serif);
+            font-size: var(--base-font-size);
+            line-height: var(--line-height-base);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0; /* Ensure no default body margin */
+        }
+
+        /* Basic Link Styling (expand in styles.css) */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover,
+        a:focus {
+            color: darken(var(--primary-color), 10%); /* You'd need a SASS preprocessor for darken() or use a darker hex directly */
+            text-decoration: underline;
+        }
+
+        /* Basic Button Styling (expand in styles.css) */
+        .button {
+            display: inline-block;
+            padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 2.5); /* 10px 20px if unit is 8px */
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .button:hover,
+        .button:focus {
+            background-color: darken(var(--primary-color), 10%); /* Or a darker hex */
+            transform: translateY(-2px);
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="container">
+            <h1>Jawad's Portfolio</h1>
+            <!-- Navigation -->
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li> <!-- Example internal link -->
+                    <li><a href="services.html">Services</a></li> <!-- Example internal link -->
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li> <!-- Example internal link -->
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section id="hero" class="hero-section">
+                <h2>Welcome! I'm Jawad, a Developer & Programmer.</h2>
+                <p>Crafting digital solutions with passion and precision.</p>
+                <a href="projects.html" class="button">View My Work</a>
+                <img src="images/profile-placeholder.jpg" alt="A placeholder image of Jawad - Professional Developer" style="width:200px; height:auto; margin-top: 20px; border-radius: 50%;">
+                <!-- Replace 'images/profile-placeholder.jpg' with your actual image path. -->
+            </section>
+
+            <!-- About Section -->
+            <section id="about">
+                <h3>About Me</h3>
+                <p>A brief introduction about your skills, passion, and professional journey. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services">
+                <h3>My Services</h3>
+                <article>
+                    <h4>Web Development</h4>
+                    <p>Creating responsive and dynamic websites using modern technologies.</p>
+                </article>
+                <article>
+                    <h4>Software Programming</h4>
+                    <p>Developing robust and efficient software applications.</p>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <script>document.write(new Date().getFullYear());</script> Jawad. All Rights Reserved.</p>
+            <p>
+                Follow me:
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile"><i class="fab fa-twitter"></i></a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script> <!-- Ensure script.js exists in the same directory or correct path -->
+
+    <!-- Inline JavaScript (for simple, page-specific scripts if necessary) -->
+    <script>
+        // Example of a well-formed simple script
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Portfolio page loaded and DOM is ready!");
+            // You can add more JavaScript interactions here
+        });
     </script>
 </body>
 </html>
