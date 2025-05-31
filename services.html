@@ -1,584 +1,747 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Services – Jawad’s Learning</title>
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Reset & Base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      display: flex; min-height: 100vh;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      transition: background 0.4s ease, color 0.4s ease;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services – Jawad’s Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Global CSS Variables for Theming */
+        :root {
+            --primary-color-light: #4caf50; /* Green */
+            --secondary-color-light: #2196F3; /* Blue */
+            --tertiary-color-light: #FF9800; /* Orange */
+            --quaternary-color-light: #9C27B0; /* Purple */
 
-    /* Dark Mode Styles */
-    .dark {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      color: #e0e0e0;
-    }
+            --primary-color-dark: #81c784; /* Lighter Green */
+            --secondary-color-dark: #64b5f6; /* Lighter Blue */
+            --tertiary-color-dark: #ffb74d; /* Lighter Orange */
+            --quaternary-color-dark: #ba68c8; /* Lighter Purple */
 
-    /* Light Mode Styles */
-    .light {
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      color: #333;
-    }
+            --text-light: #333;
+            --text-dark: #e0e0e0;
 
-    /* Switch Button Styles */
-    .switch-mode {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 60px;
-      height: 30px;
-      background: #333;
-      border-radius: 15px;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      padding: 0 5px;
-      transition: background 0.3s ease;
-      z-index: 1000;
-    }
+            --bg-light-start: #f0f4f8;
+            --bg-light-end: #d9e2ec;
+            --bg-dark-start: #1a1a2e;
+            --bg-dark-end: #16213e;
 
-    .switch-mode::before {
-      content: '';
-      width: 24px;
-      height: 24px;
-      background: #fff;
-      border-radius: 50%;
-      position: absolute;
-      transition: transform 0.3s ease;
-    }
+            --card-bg-light: rgba(255, 255, 255, 0.95);
+            --card-bg-dark: rgba(40, 40, 60, 0.95);
 
-    .dark .switch-mode {
-      background: #4caf50;
-    }
+            --sidebar-bg-light: linear-gradient(135deg, #1b262c, #0f4c75);
+            --sidebar-bg-dark: linear-gradient(135deg, #2c3e50, #1a1a2e);
 
-    .dark .switch-mode::before {
-      transform: translateX(30px);
-    }
+            --shadow-light: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --glow-light: 0 0 20px rgba(76, 175, 80, 0.4);
+            --glow-dark: 0 0 20px rgba(130, 200, 130, 0.4);
 
-    .switch-mode:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
+            --border-light-alpha: rgba(255, 255, 255, 0.3);
+            --border-dark-alpha: rgba(76, 175, 80, 0.3);
 
-    /* Sidebar */
-    .sidebar {
-      width: 260px; padding: 30px;
-      background: linear-gradient(135deg, #1b262c, #0f4c75);
-      color: #fff; flex-shrink: 0;
-      display: flex; flex-direction: column;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-      box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
-      transition: background 0.4s ease, transform 0.3s ease;
-    }
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.8s ease-in-out;
+        }
 
-    .dark .sidebar {
-      background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-    }
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-    .sidebar:hover {
-      transform: translateX(-10px);
-      background: linear-gradient(135deg, #0f4c75, #4caf50);
-      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
-    }
+        body {
+            display: flex;
+            min-height: 100vh;
+            transition: background var(--transition-medium), color var(--transition-medium);
+            overflow-x: hidden;
+            position: relative;
+            background: var(--bg-light-start); /* Default light theme */
+            color: var(--text-light);
+        }
+        
+        /* Glassmorphism background effect for body */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1); /* Light glass effect */
+            backdrop-filter: blur(8px);
+            z-index: -1;
+            animation: subtleBackgroundShift 15s infinite alternate ease-in-out;
+        }
 
-    .sidebar-header h1 {
-      font-size: 2rem; letter-spacing: 3px;
-      margin-bottom: 5px; text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-      color: #4caf50;
-    }
+        @keyframes subtleBackgroundShift {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
 
-    .sidebar-header h2 {
-      font-size: 1.1rem; font-weight: 300;
-      color: #bbe1fa; margin-bottom: 30px;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .dark .sidebar-header h2 {
-      color: #a0d0ff;
-    }
+        /* Dark Mode Styles */
+        .dark {
+            background: linear-gradient(135deg, var(--bg-dark-start), var(--bg-dark-end));
+            color: var(--text-dark);
+        }
+        .dark body::before {
+            background: rgba(0, 0, 0, 0.15); /* Darker glass effect */
+        }
 
-    nav ul { list-style: none; }
-    nav ul li + li { margin-top: 15px; }
-    nav ul li a {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 14px; border-radius: 8px;
-      background: rgba(255,255,255,0.05);
-      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-    }
+        /* Switch Button Styles */
+        .switch-mode {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 30px;
+            background: var(--primary-color-light); /* Default light theme color */
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            transition: background var(--transition-fast) ease;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    nav ul li a:hover {
-      background: #4caf50;
-      transform: translateX(8px) scale(1.1);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    }
+        .switch-mode::before {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
 
-    nav ul li a .icon { width: 20px; }
+        .dark .switch-mode {
+            background: var(--primary-color-dark); /* Dark theme color */
+        }
 
-    /* Services Section */
-    #services {
-      flex: 1; padding: 80px 40px;
-      background: rgba(255,255,255,0.95);
-      overflow-y: auto;
-      border-radius: 12px;
-      margin: 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
+        .dark .switch-mode::before {
+            transform: translateX(30px);
+        }
 
-    .dark #services {
-      background: rgba(40,40,60,0.95);
-    }
+        .switch-mode:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
 
-    #services::before {
-      content: "";
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
-      z-index: 0;
-    }
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            padding: 30px;
+            background: var(--sidebar-bg-light);
+            color: #fff;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), var(--shadow-light);
+            transition: background var(--transition-medium), transform 0.3s ease, box-shadow var(--transition-medium);
+            position: relative;
+            z-index: 10; /* Ensure sidebar is above main content's pseudo-elements */
+        }
 
-    #services::after {
-      content: "";
-      position: absolute;
-      bottom: -50px;
-      left: -50px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, rgba(33, 150, 243, 0.1), rgba(76, 175, 80, 0.1));
-      z-index: 0;
-    }
+        .dark .sidebar {
+            background: var(--sidebar-bg-dark);
+        }
 
-    #services h1 {
-      font-size: 3.5rem; 
-      text-align: center; 
-      margin-bottom: 15px;
-      background: linear-gradient(90deg, #4caf50, #2196F3);
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent;
-      animation: textGradient 4s ease infinite;
-      position: relative;
-      z-index: 1;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+        .sidebar:hover {
+            transform: translateX(-10px);
+            background: linear-gradient(135deg, var(--primary-color-light), var(--secondary-color-light));
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+        }
 
-    #services p {
-      font-size: 1.2rem; 
-      text-align: center;
-      margin-bottom: 50px; 
-      max-width: 700px; 
-      margin: 30px auto; 
-      line-height: 1.6;
-      color: #555;
-      position: relative;
-      z-index: 1;
-    }
+        .sidebar-header {
+            text-align: center;
+        }
 
-    .dark #services p {
-      color: #b0b0b0;
-    }
+        .sidebar-header h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            color: var(--primary-color-light);
+        }
 
-    .services-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 35px; 
-      max-width: 1200px; 
-      margin: 50px auto;
-      position: relative;
-      z-index: 1;
-    }
+        .dark .sidebar-header h1 {
+            color: var(--primary-color-dark);
+        }
 
-    .service {
-      position: relative;
-      background: rgba(255,255,255,0.8);
-      border-radius: 15px; 
-      padding: 35px 25px;
-      text-align: center;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      overflow: hidden;
-      z-index: 1;
-    }
+        .sidebar-header h2 {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #bbe1fa;
+            margin-bottom: 30px;
+        }
 
-    .dark .service {
-      background: rgba(40,40,60,0.7);
-      border: 1px solid rgba(76,175,80,0.3);
-    }
+        .dark .sidebar-header h2 {
+            color: #a0d0ff;
+        }
 
-    .service::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #4caf50, #2196F3);
-      opacity: 0.7;
-      transition: height 0.4s ease;
-    }
+        nav ul {
+            list-style: none;
+        }
+        nav ul li + li {
+            margin-top: 15px;
+        }
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            transition: background var(--transition-fast), transform 0.2s, box-shadow var(--transition-fast);
+            color: #fff; /* Ensure text is white in sidebar */
+        }
 
-    .service:hover::before {
-      height: 100%;
-      opacity: 0.1;
-    }
+        nav ul li a:hover {
+            background: var(--primary-color-light);
+            transform: translateX(8px) scale(1.05); /* Slightly less aggressive scale */
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
 
-    .service-icon {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: all 0.4s ease;
-      position: relative;
-      z-index: 2;
-    }
+        nav ul li a .icon {
+            width: 20px;
+            font-size: 1.2rem; /* Slightly larger icons */
+        }
 
-    .service i {
-      font-size: 2.8rem; 
-      display: block; 
-      background: linear-gradient(45deg, #4caf50, #2196F3);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      transition: all 0.4s ease;
-    }
+        /* Services Section */
+        #services {
+            flex: 1;
+            padding: 80px 40px;
+            background: var(--card-bg-light);
+            overflow-y: auto;
+            border-radius: 12px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            backdrop-filter: blur(12px); /* Stronger blur */
+            border: 1px solid var(--border-light-alpha);
+            transition: background var(--transition-medium), border var(--transition-medium), box-shadow var(--transition-medium);
+            z-index: 1; /* Ensure content is above background elements */
+        }
 
-    .dark .service i {
-      background: linear-gradient(45deg, #4caf50, #81c784);
-    }
+        .dark #services {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--border-dark-alpha);
+        }
 
-    .service h2 {
-      font-size: 1.5rem; 
-      color: #102a43;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 2;
-    }
+        #services::before, #services::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color-light), var(--secondary-color-light));
+            opacity: 0.1;
+            z-index: 0;
+            animation: floatShape 10s infinite alternate ease-in-out;
+        }
 
-    .dark .service h2 {
-      color: #e0e0e0;
-    }
+        #services::before {
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, var(--primary-color-light) 0%, var(--secondary-color-light) 100%);
+        }
 
-    .service p {
-      font-size: 1.1rem; 
-      color: #666; 
-      line-height: 1.7;
-      margin: 0 auto;
-      max-width: 90%;
-      position: relative;
-      z-index: 2;
-    }
+        #services::after {
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, var(--secondary-color-light) 0%, var(--primary-color-light) 100%);
+            animation-delay: 2s; /* Offset animation */
+        }
+        
+        .dark #services::before {
+            background: linear-gradient(45deg, var(--primary-color-dark) 0%, var(--secondary-color-dark) 100%);
+        }
+        .dark #services::after {
+            background: linear-gradient(45deg, var(--secondary-color-dark) 0%, var(--primary-color-dark) 100%);
+        }
 
-    .dark .service p {
-      color: #b0b0b0;
-    }
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, 20px) scale(1.05); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
 
-    /* Service-specific backgrounds */
-    .fullstack .service-icon {
-      background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(33, 150, 243, 0.15));
-    }
+        #services h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 4s ease infinite;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-    .ai .service-icon {
-      background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(244, 67, 54, 0.15));
-    }
+        .dark #services h1 {
+            background: linear-gradient(90deg, var(--primary-color-dark), var(--secondary-color-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .solving .service-icon {
-      background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(103, 58, 183, 0.15));
-    }
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    .linux .service-icon {
-      background: linear-gradient(135deg, rgba(3, 169, 244, 0.15), rgba(0, 150, 136, 0.15));
-    }
+        #services p {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin: 30px auto;
+            line-height: 1.6;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Hover Effects – intensified */
-    .service:hover {
-      transform: translateY(-15px) scale(1.03);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-    }
+        .dark #services p {
+            color: var(--text-dark);
+        }
 
-    .dark .service:hover {
-      background: linear-gradient(135deg, rgba(76,175,80,0.3), rgba(40,40,60,0.5));
-    }
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            max-width: 1200px;
+            margin: 50px auto;
+            position: relative;
+            z-index: 1;
+        }
 
-    .service:hover .service-icon {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
+        .service {
+            position: relative;
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light-alpha);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite; /* Floating animation */
+            transform-style: preserve-3d; /* For 3D transform on hover */
+        }
 
-    .service:hover i {
-      transform: scale(1.2);
-    }
+        .dark .service {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--border-dark-alpha);
+        }
 
-    /* Progress bars */
-    .progress-container {
-      width: 90%;
-      height: 8px;
-      background: rgba(0,0,0,0.1);
-      border-radius: 4px;
-      margin: 20px auto 0;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-    }
+        .service::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+            opacity: 0.7;
+            transition: height 0.4s ease, opacity 0.4s ease;
+            z-index: 0;
+        }
 
-    .dark .progress-container {
-      background: rgba(255,255,255,0.1);
-    }
+        .service:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
 
-    .progress-bar {
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #4caf50, #2196F3);
-      transition: width 1s ease-out;
-      width: 0;
-    }
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            overflow: hidden; /* Ensure image is clipped to circle */
+        }
 
-    .service:hover .progress-bar {
-      width: 85%;
-    }
+        .service-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            border-radius: 50%; /* Make image circular */
+            display: block; /* Remove extra space below image */
+        }
 
-    .ai .progress-bar {
-      background: linear-gradient(90deg, #FF9800, #F44336);
-    }
+        .service h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.5rem;
+            color: #102a43;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
 
-    .solving .progress-bar {
-      background: linear-gradient(90deg, #9C27B0, #673AB7);
-    }
+        .dark .service h2 {
+            color: var(--text-dark);
+        }
 
-    .linux .progress-bar {
-      background: linear-gradient(90deg, #03A9F4, #009688);
-    }
+        .service p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.7;
+            margin: 0 auto;
+            max-width: 90%;
+            position: relative;
+            z-index: 2;
+        }
 
-    /* Go Home Button */
-    .go-home {
-      display: block; 
-      margin: 70px auto 0;
-      background: linear-gradient(135deg, #4caf50, #2196F3);
-      color: #fff; 
-      padding: 14px 35px; 
-      border: none;
-      border-radius: 50px; 
-      font-size: 1.1rem;
-      font-weight: 600;
-      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
-      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      letter-spacing: 0.5px;
-    }
+        .dark .service p {
+            color: var(--text-dark);
+        }
 
-    .go-home:hover {
-      background: linear-gradient(135deg, #388e3c, #1976D2);
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
-    }
+        /* Service-specific backgrounds and colors */
+        .fullstack .service-icon { background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(33, 150, 243, 0.15)); }
+        .ai .service-icon { background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(244, 67, 54, 0.15)); }
+        .solving .service-icon { background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(103, 58, 183, 0.15)); }
+        .linux .service-icon { background: linear-gradient(135deg, rgba(3, 169, 244, 0.15), rgba(0, 150, 136, 0.15)); }
 
-    /* Footer */
-    footer {
-      margin-top: 80px; 
-      padding: 20px;
-      text-align: center; 
-      color: #888; 
-      font-size: 0.95rem;
-      position: relative;
-      z-index: 1;
-    }
+        /* Hover Effects – intensified */
+        .service:hover {
+            transform: translateY(-15px) scale(1.03) rotateY(5deg); /* 3D tilt effect */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+        }
 
-    .dark footer {
-      color: #b0b0b0;
-    }
+        .dark .service:hover {
+            background: linear-gradient(135deg, rgba(76,175,80,0.3), rgba(40,40,60,0.5));
+        }
 
-    /* Animation for floating services */
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-    }
+        .service:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
 
-    .service {
-      animation: float 6s ease-in-out infinite;
-    }
+        .service:hover i { /* This rule is now less relevant as images replace icons */
+            transform: scale(1.2);
+        }
 
-    .service:hover {
-      animation: none;
-    }
+        /* Progress bars */
+        .progress-container {
+            width: 90%;
+            height: 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 4px;
+            margin: 20px auto 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
 
-    @keyframes textGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        .dark .progress-container {
+            background: rgba(255,255,255,0.1);
+        }
 
-    @media (max-width: 900px) {
-      #services { padding: 60px 20px; }
-      .switch-mode {
-        width: 50px;
-        height: 25px;
-      }
-      .switch-mode::before {
-        width: 20px;
-        height: 20px;
-      }
-      .dark .switch-mode::before {
-        transform: translateX(25px);
-      }
-      .services-container {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-      }
-      .service-icon {
-        width: 85px;
-        height: 85px;
-      }
-      #services h1 {
-        font-size: 2.8rem;
-      }
-    }
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+            transition: width 1s ease-out;
+            width: 0;
+        }
 
-    @media (max-width: 600px) {
-      body { flex-direction: column; }
-      .sidebar {
-        width: 100%; 
-        position: relative;
-        border-radius: 0;
-        display: flex; 
-        align-items: center; 
-        justify-content: space-between;
-      }
-      #services { 
-        margin: 0; 
-        border-radius: 0;
-        padding: 50px 15px;
-      }
-      .services-container {
-        grid-template-columns: 1fr;
-      }
-      .sidebar-header {
-        text-align: center;
-      }
-      #services h1 {
-        font-size: 2.4rem;
-      }
-    }
-  </style>
+        .dark .progress-bar {
+            background: linear-gradient(90deg, var(--primary-color-dark), var(--secondary-color-dark));
+        }
+
+        .service:hover .progress-bar {
+            width: 85%;
+        }
+
+        .ai .progress-bar {
+            background: linear-gradient(90deg, var(--tertiary-color-light), #F44336);
+        }
+        .dark .ai .progress-bar {
+            background: linear-gradient(90deg, var(--tertiary-color-dark), #F44336);
+        }
+
+        .solving .progress-bar {
+            background: linear-gradient(90deg, var(--quaternary-color-light), #673AB7);
+        }
+        .dark .solving .progress-bar {
+            background: linear-gradient(90deg, var(--quaternary-color-dark), #673AB7);
+        }
+
+        .linux .progress-bar {
+            background: linear-gradient(90deg, #03A9F4, #009688);
+        }
+        .dark .linux .progress-bar {
+            background: linear-gradient(90deg, #03A9F4, #009688);
+        }
+
+        /* Go Home Button */
+        .go-home {
+            display: block;
+            margin: 70px auto 0;
+            background: linear-gradient(135deg, var(--primary-color-light), var(--secondary-color-light));
+            color: #fff;
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .dark .go-home {
+            background: linear-gradient(135deg, var(--primary-color-dark), var(--secondary-color-dark));
+        }
+
+        .go-home:hover {
+            background: linear-gradient(135deg, #388e3c, #1976D2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dark footer {
+            color: var(--text-dark);
+        }
+
+        /* Animation for floating services */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .service {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .service:hover {
+            animation: none; /* Stop floating on hover */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            #services { padding: 60px 20px; }
+            .switch-mode {
+                width: 50px;
+                height: 25px;
+            }
+            .switch-mode::before {
+                width: 20px;
+                height: 20px;
+            }
+            .dark .switch-mode::before {
+                transform: translateX(25px);
+            }
+            .services-container {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            .service-icon {
+                width: 85px;
+                height: 85px;
+            }
+            #services h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body { flex-direction: column; }
+            .sidebar {
+                width: 100%;
+                position: relative;
+                border-radius: 0;
+                display: flex;
+                flex-direction: column; /* Stack header and nav */
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            .sidebar-header {
+                margin-bottom: 20px;
+            }
+            .sidebar nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .sidebar nav ul li {
+                margin-top: 0;
+            }
+            .sidebar nav ul li a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .sidebar nav ul li a .icon {
+                font-size: 1rem;
+            }
+            #services {
+                margin: 0;
+                border-radius: 0;
+                padding: 50px 15px;
+            }
+            .services-container {
+                grid-template-columns: 1fr;
+            }
+            #services h1 {
+                font-size: 2.4rem;
+            }
+        }
+    </style>
 </head>
 <body class="light">
-  <button class="switch-mode" onclick="toggleMode()"></button>
+    <button class="switch-mode" onclick="toggleMode()"></button>
 
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h1>Developer</h1>
-      <h2>Jawad</h2>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="index.html"><span class="icon">🏠</span>Home</a></li>
-        <li><a href="myintro.html"><span class="icon">👨‍💻</span>My Intro</a></li>
-        <li><a href="services.html"><span class="icon">⚙️</span>Services</a></li>
-        <li><a href="cv.html"><span class="icon">📄</span>CV</a></li>
-        <li><a href="blog.html"><span class="icon">📝</span>Blog</a></li>
-        <li><a href="contactme.html"><span class="icon">📞</span>Contact Me</a></li>
-        <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <section id="services">
-    <h1>My Learning Paths</h1>
-    <p>I'm passionately building my expertise across multiple domains. Here are the key areas I'm mastering as a dedicated learner:</p>
-
-    <div class="services-container">
-      <div class="service fullstack">
-        <div class="service-icon">
-          <i class="fas fa-code"></i>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h1>Developer</h1>
+            <h2>Jawad</h2>
         </div>
-        <h2>Fullstack Developer</h2>
-        <p>Building complete web apps with front-end & back-end skills. Mastering React, Node.js, and database integration.</p>
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-      <div class="service ai">
-        <div class="service-icon">
-          <i class="fas fa-brain"></i>
-        </div>
-        <h2>AI Developer</h2>
-        <p>Studying ML, neural nets & AI algorithms for smart systems. Exploring TensorFlow and PyTorch frameworks.</p>
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-      <div class="service solving">
-        <div class="service-icon">
-          <i class="fas fa-lightbulb"></i>
-        </div>
-        <h2>Problem Solving (DSA)</h2>
-        <p>Practicing data structures & algorithms daily for sharper logic. Solving complex challenges on LeetCode.</p>
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-      <div class="service linux">
-        <div class="service-icon">
-          <i class="fab fa-linux"></i>
-        </div>
-        <h2>Linux CLI Mastery</h2>
-        <p>Mastering Arch Linux CLI for full command-line control. Automating tasks with Bash scripting.</p>
-        <div class="progress-container">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><span class="icon">🏠</span>Home</a></li>
+                <li><a href="myintro.html"><span class="icon">👨‍💻</span>My Intro</a></li>
+                <li><a href="services.html"><span class="icon">⚙️</span>Services</a></li>
+                <li><a href="cv.html"><span class="icon">📄</span>CV</a></li>
+                <li><a href="blog.html"><span class="icon">📝</span>Blog</a></li>
+                <li><a href="contactme.html"><span class="icon">📞</span>Contact Me</a></li>
+                <li><a href="myProject.html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+            </ul>
+        </nav>
     </div>
 
-    <a href="index.html" class="go-home">Go Home</a>
-    <footer>© 2025 Jawad’s Portfolio. All Rights Reserved.</footer>
-  </section>
+    <section id="services">
+        <h1>My Learning Paths</h1>
+        <p>I'm passionately building my expertise across multiple domains. Here are the key areas I'm mastering as a dedicated learner:</p>
 
-  <script>
-    function toggleMode() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    }
+        <div class="services-container">
+            <div class="service fullstack">
+                <div class="service-icon">
+                    <img src="https://placehold.co/100x100/4caf50/ffffff?text=Fullstack" alt="Fullstack Development">
+                </div>
+                <h2>Fullstack Developer</h2>
+                <p>Building complete web apps with front-end & back-end skills. Mastering React, Node.js, and database integration.</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="service ai">
+                <div class="service-icon">
+                    <img src="https://placehold.co/100x100/FF9800/ffffff?text=AI" alt="AI Development">
+                </div>
+                <h2>AI Developer</h2>
+                <p>Studying ML, neural nets & AI algorithms for smart systems. Exploring TensorFlow and PyTorch frameworks.</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="service solving">
+                <div class="service-icon">
+                    <img src="https://placehold.co/100x100/9C27B0/ffffff?text=DSA" alt="Problem Solving & DSA">
+                </div>
+                <h2>Problem Solving (DSA)</h2>
+                <p>Practicing data structures & algorithms daily for sharper logic. Solving complex challenges on LeetCode.</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="service linux">
+                <div class="service-icon">
+                    <img src="https://placehold.co/100x100/03A9F4/ffffff?text=Linux" alt="Linux CLI Mastery">
+                </div>
+                <h2>Linux CLI Mastery</h2>
+                <p>Mastering Arch Linux CLI for full command-line control. Automating tasks with Bash scripting.</p>
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
 
-    // Default mode
-    document.body.classList.add('light');
-    
-    // Progress bar animation
-    document.querySelectorAll('.service').forEach(service => {
-      service.addEventListener('mouseenter', function() {
-        const progressBar = this.querySelector('.progress-bar');
-        progressBar.style.width = '85%';
-      });
-      
-      service.addEventListener('mouseleave', function() {
-        const progressBar = this.querySelector('.progress-bar');
-        progressBar.style.width = '0';
-      });
-    });
-  </script>
+        <a href="index.html" class="go-home">Go Home</a>
+        <footer>© 2025 Jawad’s Portfolio. All Rights Reserved.</footer>
+    </section>
+
+    <script>
+        function toggleMode() {
+            const body = document.body;
+            body.classList.toggle('dark');
+            body.classList.toggle('light');
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        // Apply saved theme on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.classList.add(savedTheme);
+            } else {
+                // Default to light if no theme is saved
+                document.body.classList.add('light');
+            }
+        });
+        
+        // Progress bar animation
+        document.querySelectorAll('.service').forEach(service => {
+            service.addEventListener('mouseenter', function() {
+                const progressBar = this.querySelector('.progress-bar');
+                progressBar.style.width = '85%';
+            });
+            
+            service.addEventListener('mouseleave', function() {
+                const progressBar = this.querySelector('.progress-bar');
+                progressBar.style.width = '0';
+            });
+        });
+    </script>
 </body>
 </html>
