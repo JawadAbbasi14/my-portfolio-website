@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        /* Modern CSS Reset and Variables */
+        /* CSS Variables */
         :root {
             --primary: #4a6cf7;
             --primary-dark: #3a58d1;
@@ -24,28 +24,33 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a1a32 100%);
-            color: var(--text-light);
+            background: linear-gradient(135deg, var(--light-bg) 0%, #dde6ff 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             overflow-x: hidden;
             transition: var(--transition);
             position: relative;
         }
 
-        body.light {
-            background: linear-gradient(135deg, var(--light-bg) 0%, #dde6ff 100%);
-            color: var(--text-dark);
+        [data-theme="dark"] {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a1a32 100%);
+            color: var(--text-light);
         }
 
-        /* Background pattern */
+        /* Background Pattern */
         body::before {
             content: '';
             position: absolute;
@@ -60,7 +65,7 @@
             opacity: 0.3;
         }
 
-        /* Modern Dark/Light Toggle */
+        /* Dark/Light Mode Toggle */
         .switch-container {
             position: fixed;
             top: 25px;
@@ -78,7 +83,7 @@
         }
 
         .theme-label {
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 500;
             opacity: 0.8;
             transition: var(--transition);
@@ -121,15 +126,6 @@
             background: var(--secondary);
             border-radius: 50%;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-size: 12px;
-        }
-
-        input:checked + .slider {
-            background: var(--glass-bg);
         }
 
         input:checked + .slider:before {
@@ -137,12 +133,12 @@
             background: var(--primary);
         }
 
-        /* Header and Typing Effect */
+        /* Header Styles */
         header {
             text-align: center;
-            padding: 100px 20px 50px;
+            padding: 80px 20px 40px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
             position: relative;
         }
 
@@ -215,7 +211,7 @@
             background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
 
-        /* Portfolio Grid */
+        /* Portfolio Section */
         .portfolio-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -224,13 +220,15 @@
 
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2rem;
+            font-family: 'Raleway', sans-serif;
             margin-bottom: 50px;
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
             padding: 0 20px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .section-title::after {
@@ -246,84 +244,71 @@
 
         .portfolio {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
             padding: 20px;
         }
 
         .portfolio-item {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            height: 300px;
-            display: flex;
-            flex-direction: column;
         }
 
         .portfolio-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03) rotate(1deg);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .portfolio-img {
-            height: 70%;
-            overflow: hidden;
-            position: relative;
+        .portfolio-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
         }
 
-        .portfolio-img img {
+        .portfolio-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
         }
 
-        .portfolio-item:hover .portfolio-img img {
+        .portfolio-item:hover img {
             transform: scale(1.1);
+            filter: brightness(80%) contrast(110%);
         }
 
-        .portfolio-content {
-            padding: 20px;
-            height: 30%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .portfolio-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+        .portfolio-item span {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 0;
             transition: var(--transition);
         }
 
-        .portfolio-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
+        .portfolio-item:hover span {
+            opacity: 1;
         }
 
-        .portfolio-link:hover {
-            color: var(--primary);
-            gap: 12px;
-        }
-
-        .portfolio-link i {
-            transition: var(--transition);
-        }
-
-        body.light .portfolio-title {
+        [data-theme="light"] .portfolio-item span {
             color: var(--text-dark);
         }
 
@@ -339,17 +324,14 @@
         .nav-btn {
             font-size: 1.1rem;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
+            color: var(--text-light);
             border: none;
             padding: 16px 40px;
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+            box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -376,6 +358,14 @@
             box-shadow: 0 10px 25px rgba(74, 108, 247, 0.5);
         }
 
+        .nav-btn a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .nav-btn i {
             transition: var(--transition);
         }
@@ -386,24 +376,23 @@
 
         /* Footer */
         footer {
-            background: rgba(2, 13, 24, 0.8);
+            background: #2E3A59;
             text-align: center;
             padding: 30px 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+        }
+
+        footer .social-links {
+            margin-bottom: 25px;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
             gap: 25px;
-            margin-bottom: 25px;
         }
 
         .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -411,7 +400,14 @@
             border: 1px solid var(--glass-border);
             color: var(--text-light);
             font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: var(--transition);
+        }
+
+        [data-theme="light"] .social-link {
+            color: var(--text-dark);
         }
 
         .social-link:hover {
@@ -424,56 +420,51 @@
             font-size: 0.9rem;
             opacity: 0.7;
             margin-top: 15px;
-        }
-
-        body.light footer {
-            background: rgba(248, 249, 255, 0.8);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        body.light .social-link {
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            color: var(--text-dark);
+            color: var(--text-light);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            header {
-                padding: 80px 20px 40px;
+            .portfolio {
+                grid-template-columns: repeat(2, 1fr);
             }
-            
+
+            header {
+                padding: 60px 20px 30px;
+            }
+
             .typing-text {
                 font-size: 2rem;
             }
-            
+        }
+
+        @media (max-width: 600px) {
             .portfolio {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: 1fr;
             }
-            
+
+            .portfolio-item {
+                max-width: 100%;
+                height: 250px;
+            }
+
+            .typing-text {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
             .nav-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .nav-btn {
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .typing-text {
-                font-size: 1.6rem;
-            }
-            
-            .portfolio {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
             }
         }
 
@@ -485,6 +476,7 @@
 
         .animate {
             animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
         }
 
         .delay-1 { animation-delay: 0.1s; }
@@ -494,165 +486,118 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
 
-        /* Floating elements */
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-
         @keyframes floating {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
         }
 
-        .floating-1 { animation-delay: 0s; }
-        .floating-2 { animation-delay: 1s; }
-        .floating-3 { animation-delay: 2s; }
-        .floating-4 { animation-delay: 3s; }
-        .floating-5 { animation-delay: 4s; }
-        .floating-6 { animation-delay: 5s; }
+        .floating-1 { animation: floating 6s ease-in-out infinite; }
+        .floating-2 { animation: floating 6s ease-in-out infinite 1s; }
+        .floating-3 { animation: floating 6s ease-in-out infinite 2s; }
+        .floating-4 { animation: floating 6s ease-in-out infinite 3s; }
+        .floating-5 { animation: floating 6s ease-in-out infinite 4s; }
+        .floating-6 { animation: floating 6s ease-in-out infinite 5s; }
     </style>
 </head>
-<body class="light">
+<body>
+    <!-- Dark/Light Mode Toggle -->
     <div class="switch-container">
-        <span class="theme-label">DARK MODE</span>
+        <span class="theme-label">LIGHT MODE</span>
         <label class="switch-mode">
             <input type="checkbox" id="modeToggle">
             <span class="slider"></span>
         </label>
     </div>
 
-    <header>
+    <!-- Header -->
+    <header class="animate">
         <div class="logo animate">JAWAD</div>
         <p class="tagline animate delay-1">Python Developer & Programmer crafting elegant solutions to complex problems</p>
-        
         <div class="typing-container animate delay-2">
             <div class="typing-text">
                 <span id="dynamic-text">Hello, I'm Jawad!</span>
             </div>
         </div>
-        
         <p class="highlighted-para animate delay-3">
             Explore my portfolio to see how I transform ideas into functional, efficient, and beautiful digital solutions.
         </p>
     </header>
 
+    <!-- Portfolio Section -->
     <section class="portfolio-section">
         <h2 class="section-title animate delay-1">My Portfolio</h2>
         <div class="portfolio">
-            <!-- Portfolio Item 1: About Me -->
-            <div class="portfolio-item animate delay-1 floating floating-1">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="About Me">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">About Me</h3>
-                    <a href="myintro.html" class="portfolio-link">
-                        View Details <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-1 floating-1">
+                <a href="myintro.html" aria-label="Go to About Page">
+                    <img src="myintro.jpg" alt="About Me" class="responsive-img">
+                    <span>ABOUT ME</span>
+                </a>
             </div>
-            
-            <!-- Portfolio Item 2: My Skills -->
-            <div class="portfolio-item animate delay-2 floating floating-2">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80" alt="My Skills">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">My Skills</h3>
-                    <a href="services.html" class="portfolio-link">
-                        View Details <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-2 floating-2">
+                <a href="services.html" aria-label="Go to Skills Page">
+                    <img src="services.avif" alt="My Skills" class="responsive-img">
+                    <span>MY SKILLS</span>
+                </a>
             </div>
-            
-            <!-- Portfolio Item 3: My CV -->
-            <div class="portfolio-item animate delay-3 floating floating-3">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80" alt="My CV">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">My CV</h3>
-                    <a href="cv.html" class="portfolio-link">
-                        Download CV <i class="fas fa-download"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-3 floating-3">
+                <a href="cv.html" aria-label="Go to CV Page">
+                    <img src="cv.jpg" alt="My CV" class="responsive-img">
+                    <span>MY CV</span>
+                </a>
             </div>
-            
-            <!-- Portfolio Item 4: Projects -->
-            <div class="portfolio-item animate delay-4 floating floating-4">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Projects">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Projects</h3>
-                    <a href="myProject..html" class="portfolio-link">
-                        View Projects <i class="fas fa-folder-open"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-4 floating-4">
+                <a href="myProject.html" aria-label="Go to Projects Page">
+                    <img src="project.png" alt="Projects" class="responsive-img">
+                    <span>PROJECTS</span>
+                </a>
             </div>
-            
-            <!-- Portfolio Item 5: Contact -->
-            <div class="portfolio-item animate delay-5 floating floating-5">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1519162584292-56dfc9eb5db4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80" alt="Contact">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Contact</h3>
-                    <a href="contactme.html" class="portfolio-link">
-                        Get in Touch <i class="fas fa-paper-plane"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-5 floating-5">
+                <a href="contactme.html" aria-label="Go to Contact Page">
+                    <img src="contact.png" alt="Contact" class="responsive-img">
+                    <span>CONTACT</span>
+                </a>
             </div>
-            
-            <!-- Portfolio Item 6: Blog -->
-            <div class="portfolio-item animate delay-6 floating floating-6">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Blog">
-                </div>
-                <div class="portfolio-content">
-                    <h3 class="portfolio-title">Blog</h3>
-                    <a href="blog.html" class="portfolio-link">
-                        Read Articles <i class="fas fa-book-open"></i>
-                    </a>
-                </div>
+            <div class="portfolio-item animate delay-6 floating-6">
+                <a href="blog.html" aria-label="Go to Blog Page">
+                    <img src="blog.webp" alt="Blog" class="responsive-img">
+                    <span>BLOG</span>
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <button class="nav-btn animate delay-4">
-            <a href="index.html"><i class="fas fa-sync-alt"></i> Refresh</a>
+            <a href="index.html" aria-label="Refresh Page"><i class="fas fa-sync-alt"></i> Refresh</a>
         </button>
         <button class="nav-btn animate delay-5">
-            <a href="contactme.html"><i class="fas fa-envelope"></i> Contact Me</a>
+            <a href="contactme.html" aria-label="Go to Contact Page"><i class="fas fa-envelope"></i> Contact Me</a>
         </button>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <p class="copyright">© 2023 Jawad. All Rights Reserved.</p>
+        <p class="copyright">© 2025 Jawad. All Rights Reserved.</p>
     </footer>
 
     <script>
         // Dark/Light Mode Toggle
         const modeToggle = document.getElementById('modeToggle');
-        const body = document.body;
-        
+        const html = document.documentElement;
         modeToggle.addEventListener('change', () => {
-            body.classList.toggle('light');
-            body.classList.toggle('dark');
-            
-            // Update theme label
-            const themeLabel = document.querySelector('.theme-label');
-            themeLabel.textContent = body.classList.contains('light') ? 'DARK MODE' : 'LIGHT MODE';
+            const currentTheme = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+            document.querySelector('.theme-label').textContent = currentTheme === 'light' ? 'DARK MODE' : 'LIGHT MODE';
         });
-        
+
         // Dynamic Text Animation
         const textElement = document.getElementById('dynamic-text');
         const texts = [
@@ -662,15 +607,12 @@
             "Creative Programmer",
             "Full Stack Developer"
         ];
-        
         let textIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
         let typingSpeed = 120;
-        
         function typeText() {
             const currentText = texts[textIndex];
-            
             if (isDeleting) {
                 textElement.textContent = currentText.substring(0, charIndex - 1);
                 charIndex--;
@@ -680,29 +622,23 @@
                 charIndex++;
                 typingSpeed = 120;
             }
-            
             if (!isDeleting && charIndex === currentText.length) {
                 isDeleting = true;
-                typingSpeed = 1000; // Pause at end
+                typingSpeed = 1000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 textIndex = (textIndex + 1) % texts.length;
             }
-            
             setTimeout(typeText, typingSpeed);
         }
-        
-        // Start typing animation
         setTimeout(typeText, 1000);
-        
-        // Scroll animations
-        document.addEventListener('DOMContentLoaded', function() {
+
+        // Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll('.animate');
-            
             animatedElements.forEach(element => {
                 element.style.opacity = '0';
             });
-            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -710,20 +646,12 @@
                         entry.target.style.opacity = '1';
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
-            
-            animatedElements.forEach(element => {
-                observer.observe(element);
-            });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => observer.observe(element));
         });
-        
-        // Add floating effect to portfolio items
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        portfolioItems.forEach((item, index) => {
-            item.classList.add(`floating-${index + 1}`);
-        });
+
+        // Default Theme
+        html.setAttribute('data-theme', 'light');
     </script>
 </body>
 </html>
