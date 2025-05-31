@@ -5,162 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects Page - Jawad</n    ></title>
     <style>
-        /* General Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body {
-            display: flex; min-height: 100vh;
-            transition: background 0.4s ease, color 0.4s ease;
-            overflow-x: hidden;
-        }
+ /* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+    transition: all 0.3s ease;
+}
 
-        /* Dark/Light Mode */
-        .dark { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #e0e0e0; }
-        .light { background: linear-gradient(135deg, #f0f4f8, #d9e2ec); color: #333; }
+body.dark {
+    background-color: #1a1a2e;
+    color: #e6e6e6;
+}
 
-        /* Switch Button */
-        .switch-mode { position: fixed; top: 20px; left: 20px;
-            width: 60px; height: 30px; background: #333; border-radius: 15px;
-            border: none; cursor: pointer; display: flex; align-items: center;
-            padding: 0 5px; transition: background 0.3s ease; z-index: 1000;
-        }
-        .switch-mode::before { content: ''; width: 24px; height: 24px; background: #fff;
-            border-radius: 50%; position: absolute; transition: transform 0.3s ease;
-        }
-        .dark .switch-mode { background: #4caf50; }
-        .dark .switch-mode::before { transform: translateX(30px); }
-        .switch-mode:hover { transform: scale(1.05); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+/* Navigation Styles */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 1rem 0;
+    margin: 0;
+    background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        /* Container & Sidebar (unchanged) */
-        .container { display: flex; width: 90%; max-width: 1200px; margin: 0 auto; overflow: hidden; }
-        .sidebar { width: 260px; padding: 30px; background: linear-gradient(135deg, #1b262c, #0f4c75);
-            color: #fff; flex-shrink: 0; display: flex; flex-direction: column;
-            border-top-right-radius: 20px; border-bottom-right-radius: 20px;
-            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
-            transition: background 0.4s ease, transform 0.3s ease;
-        }
-        .dark .sidebar { background: linear-gradient(135deg, #2c3e50, #1a1a2e); }
-        .sidebar:hover { transform: translateX(-10px);
-            background: linear-gradient(135deg, #0f4c75, #4caf50);
-            box-shadow: 0 8px 20px rgba(76,175,80,0.5);
-        }
-        .sidebar-header { text-align: center; margin-bottom: 30px; }
-        .sidebar-header h1 { font-size: 2rem; letter-spacing: 3px;
-            margin-bottom: 5px; text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5); color: #4caf50;
-        }
-        .sidebar-header h2 { font-size: 1.1rem; font-weight: 300;
-            color: #bbe1fa; margin-top: 5px;
-        }
-        .dark .sidebar-header h2 { color: #a0d0ff; }
-        nav ul { list-style: none; margin-top: 20px; }
-        nav ul li { margin-bottom: 15px; }
-        nav ul li a.nav-item { display: flex; align-items: center;
-            padding: 10px 16px; border-radius: 6px; color: #e0e0e0;
-            text-decoration: none; font-size: 1rem;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-        nav ul li a.nav-item:hover { background: #4caf50;
-            transform: translateX(8px); box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .icon { margin-right: 8px; font-size: 1.1rem; }
+nav ul li {
+    margin: 0 1rem;
+}
 
-        /* Projects Section */
-        .my-projects { margin-left: 270px; padding: 40px;
-            background: rgba(255,255,255,0.3); border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2);
-            width: calc(100% - 270px); transition: transform 0.3s;
-        }
-        .dark .my-projects { background: rgba(40,40,60,0.3);
-            border: 1px solid rgba(76,175,80,0.3);
-        }
-        .my-projects:hover { transform: scale(1.01); }
-        .my-projects h1 { font-size: 2.5rem; color: #4caf50;
-            text-align: center; border-bottom: 2px solid #4caf50;
-            display: inline-block; padding-bottom: 10px; margin-bottom: 30px;
-        }
-        .my-projects h2 { font-size: 1.5rem; text-align: center;
-            margin-bottom: 30px; color: #2c3e50;
-        }
-        .dark .my-projects h2 { color: #e0e0e0; }
+.nav-item {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
 
-        /* Project Cards */
-        .projects { display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
-            gap: 30px; margin-top: 40px;
-        }
-        .project-card {
-            position: relative;
-            background: rgba(255,255,255,0.3);
-            border-radius: 15px; padding: 25px;
-            text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            backdrop-filter: blur(8px); border: 2px solid transparent;
-            transition: background 0.4s, transform 0.4s, box-shadow 0.4s;
-        }
-        .dark .project-card { background: rgba(40,40,60,0.3); }
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
 
-        /* Border draw animation */
-        @keyframes drawBorder {
-            0% { border-color: transparent; }
-            100% { border-color: #4caf50; }
-        }
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            animation: drawBorder 0.6s forwards;
-            background: rgba(255,255,255,0.5);
-        }
-        .dark .project-card:hover { background: rgba(76,175,80,0.3); }
+.icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
 
-        .project-card h3 { font-size: 1.3rem; margin-bottom: 10px; color: #2c3e50; }
-        .dark .project-card h3 { color: #e0e0e0; }
-        .project-card a { font-size: 1rem; color: #4caf50;
-            text-decoration: none; transition: color 0.3s;
-        }
-        .dark .project-card a { color: #81c784; }
-        .project-card a:hover { color: #d32f2f; }
-        .project-card p { font-size: 1rem; margin-top: 15px; color: #555; }
-        .dark .project-card p { color: #b0b0b0; }
+/* Main Content Styles */
+.my-projects {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
 
-                /* Updated Go Home Button */
-        .go-home {
-            display: inline-block;
-            margin: 20px auto 0;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #4caf50, #81c784);
-            color: #fff;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-        }
-        .go-home:hover {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, #66bb6a, #388e3c);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .go-home:hover { transform: translateY(-3px);
-            box-shadow: 0 6px 14px rgba(0,0,0,0.2); }
+.animated-heading {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #6e48aa;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .my-projects { margin-left: 0; width: 100%; padding: 20px; }
-            .switch-mode { width: 50px; height: 25px; }
-            .switch-mode::before { width: 20px; height: 20px; }
-            .dark .switch-mode::before { transform: translateX(25px); }
-            .go-home { width: 180px; padding: 12px 24px; font-size: 0.9rem; }
-        }
-        @media (max-width: 480px) {
-            .my-projects h1 { font-size: 2rem; }
-            .my-projects h2 { font-size: 1.3rem; }
-            .project-card { padding: 15px; }
-            .go-home { width: 160px; padding: 10px 20px; font-size: 0.85rem; }
-        }
-    </style>
+.animated-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #6e48aa, #9d50bb);
+    border-radius: 2px;
+}
+
+.my-projects h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #444;
+}
+
+body.dark .my-projects h2 {
+    color: #e6e6e6;
+}
+
+/* Projects Grid */
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+body.dark .project-card {
+    background: #16213e;
+    border-color: #2a2a4a;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.dark .project-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: #6e48aa;
+}
+
+body.dark .project-card h3 {
+    color: #9d50bb;
+}
+
+.project-card h3 a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.project-card h3 a:hover {
+    color: #9d50bb;
+    text-decoration: underline;
+}
+
+body.dark .project-card h3 a:hover {
+    color: #b56bdb;
+}
+
+.project-card p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+body.dark .project-card p {
+    color: #b8b8b8;
+}
+
+/* Go Home Button */
+.go-home {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
+    transition: all 0.3s ease;
+}
+
+.go-home:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(110, 72, 170, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+    
+    .projects {
+        grid-template-columns: 1fr;
+    }
+    
+    .animated-heading {
+        font-size: 2rem;
+    }
+}
+
+/* Animation for the heading */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-heading {
+    animation: fadeIn 1s ease-out forwards;
+}
 </head>
 <body class="light">
     <button class="switch-mode" onclick="toggleMode()"></button>
