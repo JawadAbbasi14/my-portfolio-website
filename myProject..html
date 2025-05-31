@@ -3,225 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects Page - Jawad</n    ></title>
+    <title>My Projects Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
- /* Base Styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f7fa;
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-body.dark {
-    background-color: #1a1a2e;
-    color: #e6e6e6;
-}
-
-/* Navigation Styles */
-nav ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-    padding: 1rem 0;
-    margin: 0;
-    background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-nav ul li {
-    margin: 0 1rem;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.icon {
-    margin-right: 8px;
-    font-size: 1.2em;
-}
-
-/* Main Content Styles */
-.my-projects {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-}
-
-.animated-heading {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #6e48aa;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.animated-heading::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: linear-gradient(90deg, #6e48aa, #9d50bb);
-    border-radius: 2px;
-}
-
-.my-projects h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #444;
-}
-
-body.dark .my-projects h2 {
-    color: #e6e6e6;
-}
-
-/* Projects Grid */
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.project-card {
-    background: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border: 1px solid #eee;
-}
-
-body.dark .project-card {
-    background: #16213e;
-    border-color: #2a2a4a;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-body.dark .project-card:hover {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
-
-.project-card h3 {
-    margin-top: 0;
-    color: #6e48aa;
-}
-
-body.dark .project-card h3 {
-    color: #9d50bb;
-}
-
-.project-card h3 a {
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease;
-}
-
-.project-card h3 a:hover {
-    color: #9d50bb;
-    text-decoration: underline;
-}
-
-body.dark .project-card h3 a:hover {
-    color: #b56bdb;
-}
-
-.project-card p {
-    color: #666;
-    margin-bottom: 0;
-}
-
-body.dark .project-card p {
-    color: #b8b8b8;
-}
-
-/* Go Home Button */
-.go-home {
-    display: block;
-    width: fit-content;
-    margin: 2rem auto;
-    padding: 0.8rem 1.5rem;
-    background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(110, 72, 170, 0.3);
-    transition: all 0.3s ease;
-}
-
-.go-home:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(110, 72, 170, 0.4);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    nav ul li {
-        margin: 0.5rem 0;
-    }
-    
-    .projects {
-        grid-template-columns: 1fr;
-    }
-    
-    .animated-heading {
-        font-size: 2rem;
-    }
-}
-
-/* Animation for the heading */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.animated-heading {
-    animation: fadeIn 1s ease-out forwards;
-}
+        /* Base Styles - Enhanced with new effects */
+        :root {
+            --primary: #6e48aa;
+            --secondary: #9d50bb;
+            --accent: #ff6b6b;
+            --light: #f5f7fa;
+            --dark: #1a1a2e;
+            --card-light: #ffffff;
+            --card-dark: #16213e;
+            --text-light: #333;
+            --text-dark: #e6e6e6;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            color: var(--text-light);
+            transition: var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        body.dark {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            color: var(--text-dark);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation Styles - Enhanced */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(110, 72, 170, 0.85);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark nav {
+            background: rgba(26, 26, 46, 0.9);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 1rem 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+            position: relative;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .nav-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+        
+        .nav-item:hover:before {
+            width: 100%;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .icon {
+            margin-right: 10px;
+            font-size: 1.3em;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover .icon {
+            transform: scale(1.2);
+        }
+        
+        /* Main Content Styles - Enhanced */
+        .my-projects {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .animated-heading {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .animated-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+            animation: linePulse 2s infinite;
+        }
+        
+        .my-projects h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: #444;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        body.dark .my-projects h2 {
+            background: linear-gradient(45deg, #9d50bb, #b56bdb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* Projects Grid - Enhanced */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background: var(--card-light);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            border: 1px solid rgba(238, 238, 238, 0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 250px;
+        }
+        
+        .project-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        body.dark .project-card {
+            background: var(--card-dark);
+            border-color: rgba(42, 42, 74, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        body.dark .project-card:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .project-card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .project-card h3:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .project-card:nth-child(1) h3:before {
+            content: '1';
+        }
+        
+        .project-card:nth-child(2) h3:before {
+            content: '2';
+        }
+        
+        .project-card:nth-child(3) h3:before {
+            content: '3';
+        }
+        
+        body.dark .project-card h3 {
+            color: #9d50bb;
+        }
+        
+        .project-card h3 a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .project-card h3 a:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .project-card h3 a:hover:after {
+            width: 100%;
+        }
+        
+        .project-card h3 a:hover {
+            color: var(--secondary);
+        }
+        
+        body.dark .project-card h3 a:hover {
+            color: #b56bdb;
+        }
+        
+        .project-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+        
+        body.dark .project-card p {
+            color: #b8b8b8;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+        
+        .tech-tag {
+            background: rgba(110, 72, 170, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        body.dark .tech-tag {
+            background: rgba(157, 80, 187, 0.15);
+            color: #c792ea;
+        }
+        
+        /* Go Home Button - Enhanced */
+        .go-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: 3rem auto;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 15px rgba(110, 72, 170, 0.3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .go-home:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+        
+        .go-home:hover:before {
+            width: 100%;
+        }
+        
+        .go-home:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(110, 72, 170, 0.5);
+        }
+        
+        .go-home i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .go-home:hover i {
+            transform: translateX(-5px);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #aaa;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 100;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes linePulse {
+            0% { width: 150px; }
+            50% { width: 180px; }
+            100% { width: 150px; }
+        }
+        
+        .animated-heading {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .project-card {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        
+        /* Responsive Design - Enhanced */
+        @media (max-width: 900px) {
+            .projects {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0.5rem;
+            }
+            
+            .nav-item {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .projects {
+                grid-template-columns: 1fr;
+            }
+            
+            .animated-heading {
+                font-size: 2.5rem;
+            }
+            
+            .my-projects h2 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .animated-heading {
+                font-size: 2rem;
+            }
+            
+            .nav-item {
+                padding: 0.6rem 1rem;
+            }
+            
+            .project-card {
+                padding: 1.5rem;
+            }
+            
+            .project-card h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
 </head>
 <body class="light">
-    <button class="switch-mode" onclick="toggleMode()"></button>
     <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar sidebar-go">
-            <div class="sidebar-header">
-                <h1><b>Developer</b></h1>
-                <h2>Jawad</h2>
-            </div>
-            <nav><ul>
+        <nav>
+            <ul>
                 <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
                 <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
                 <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
@@ -229,41 +518,85 @@ body.dark .project-card p {
                 <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
                 <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
                 <li><a href="myProject.html" class="nav-item"><span class="icon">📽</span>My Projects</a></li>
-            </ul></nav>
-        </div>
+            </ul>
+        </nav>
 
         <!-- Main Content -->
         <div class="my-projects">
-            <h1 class="animated-heading">Welcome to My Project Page!</h1>
-            <h2>My Projects</h2>
+            <h1 class="animated-heading">Welcome to My Project Portfolio!</h1>
+            <h2>My Featured Projects</h2>
             <div class="projects">
                 <!-- Todo Project -->
                 <div class="project-card">
-                    <h3><a href="https://hashimthepassionate.github.io/todo-application/">Todo Game Project</a></h3>
-                    <p>This is a simple yet interactive To-Do list application where users can add, edit, and delete tasks.</p>
+                    <h3><a href="https://hashimthepassionate.github.io/todo-application/">Todo Application</a></h3>
+                    <p>A modern, interactive To-Do list application with task management features, drag and drop functionality, and local storage support.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Local Storage</span>
+                    </div>
                 </div>
 
                 <!-- Quiz Game Project -->
                 <div class="project-card">
-                    <h3><a href="https://jawadabbasi14.github.io/Quiz_game/">Quiz Game</a></h3>
-                    <p>Test your knowledge with this fun quiz game, featuring multiple-choice questions and a scoring system.</p>
+                    <h3><a href="https://jawadabbasi14.github.io/Quiz_game/">Interactive Quiz Game</a></h3>
+                    <p>An engaging quiz platform featuring multiple-choice questions, scoring system, timer, and dynamic feedback for users.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">Responsive</span>
+                        <span class="tech-tag">Animations</span>
+                    </div>
                 </div>
 
                 <!-- Weather API Project -->
                 <div class="project-card">
-                    <h3><a href="https://hashimthepassionate.github.io/weather-app/">Weather API Project</a></h3>
-                    <p>Check real-time weather data from various locations using this weather application powered by an API.</p>
+                    <h3><a href="https://hashimthepassionate.github.io/weather-app/">Weather Dashboard</a></h3>
+                    <p>A real-time weather application that provides forecasts using geolocation, search functionality, and 5-day predictions.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">API Integration</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Geolocation</span>
+                        <span class="tech-tag">Bootstrap</span>
+                    </div>
                 </div>
             </div>
+            
+            <a href="index.html" class="go-home"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 My Portfolio. All rights reserved. | Designed with ❤️</p>
         </div>
     </div>
-    <a href="index.html" class="go-home">Go Home</a>
+    
+    <button class="theme-toggle" onclick="toggleMode()">
+        <i class="fas fa-moon"></i>
+    </button>
+    
     <script>
         function toggleMode() {
-            document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
+            const body = document.body;
+            body.classList.toggle('dark');
+            body.classList.toggle('light');
+            
+            const themeToggle = document.querySelector('.theme-toggle');
+            const isDark = body.classList.contains('dark');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         }
-        document.body.classList.add('light');
+        
+        // Set initial theme based on preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                document.body.classList.add('dark');
+                document.body.classList.remove('light');
+                document.querySelector('.theme-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.add('light');
+            }
+        });
     </script>
 </body>
 </html>
