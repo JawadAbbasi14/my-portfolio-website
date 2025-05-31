@@ -3,540 +3,763 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Page - Jawad</title>
-    <!-- Font Awesome for icons -->
+    <title>Contact Developer Jawad</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* General Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Modern Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            display: flex; min-height: 100vh;
-            transition: background 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             overflow-x: hidden;
+            position: relative;
         }
-
-        /* Dark Mode Styles */
-        .dark {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: #e0e0e0;
+        
+        /* Particle Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
-
-        /* Light Mode Styles */
+        
+        /* Light Mode Theme */
         .light {
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-            color: #333;
+            --bg-primary: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+            --text-primary: #1a2b50;
+            --text-secondary: #4a5568;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-border: rgba(209, 213, 219, 0.5);
+            --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-gradient: linear-gradient(135deg, #3b82f6, #60a5fa);
+            --sidebar-bg: linear-gradient(160deg, #1e3a8a, #3b82f6);
+            --input-bg: rgba(249, 250, 251, 0.8);
+            --icon-color: #3b82f6;
+            --toggle-bg: #1e40af;
         }
-
-        /* Switch Button */
-        .switch-mode {
+        
+        /* Dark Mode Theme */
+        .dark {
+            --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --text-primary: #e2e8f0;
+            --text-secondary: #a0aec0;
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(30, 41, 59, 0.7);
+            --card-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            --accent: #818cf8;
+            --accent-light: #a5b4fc;
+            --accent-gradient: linear-gradient(135deg, #818cf8, #a5b4fc);
+            --sidebar-bg: linear-gradient(160deg, #312e81, #6366f1);
+            --input-bg: rgba(30, 41, 59, 0.7);
+            --icon-color: #a5b4fc;
+            --toggle-bg: #4f46e5;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        /* Advanced Toggle Switch */
+        .mode-toggle {
             position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 60px;
-            height: 30px;
-            background: #333;
-            border-radius: 15px;
-            border: none;
-            cursor: pointer;
+            top: 30px;
+            right: 30px;
+            width: 70px;
+            height: 32px;
+            border-radius: 50px;
+            background: var(--toggle-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
             padding: 0 5px;
-            transition: background 0.3s ease;
+            cursor: pointer;
             z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            overflow: hidden;
         }
-
-        .switch-mode::before {
-            content: '';
+        
+        .mode-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .toggle-circle {
             width: 24px;
             height: 24px;
-            background: #fff;
             border-radius: 50%;
+            background: white;
             position: absolute;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
-
-        .dark .switch-mode {
-            background: #4caf50;
+        
+        .light .toggle-circle {
+            left: 5px;
+            background: #ffd43b;
         }
-
-        .dark .switch-mode::before {
-            transform: translateX(30px);
+        
+        .dark .toggle-circle {
+            left: 41px;
+            background: #e2e8f0;
         }
-
-        .switch-mode:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        
+        .toggle-icon {
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            transition: opacity 0.3s ease;
         }
-
+        
+        .sun-icon {
+            left: 10px;
+        }
+        
+        .moon-icon {
+            right: 10px;
+        }
+        
+        .light .moon-icon,
+        .dark .sun-icon {
+            opacity: 0;
+        }
+        
         /* Container */
         .container {
             display: flex;
             width: 90%;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 80px auto 40px;
             overflow: hidden;
+            position: relative;
+            z-index: 10;
         }
-
-        /* Sidebar */
+        
+        /* Enhanced Sidebar */
         .sidebar {
-            width: 260px;
-            padding: 30px;
-            background: linear-gradient(135deg, #1b262c, #0f4c75);
-            color: #fff;
+            width: 280px;
+            padding: 35px 25px;
+            background: var(--sidebar-bg);
+            color: white;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            box-shadow: inset 4px 0 10px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.2);
-            transition: background 0.4s ease, transform 0.3s ease;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
         }
-
-        .dark .sidebar {
-            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+        
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: -1;
         }
-
+        
         .sidebar:hover {
-            transform: translateX(-10px);
-            background: linear-gradient(135deg, #0f4c75, #4caf50);
-            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="none" stroke="white" stroke-width="2" stroke-dasharray="10,5"/></svg>');
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         .sidebar-header {
             text-align: center;
-            margin-bottom: 30px;
         }
-
+        
         .sidebar-header h1 {
-            font-size: 2rem;
-            letter-spacing: 3px;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
             margin-bottom: 5px;
             text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            color: #4caf50;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ffffff, #d1d5db);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
+        
         .sidebar-header h2 {
             font-size: 1.1rem;
             font-weight: 300;
-            color: #bbe1fa;
+            color: #dbeafe;
             margin-top: 5px;
+            letter-spacing: 2px;
         }
-
-        .dark .sidebar-header h2 {
-            color: #a0d0ff;
-        }
-
+        
         .sidebar nav ul {
             list-style: none;
-            margin-top: 20px;
+            margin-top: 25px;
         }
-
+        
         .sidebar nav ul li {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
-
+        
         .sidebar nav ul li a.nav-item {
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            border-radius: 6px;
-            color: #e0e0e0;
+            padding: 12px 20px;
+            border-radius: 10px;
+            color: #e0f2fe;
             text-decoration: none;
-            font-size: 1rem;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
-
+        
+        .sidebar nav ul li a.nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+        
         .sidebar nav ul li a.nav-item:hover {
-            background: #4caf50;
-            transform: translateX(8px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
+        
+        .sidebar nav ul li a.nav-item:hover::before {
+            width: 100%;
+        }
+        
         .sidebar nav ul li a.nav-item .icon {
-            margin-right: 8px;
-            font-size: 1.1rem;
+            margin-right: 12px;
+            font-size: 1.2rem;
+            min-width: 24px;
+            text-align: center;
         }
-
-        /* Hamburger Menu */
-        .hanbarger {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .hanbarger img {
-            cursor: pointer;
-        }
-
-        .cross {
-            display: none;
-        }
-
-        /* Main Content */
+        
+        /* Main Content Area */
         .main {
             flex: 1;
-            padding: 40px;
+            padding: 0 40px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
-        /* Contact Form */
-        .contactform {
-            background: rgba(255,255,255,0.3);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        
+        /* Enhanced Contact Form */
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: var(--card-shadow);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
             max-width: 600px;
             width: 100%;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        .dark .contactform {
-            background: rgba(40,40,60,0.3);
-            border: 1px solid rgba(76,175,80,0.3);
-        }
-
-        .contactform:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2), 0 0 20px rgba(76,175,80,0.5);
-        }
-
-        .contactform h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #2c3e50;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .dark .contactform h1 {
-            color: #e0e0e0;
-        }
-
-        /* Form Inputs with Icons */
-        .mb-3 {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            margin-bottom: 20px;
+            overflow: hidden;
         }
-
-        .mb-3 i {
+        
+        .contact-card::before {
+            content: '';
             position: absolute;
-            left: 15px;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59,130,246,0.05) 0%, rgba(59,130,246,0) 70%);
+            z-index: -1;
+        }
+        
+        .dark .contact-card::before {
+            background: radial-gradient(circle, rgba(129,140,248,0.05) 0%, rgba(129,140,248,0) 70%);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .dark .contact-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(129, 140, 248, 0.3);
+        }
+        
+        .contact-card h1 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 2.3rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-card h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .form-label {
+            position: absolute;
+            top: 18px;
+            left: 50px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            font-size: 1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 20px 20px 20px 50px;
+            border-radius: 12px;
+            border: 1px solid rgba(156, 163, 175, 0.3);
+            font-size: 1rem;
+            background: var(--input-bg);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: var(--text-primary);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .dark .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.3);
+        }
+        
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -12px;
+            left: 40px;
+            background: var(--card-bg);
+            padding: 0 8px;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        
+        .form-icon {
+            position: absolute;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: #4caf50;
+            color: var(--icon-color);
             font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
-
-        .mb-3 label {
-            font-weight: bold;
-            color: #2c3e50;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            display: block;
+        
+        .form-input:focus ~ .form-icon {
+            color: var(--accent);
+            transform: translateY(-50%) scale(1.2);
         }
-
-        .dark .mb-3 label {
-            color: #e0e0e0;
+        
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
         }
-
-        .mb-3 input, .mb-3 textarea {
-            width: 100%;
-            padding: 12px 12px 12px 40px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.5);
-            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .dark .mb-3 input, .dark .mb-3 textarea {
-            background: rgba(40,40,60,0.5);
-            border: 1px solid rgba(76,175,80,0.3);
-            color: #e0e0e0;
-        }
-
-        .mb-3 input:focus, .mb-3 textarea:focus {
-            border-color: #4caf50;
-            outline: none;
-            transform: scale(1.02);
-            box-shadow: 0 0 10px rgba(76,175,80,0.5);
-        }
-
-        .mb-3 input::placeholder, .mb-3 textarea::placeholder {
-            color: #888;
-            opacity: 0.8;
-        }
-
-        .dark .mb-3 input::placeholder, .dark .mb-3 textarea::placeholder {
-            color: #b0b0b0;
-        }
-
-        .form-text {
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 5px;
-        }
-
-        .dark .form-text {
-            color: #b0b0b0;
-        }
-
-        /* Checkbox */
-        #fom-check {
+        
+        .checkbox-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            margin: 25px 0;
         }
-
-        .form-check-label {
-            color: #2c3e50;
-            font-size: 1rem;
-        }
-
-        .dark .form-check-label {
-            color: #e0e0e0;
-        }
-
-        .form-check-input {
+        
+        .checkbox-container input {
             width: 20px;
             height: 20px;
+            margin-right: 12px;
+            accent-color: var(--accent);
             cursor: pointer;
         }
-
+        
+        .checkbox-container label {
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
         /* Submit Button */
         #submitBtn {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #4caf50, #81c784);
-            color: #fff;
+            padding: 16px;
+            background: var(--accent-gradient);
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 20px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
-
+        
+        .dark #submitBtn {
+            box-shadow: 0 5px 15px rgba(129, 140, 248, 0.3);
+        }
+        
         #submitBtn:hover {
-            background: linear-gradient(135deg, #388e3c, #66bb6a);
             transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
         }
-
+        
+        .dark #submitBtn:hover {
+            box-shadow: 0 8px 20px rgba(129, 140, 248, 0.4);
+        }
+        
+        #submitBtn:active {
+            transform: translateY(1px);
+        }
+        
+        #submitBtn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        #submitBtn:hover::after {
+            left: 100%;
+        }
+        
         /* Go Home Button */
         .go-home {
             display: block;
-            margin: 30px auto 0;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #4caf50, #81c784);
-            color: #fff;
+            margin: 40px auto 0;
+            padding: 14px 32px;
+            background: var(--accent-gradient);
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
             font-weight: 600;
             text-align: center;
             text-decoration: none;
-            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            width: 200px;
-        }
-
-        .go-home:hover {
-            background: linear-gradient(135deg, #388e3c, #66bb6a);
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        /* Popup Modal */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.3);
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
-            width: 300px;
-            text-align: center;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-        }
-
-        .dark .popup {
-            background: rgba(40,40,60,0.3);
-            border: 1px solid rgba(76,175,80,0.3);
-        }
-
-        .popup-content {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 220px;
             position: relative;
+            overflow: hidden;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
-
-        .popup p {
-            color: #2c3e50;
-            font-size: 1rem;
-            margin-bottom: 20px;
+        
+        .dark .go-home {
+            box-shadow: 0 5px 15px rgba(129, 140, 248, 0.3);
         }
-
-        .dark .popup p {
-            color: #e0e0e0;
+        
+        .go-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
         }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 20px;
-            cursor: pointer;
-            color: #2c3e50;
-            transition: color 0.3s ease;
+        
+        .dark .go-home:hover {
+            box-shadow: 0 8px 20px rgba(129, 140, 248, 0.4);
         }
-
-        .dark .close-btn {
-            color: #e0e0e0;
+        
+        .go-home:active {
+            transform: translateY(1px);
         }
-
-        .close-btn:hover {
-            color: #d32f2f;
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                margin: 60px auto 30px;
+            }
+            
             .sidebar {
-                display: none;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto 40px;
+                border-radius: 20px;
             }
-            .hanbarger {
-                display: block;
-            }
+            
             .main {
-                padding: 20px;
-            }
-            .contactform {
-                padding: 20px;
-            }
-            .switch-mode {
-                width: 50px;
-                height: 25px;
-            }
-            .switch-mode::before {
-                width: 20px;
-                height: 20px;
-            }
-            .dark .switch-mode::before {
-                transform: translateX(25px);
-            }
-            .go-home {
-                width: 180px;
-                padding: 10px 20px;
-                font-size: 0.9rem;
+                padding: 0;
             }
         }
-
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            .contact-card {
+                padding: 30px;
+            }
+            
+            .contact-card h1 {
+                font-size: 2rem;
+            }
+            
+            .mode-toggle {
+                top: 20px;
+                right: 20px;
+            }
+        }
+        
         @media (max-width: 480px) {
-            .contactform h1 {
-                font-size: 1.5rem;
+            .contact-card {
+                padding: 25px 20px;
             }
-            .mb-3 label {
-                font-size: 1rem;
+            
+            .contact-card h1 {
+                font-size: 1.8rem;
             }
-            .mb-3 input, .mb-3 textarea {
-                padding: 10px 10px 10px 35px;
-                font-size: 0.9rem;
+            
+            .form-input {
+                padding: 16px 16px 16px 45px;
             }
-            #submitBtn {
-                padding: 10px;
-                font-size: 0.9rem;
+            
+            .form-label {
+                left: 45px;
             }
+            
+            .form-icon {
+                left: 16px;
+            }
+            
             .go-home {
-                width: 160px;
-                padding: 8px 16px;
-                font-size: 0.85rem;
+                padding: 12px 25px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body class="light">
-    <button class="switch-mode" onclick="toggleMode()"></button>
+    <!-- Animated Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Advanced Toggle -->
+    <div class="mode-toggle" onclick="toggleMode()">
+        <div class="toggle-circle"></div>
+        <i class="toggle-icon sun-icon fas fa-sun"></i>
+        <i class="toggle-icon moon-icon fas fa-moon"></i>
+    </div>
+    
     <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar sidebar-go">
-            <div class="sidebar-header">
-                <h1><b>Developer</b></h1>  
-                <h2>Jawad</h2>
+        <!-- Enhanced Sidebar -->
+        <div class="sidebar">
+            <div class="profile-container">
+                <div class="profile-img"></div>
+                <div class="sidebar-header">
+                    <h1>Jawad</h1>
+                    <h2>Full Stack Developer</h2>
+                </div>
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
-                    <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
-                    <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
-                    <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
-                    <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
-                    <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
-                    <li><a href="myProject..html" class="nav-item"><span class="icon">📽</span>MY Projects</a></li>
+                    <li><a href="index.html" class="nav-item"><span class="icon"><i class="fas fa-home"></i></span>Home</a></li>
+                    <li><a href="myintro.html" class="nav-item"><span class="icon"><i class="fas fa-user"></i></span>My Intro</a></li>
+                    <li><a href="services.html" class="nav-item"><span class="icon"><i class="fas fa-cog"></i></span>Services</a></li>
+                    <li><a href="cv.html" class="nav-item"><span class="icon"><i class="fas fa-file-alt"></i></span>CV</a></li>
+                    <li><a href="blog.html" class="nav-item"><span class="icon"><i class="fas fa-blog"></i></span>Blog</a></li>
+                    <li><a href="contactme.html" class="nav-item"><span class="icon"><i class="fas fa-phone-alt"></i></span>Contact Me</a></li>
+                    <li><a href="myProject..html" class="nav-item"><span class="icon"><i class="fas fa-project-diagram"></i></span>My Projects</a></li>
                 </ul>
             </nav>
         </div>
 
-        <div class="hanbarger">
-            <img class="Ham" src="Hamburger Button.webp" alt="Hamburger Menu" width="23px">
-            <img class="cross" src="cross.webp" alt="Close Menu" width="23px">
-        </div>
-
+        <!-- Main Content -->
         <div class="main">
-            <div class="contactform">
+            <div class="contact-card">
                 <form id="contactForm">
-                    <h1>Contact Me for Work / General</h1>
-                    <div class="mb-3">
-                        <label for="clintInputName1" class="form-label">Enter Your Name</label>
-                        <i class="fas fa-user"></i>
-                        <input type="text" class="form-control" id="clintInputName1" placeholder="JawaD" aria-describedby="emailHelp">
+                    <h1>Get in Touch</h1>
+                    
+                    <div class="form-group">
+                        <i class="form-icon fas fa-user"></i>
+                        <input type="text" class="form-input" id="clintInputName1" placeholder=" " required>
+                        <label for="clintInputName1" class="form-label">Your Full Name</label>
                     </div>
-                    <div class="mb-3">
+                    
+                    <div class="form-group">
+                        <i class="form-icon fas fa-envelope"></i>
+                        <input type="email" class="form-input" id="clintInputEmail1" placeholder=" " required>
                         <label for="clintInputEmail1" class="form-label">Email Address</label>
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-control" id="clintInputEmail1" placeholder="jawadabbasi1107@gmail.com" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email & phone with anyone else.</div>
                     </div>
-                    <div class="mb-3">
-                        <label for="clinetphone" class="form-label">Phone No</label>
-                        <i class="fas fa-phone"></i>
-                        <input type="text" class="form-control" id="clinetphone" placeholder="+92 314 577 899">
+                    
+                    <div class="form-group">
+                        <i class="form-icon fas fa-phone-alt"></i>
+                        <input type="tel" class="form-input" id="clinetphone" placeholder=" ">
+                        <label for="clinetphone" class="form-label">Phone Number (Optional)</label>
                     </div>
-                    <div class="mb-3">
-                        <label for="clintInputEnquiry" class="form-label">Enquiry</label>
-                        <i class="fas fa-comment"></i>
-                        <input type="text" class="form-control" id="clintInputEnquiry" placeholder="Your message or enquiry">
+                    
+                    <div class="form-group">
+                        <i class="form-icon fas fa-comment-dots"></i>
+                        <textarea class="form-input" id="clintInputEnquiry" placeholder=" " required></textarea>
+                        <label for="clintInputEnquiry" class="form-label">Your Message</label>
                     </div>
-                    <div class="mb-3" id="fom-check">
-                        
-                        <label class="form-check-label" for="isclient">I want you to work on a project with me.</label>
-                        <input type="checkbox" class="form-check-input" id="isclient">
+                    
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="isclient">
+                        <label for="isclient">I want you to work on a project with me</label>
                     </div>
-                    <button type="submit" id="submitBtn">Submit</button>
+                    
+                    <button type="submit" id="submitBtn">Send Message <i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
     </div>
-    <a href="index.html" class="go-home">Go Home</a>
+    
+    <a href="index.html" class="go-home">Back to Home</a>
+    
+    <div class="footer">
+        <p>© 2023 Jawad. All Rights Reserved | Crafted with <i class="fas fa-heart" style="color:#ef4444"></i></p>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Theme toggle function
         function toggleMode() {
-            document.body.classList.toggle('dark');
             document.body.classList.toggle('light');
+            document.body.classList.toggle('dark');
+            
+            // Save theme preference
+            const isDarkMode = document.body.classList.contains('dark');
+            localStorage.setItem('darkMode', isDarkMode);
         }
-
-        // Default mode
-        document.body.classList.add('light');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.remove('light');
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+        }
+        
+        // Particles.js configuration
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 800 } },
+                color: { value: "#3b82f6" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: false },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+        
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+            
+            // Reset floating labels
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.dispatchEvent(new Event('input'));
+            });
+        });
     </script>
 </body>
 </html>
