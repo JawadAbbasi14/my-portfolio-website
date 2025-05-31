@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="ur-Latn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,23 +14,21 @@
         }
 
         body {
-            /* Default background image */
             background: url('background.jpg') no-repeat center center/cover;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             color: #fff;
-            transition: background 0.5s ease, color 0.5s ease;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* Dark Mode Styles */
         .dark {
-            /* Background image hata kar solid color laga raha hoon */
-            background: #020000;
-            color: #fff;
+            background-color: #020000;
+            color: white;
         }
 
         /* Light Mode Styles */
         .light {
-            background: whitesmoke;
+            background-color: whitesmoke;
             color: #020000;
         }
 
@@ -55,16 +54,16 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Heading Color Animation */
-        @keyframes colorCycle {
-            0% { color: green; }
-            33% { color: red; }
-            66% { color: yellow; }
-            100% { color: green; }
+        /* Heading Animation */
+        @keyframes typingEffect {
+            0% { color: green; content: "Hello, I am Jawad!"; }
+            33% { color: red; content: "Hello, I am a Developer!"; }
+            66% { color: yellow; content: "Hello, I am a Programmer!"; }
+            100% { color: green; content: "Hello, I am Jawad!"; }
         }
 
         .animated-heading {
-            animation: colorCycle 6s infinite;
+            animation: typingEffect 6s infinite;
             text-align: center;
             font-size: 2.5em;
             margin-top: 50px;
@@ -208,24 +207,12 @@
     </style>
 </head>
 <body>
-    <!-- Light mode by default -->
-    <script>
-        document.body.classList.add('light');
-    </script>
-
-    <!-- Mode Switch Button -->
-    <button class="switch-mode" onclick="toggleMode()">Switch Mode</button>
-
-    <!-- Animated Heading (sirf color badlega) -->
+    <button class="switch-mode" onclick="toggleMode()">Switch</button>
     <h1 class="animated-heading">
-        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=35&duration=4000&pause=500&center=true&vCenter=true&width=800&lines=Hello%2C+I+am+Jawad!;Welcome+to+my+portfolio!;I+am+Python+Developer+%26+Programmer+%F0%9F%92%BB!"
-             style="font-weight:bolder;" alt="Typing Animation">
+        <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=35&duration=4000&pause=500&center=true&vCenter=true&width=800&lines=Hello%2C+I+am+Jawad!;Welcome+to+my+portfolio!;I+am+Python+Developer+%26+Programmer+%F0%9F%92%BB!" style="color:green; font-weight:bolder;" />
     </h1>
-
-    <!-- Highlighted Paragraph -->
     <p class="highlighted-para">Explore my creative work and skills below!</p>
 
-    <!-- Portfolio Section -->
     <section class="portfolio">
         <div class="portfolio-item">
             <img src="myintro.jpg" alt="About Me">
@@ -236,13 +223,12 @@
             <span><a href="services.html">MY SKILLS</a></span>
         </div>
         <div class="portfolio-item">
-            <img src="cv.jpg" alt="My CV">
-            <span><a href="cv.html">MY CV</a></span>
+            <img src="cv.jpg" alt="My Cv">
+            <span><a href="cv.html">MY Cv</a></span>
         </div>
         <div class="portfolio-item">
             <img src="project.png" alt="Projects">
-            <!-- Ghalati thi: pehle myProject..html tha, ab sahi kiya hai -->
-            <span><a href="myProject.html">PROJECTS</a></span>
+            <span><a href="myProject..html">PROJECTS</a></span>
         </div>
         <div class="portfolio-item">
             <img src="contact.png" alt="Contact">
@@ -254,23 +240,18 @@
         </div>
     </section>
 
-    <!-- Navigation Buttons -->
     <div class="nav-buttons">
         <button><a href="index.html"><b>Refresh</b></a></button>
         <button><a href="contactme.html"><b>Contact</b></a></button>
     </div>
+<script>
+    function toggleMode() {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+    }
 
-    <!-- JavaScript for Mode Toggle -->
-    <script>
-        function toggleMode() {
-            if (document.body.classList.contains('light')) {
-                document.body.classList.remove('light');
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-                document.body.classList.add('light');
-            }
-        }
-    </script>
+    // Default mode
+    document.body.classList.add('light');
+</script>
 </body>
 </html>
