@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jawad's Professional CV</title>
+    <title>Jawad Abbasi - Python Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +13,7 @@
             --color-light-bg: #f0f4f8;
             --color-light-gradient-1: #f0f4f8;
             --color-light-gradient-2: #d9e2ec;
-            --color-dark-bg: #000000; /* Pure black background */
+            --color-dark-bg: #000000;
             --color-dark-gradient-1: #0a0a0a;
             --color-dark-gradient-2: #000000;
             --color-light-text: #333;
@@ -33,7 +33,7 @@
             --text-size-base: 1rem;
             --text-size-large: 1.25rem;
             --sidebar-bg: rgba(255,255,255,0.95);
-            --sidebar-dark-bg: rgba(10,10,10,0.95); /* Dark sidebar background */
+            --sidebar-dark-bg: rgba(10,10,10,0.95);
             --sidebar-text: #333;
             --sidebar-dark-text: #e0e0e0;
             --sidebar-width: 280px;
@@ -78,13 +78,14 @@
             width: var(--sidebar-width);
             height: 100vh;
             background: var(--sidebar-bg);
-            padding: 2rem 1.5rem;
+            padding: 2rem 1rem;
             border-right: 1px solid var(--color-light-border);
             transition: all var(--transition-slow);
             box-shadow: var(--shadow);
             z-index: 100;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
 
         body.dark .sidebar {
@@ -109,6 +110,10 @@
             font-weight: 800;
             margin-bottom: 0.5rem;
             color: var(--color-indigo-light);
+            background: linear-gradient(135deg, var(--color-indigo-light), var(--color-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         body.dark .sidebar-name {
@@ -145,7 +150,7 @@
             color: var(--sidebar-text);
             display: flex;
             align-items: center;
-            transition: color var(--transition-fast);
+            transition: all var(--transition-fast);
             padding: 0.8rem 1rem;
             border-radius: 8px;
             gap: 1rem;
@@ -156,9 +161,9 @@
             color: var(--color-indigo-light);
         }
 
-        .sidebar a .icon {
+        .sidebar a .emoji {
             font-size: 1.4rem;
-            width: 24px;
+            width: 30px;
             text-align: center;
         }
 
@@ -218,6 +223,7 @@
             margin-left: var(--sidebar-width);
             flex: 1;
             padding: 3rem 2rem;
+            max-width: calc(100% - var(--sidebar-width));
         }
 
         /* Responsive: collapse sidebar on small screens */
@@ -236,8 +242,9 @@
                 justify-content: center;
                 padding: 0.8rem;
             }
-            .sidebar a .icon {
+            .sidebar a .emoji {
                 font-size: 1.4rem;
+                width: auto;
             }
             .main-content {
                 margin-left: 80px;
@@ -604,19 +611,19 @@
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2 class="sidebar-name">JAWAD</h2>
-            <p class="sidebar-title">Python & AI Developer</p>
+            <h2 class="sidebar-name">Jawad Abbasi</h2>
+            <p class="sidebar-title">Python Developer</p>
         </div>
         
-        <!-- Requested Navigation Links -->
+        <!-- Requested Navigation Links with Emojis -->
         <ul>
-            <li><a href="#"><i class="fas fa-home icon"></i> <span class="text">Home</span></a></li>
-            <li><a href="#"><i class="fas fa-user icon"></i> <span class="text">My Intro</span></a></li>
-            <li><a href="#"><i class="fas fa-cog icon"></i> <span class="text">Services</span></a></li>
-            <li><a href="#" class="active"><i class="fas fa-file-alt icon"></i> <span class="text">CV</span></a></li>
-            <li><a href="#"><i class="fas fa-blog icon"></i> <span class="text">Blog</span></a></li>
-            <li><a href="#"><i class="fas fa-phone icon"></i> <span class="text">Contact Me</span></a></li>
-            <li><a href="#"><i class="fas fa-project-diagram icon"></i> <span class="text">My Projects</span></a></li>
+            <li><a href="index.html"><span class="emoji">🏠</span> <span class="text">Home</span></a></li>
+            <li><a href="myintro.html"><span class="emoji">👨‍💻</span> <span class="text">My Intro</span></a></li>
+            <li><a href="services.html"><span class="emoji">⚙️</span> <span class="text">Services</span></a></li>
+            <li><a href="cv.html" class="active"><span class="emoji">📄</span> <span class="text">CV</span></a></li>
+            <li><a href="blog.html"><span class="emoji">📝</span> <span class="text">Blog</span></a></li>
+            <li><a href="contactme.html"><span class="emoji">📞</span> <span class="text">Contact Me</span></a></li>
+            <li><a href="myProject..html"><span class="emoji">📽</span> <span class="text">My Projects</span></a></li>
         </ul>
         
         <div class="social-links">
@@ -637,20 +644,20 @@
         <div class="cv-container">
             <!-- Header -->
             <header>
-                <h1>JAWAD KHAN</h1>
-                <p class="subtitle">Python & AI Developer</p>
+                <h1>JAWAD ABBASI</h1>
+                <p class="subtitle">Python Developer & AI Enthusiast</p>
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope icon"></i>
-                        <span>jawad@example.com</span>
+                        <span>jawad.abbasi@example.com</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone icon"></i>
-                        <span>+92 300 1234567</span>
+                        <span>+92 345 6789012</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt icon"></i>
-                        <span>Karachi, Pakistan</span>
+                        <span>Abbottabad, KPK, Pakistan</span>
                     </div>
                 </div>
             </header>
@@ -660,13 +667,14 @@
                 <h2><i class="fas fa-user"></i> About Me</h2>
                 <div class="content-item">
                     <p class="content-description">
-                        Passionate Python developer with expertise in building scalable applications and leveraging AI technologies. 
-                        Experienced in developing machine learning models and deploying them into production environments. 
-                        Strong problem-solving skills and a commitment to writing clean, efficient code.
+                        Passionate Python developer beginning my journey in the world of programming and AI. 
+                        Currently building my skills through hands-on projects and continuous learning. 
+                        Eager to contribute to innovative solutions and grow in the tech industry.
                     </p>
                     <p class="content-description">
-                        I thrive in collaborative environments and enjoy tackling complex challenges. 
-                        My goal is to create innovative solutions that make a meaningful impact.
+                        As a beginner, I'm focused on mastering core programming concepts and developing 
+                        practical applications. I thrive on solving problems and creating efficient, 
+                        user-friendly software solutions.
                     </p>
                 </div>
             </section>
@@ -676,73 +684,33 @@
                 <h2><i class="fas fa-laptop-code"></i> Technical Skills</h2>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Programming Languages</h3>
+                    <h3 class="content-title">Core Programming</h3>
                     <div class="skills-container">
                         <div class="skill-tag">Python</div>
+                        <div class="skill-tag">HTML5/CSS3</div>
                         <div class="skill-tag">JavaScript</div>
-                        <div class="skill-tag">Java</div>
                         <div class="skill-tag">SQL</div>
-                        <div class="skill-tag">HTML/CSS</div>
                     </div>
                 </div>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Frameworks & Libraries</h3>
+                    <h3 class="content-title">Frameworks & Tools</h3>
                     <div class="skills-container">
                         <div class="skill-tag">Django</div>
                         <div class="skill-tag">Flask</div>
-                        <div class="skill-tag">TensorFlow</div>
-                        <div class="skill-tag">PyTorch</div>
-                        <div class="skill-tag">React</div>
-                        <div class="skill-tag">Pandas</div>
-                        <div class="skill-tag">NumPy</div>
+                        <div class="skill-tag">Git/GitHub</div>
+                        <div class="skill-tag">VS Code</div>
                     </div>
                 </div>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Tools & Technologies</h3>
+                    <h3 class="content-title">Learning Focus</h3>
                     <div class="skills-container">
-                        <div class="skill-tag">Git & GitHub</div>
-                        <div class="skill-tag">Docker</div>
-                        <div class="skill-tag">AWS</div>
-                        <div class="skill-tag">Azure</div>
-                        <div class="skill-tag">MySQL</div>
-                        <div class="skill-tag">MongoDB</div>
-                        <div class="skill-tag">Linux</div>
+                        <div class="skill-tag">Web Development</div>
+                        <div class="skill-tag">Data Analysis</div>
+                        <div class="skill-tag">API Development</div>
+                        <div class="skill-tag">AI Fundamentals</div>
                     </div>
-                </div>
-            </section>
-            
-            <!-- Experience Section -->
-            <section id="experience">
-                <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
-                
-                <div class="content-item">
-                    <div class="content-header">
-                        <h3 class="content-title">Senior Python Developer</h3>
-                        <div class="content-date">2021 - Present</div>
-                    </div>
-                    <p class="content-subtitle">Tech Innovations Ltd, Karachi</p>
-                    <p class="content-description">
-                        • Developed and maintained scalable web applications using Django and Flask frameworks.<br>
-                        • Implemented machine learning models to enhance product features and user experience.<br>
-                        • Led a team of 5 developers in building an AI-powered recommendation system.<br>
-                        • Reduced server response time by 40% through optimization and caching strategies.
-                    </p>
-                </div>
-                
-                <div class="content-item">
-                    <div class="content-header">
-                        <h3 class="content-title">AI Developer</h3>
-                        <div class="content-date">2019 - 2021</div>
-                    </div>
-                    <p class="content-subtitle">Data Science Solutions, Lahore</p>
-                    <p class="content-description">
-                        • Designed and implemented NLP solutions for text classification and sentiment analysis.<br>
-                        • Created predictive models using TensorFlow and Scikit-learn for client projects.<br>
-                        • Developed RESTful APIs for model deployment and integration with frontend systems.<br>
-                        • Contributed to open-source ML projects and published research papers.
-                    </p>
                 </div>
             </section>
             
@@ -752,44 +720,54 @@
                 
                 <div class="content-item">
                     <div class="content-header">
-                        <h3 class="content-title">MSc in Computer Science</h3>
-                        <div class="content-date">2017 - 2019</div>
+                        <h3 class="content-title">BSc in Computer Science</h3>
+                        <div class="content-date">2020 - 2024</div>
                     </div>
-                    <p class="content-subtitle">NED University of Engineering & Technology, Karachi</p>
+                    <p class="content-subtitle">University of Abbottabad, KPK</p>
                     <p class="content-description">
-                        Specialized in Artificial Intelligence and Machine Learning. Thesis on "Deep Learning Approaches for Natural Language Understanding".
+                        Currently pursuing my degree with a focus on software development and AI fundamentals. 
+                        Coursework includes algorithms, data structures, web development, and database systems.
                     </p>
                 </div>
                 
                 <div class="content-item">
                     <div class="content-header">
-                        <h3 class="content-title">BSc in Software Engineering</h3>
-                        <div class="content-date">2013 - 2017</div>
+                        <h3 class="content-title">Python Programming Bootcamp</h3>
+                        <div class="content-date">2023</div>
                     </div>
-                    <p class="content-subtitle">University of Karachi, Karachi</p>
+                    <p class="content-subtitle">Online Certification Program</p>
                     <p class="content-description">
-                        Graduated with Honors. Focused on software development methodologies and database systems.
+                        Completed an intensive 6-month program covering Python fundamentals, web development 
+                        with Django, and basic data analysis.
                     </p>
                 </div>
             </section>
             
             <!-- Projects Section -->
             <section id="projects">
-                <h2><i class="fas fa-project-diagram"></i> Notable Projects</h2>
+                <h2><i class="fas fa-project-diagram"></i> Projects</h2>
                 
                 <div class="content-item">
-                    <h3 class="content-title">AI-Powered Healthcare Platform</h3>
+                    <h3 class="content-title">Personal Portfolio Website</h3>
                     <p class="content-description">
-                        Developed a healthcare platform that uses machine learning to predict patient outcomes and suggest treatment plans. 
-                        Implemented using Python, Django, and TensorFlow. Integrated with EHR systems and reduced diagnosis time by 30%.
+                        Designed and developed a responsive portfolio website using HTML, CSS, and JavaScript. 
+                        Implemented dark/light mode toggle and responsive navigation.
                     </p>
                 </div>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Automated Trading System</h3>
+                    <h3 class="content-title">Weather App with Python</h3>
                     <p class="content-description">
-                        Created an algorithmic trading system that analyzes market trends and executes trades automatically. 
-                        Built with Python, Pandas, and various financial APIs. Achieved 15% annual returns in backtesting.
+                        Created a command-line weather application that fetches real-time weather data using 
+                        API integration. Implemented error handling and user-friendly output formatting.
+                    </p>
+                </div>
+                
+                <div class="content-item">
+                    <h3 class="content-title">Task Management System</h3>
+                    <p class="content-description">
+                        Developed a simple task management application using Python and SQLite. Features include 
+                        task creation, updating, deletion, and status tracking.
                     </p>
                 </div>
             </section>
@@ -799,24 +777,25 @@
                 <h2><i class="fas fa-award"></i> Certifications</h2>
                 
                 <div class="content-item">
-                    <h3 class="content-title">AWS Certified Solutions Architect</h3>
-                    <p class="content-subtitle">Amazon Web Services, 2022</p>
+                    <h3 class="content-title">Python for Everybody</h3>
+                    <p class="content-subtitle">University of Michigan, Coursera</p>
                 </div>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Google Professional Machine Learning Engineer</h3>
-                    <p class="content-subtitle">Google Cloud, 2021</p>
+                    <h3 class="content-title">Web Development Fundamentals</h3>
+                    <p class="content-subtitle">freeCodeCamp</p>
                 </div>
                 
                 <div class="content-item">
-                    <h3 class="content-title">Deep Learning Specialization</h3>
-                    <p class="content-subtitle">DeepLearning.AI, 2020</p>
+                    <h3 class="content-title">Introduction to AI</h3>
+                    <p class="content-subtitle">Google AI</p>
                 </div>
             </section>
             
             <!-- Footer -->
             <footer>
-                <p>© 2023 Jawad Khan. All rights reserved.</p>
+                <p>© 2023 Jawad Abbasi. All rights reserved.</p>
+                <p>Abbottabad, KPK, Pakistan</p>
             </footer>
         </div>
     </main>
