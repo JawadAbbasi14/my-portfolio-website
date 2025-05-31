@@ -29,6 +29,11 @@
             --text-size-small: 0.875rem;
             --text-size-base: 1rem;
             --text-size-large: 1.25rem;
+            --sidebar-bg: rgba(255,255,255,0.9);
+            --sidebar-dark-bg: rgba(20,20,30,0.95);
+            --sidebar-text: #333;
+            --sidebar-dark-text: #e0e0e0;
+            --sidebar-width: 250px;
         }
 
         /* -------------------------------------- */
@@ -48,9 +53,6 @@
             transition: background var(--transition-fast), color var(--transition-fast);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 2rem;
             overflow-x: hidden;
             background: linear-gradient(135deg, var(--color-light-gradient-1), var(--color-light-gradient-2));
             color: var(--color-light-text);
@@ -62,6 +64,93 @@
             color: var(--color-dark-text);
         }
 
+        /* -------------------------------------- */
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            padding-top: 2rem;
+            border-right: 1px solid var(--color-light-border);
+            transition: background var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        body.dark .sidebar {
+            background: var(--sidebar-dark-bg);
+            border-color: var(--color-dark-border);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .sidebar li {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            font-size: var(--text-size-base);
+            color: var(--sidebar-text);
+            display: flex;
+            align-items: center;
+            transition: color var(--transition-fast);
+        }
+
+        .sidebar a .icon {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .sidebar a.active,
+        .sidebar a:hover {
+            color: var(--color-indigo-light);
+        }
+
+        body.dark .sidebar a {
+            color: var(--sidebar-dark-text);
+        }
+
+        body.dark .sidebar a.active,
+        body.dark .sidebar a:hover {
+            color: var(--color-indigo-dark);
+        }
+
+        /* Ensure main content shifts right of sidebar */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 2rem;
+        }
+
+        /* Responsive: collapse sidebar on small screens */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            .sidebar ul {
+                padding-left: 0;
+            }
+            .sidebar a {
+                justify-content: center;
+            }
+            .sidebar a span.icon {
+                margin: 0;
+            }
+            .sidebar a span.text {
+                display: none;
+            }
+            .main-content {
+                margin-left: 60px;
+                padding: 1rem;
+            }
+        }
+
+        /* -------------------------------------- */
         /* CV Container */
         .cv-container {
             max-width: var(--max-width);
@@ -70,20 +159,21 @@
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
             border-radius: 1rem;
             padding: 2rem;
-            margin-top: 4rem;
+            margin: 2rem auto;
             transition: background var(--transition-fast), box-shadow var(--transition-fast);
         }
 
-        .dark .cv-container {
+        body.dark .cv-container {
             background-color: #2a2a4a;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
         }
 
+        /* -------------------------------------- */
         /* Theme Switch Button */
         .switch-mode {
             position: fixed;
             top: 1.25rem;
-            left: 1.25rem;
+            left: calc(var(--sidebar-width) + 1.25rem);
             width: 3.75rem;
             height: 1.875rem;
             background: #333;
@@ -137,7 +227,7 @@
             transition: border-color var(--transition-fast);
         }
 
-        .dark header {
+        body.dark header {
             border-color: var(--color-dark-border);
         }
 
@@ -152,7 +242,7 @@
             transition: background var(--transition-fast), color var(--transition-fast);
         }
 
-        .dark header h1 {
+        body.dark header h1 {
             color: #818cf8;
         }
 
@@ -162,7 +252,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .dark header p.subtitle {
+        body.dark header p.subtitle {
             color: #ccc;
         }
 
@@ -174,7 +264,7 @@
             transition: color var(--transition-fast);
         }
 
-        .dark header .contact-info {
+        body.dark header .contact-info {
             color: #aaa;
         }
 
@@ -213,7 +303,7 @@
             transition: color var(--transition-fast), border-color var(--transition-fast);
         }
 
-        .dark section h2 {
+        body.dark section h2 {
             color: #818cf8;
             border-color: var(--color-dark-border);
         }
@@ -221,333 +311,3 @@
         section h2:hover {
             color: #4f46e5;
             text-decoration: underline;
-            text-decoration-color: #4f46e5;
-        }
-
-        .dark section h2:hover {
-            color: #818cf8;
-            text-decoration-color: #818cf8;
-        }
-
-        .section-content {
-            margin-top: 1rem;
-            line-height: 1.6;
-            word-spacing: 0.05rem;
-        }
-
-        /* -------------------------------------- */
-        /* Typography & Lists */
-        p {
-            font-size: var(--text-size-base);
-            margin-bottom: 0.75rem;
-        }
-
-        ul, ol {
-            margin-left: 1.5rem;
-            margin-bottom: 0.75rem;
-            list-style-position: inside;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Custom bullet styling */
-        ul.list-disc li::marker {
-            color: #4f46e5;
-            font-size: 1rem;
-        }
-
-        .dark ul.list-disc li::marker {
-            color: #818cf8;
-        }
-
-        /* -------------------------------------- */
-        /* Grid & Flex Utilities */
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .grid-2-cols {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        /* -------------------------------------- */
-        /* Card & Highlight Boxes */
-        .highlight-box {
-            background-color: #eef2ff;
-            border-left: 4px solid #4f46e5;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            transition: background var(--transition-fast), border-color var(--transition-fast);
-        }
-
-        .dark .highlight-box {
-            background-color: #3a3a5c;
-            border-color: #818cf8;
-        }
-
-        /* -------------------------------------- */
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--color-light-border);
-            font-size: var(--text-size-small);
-            color: #777;
-            transition: color var(--transition-fast), border-color var(--transition-fast);
-        }
-
-        .dark footer {
-            color: #aaa;
-            border-color: var(--color-dark-border);
-        }
-
-        /* -------------------------------------- */
-        /* Print Styles */
-        @media print {
-            body {
-                background: #fff !important;
-                color: #000 !important;
-                padding: 0;
-            }
-            .switch-mode, footer {
-                display: none !important;
-            }
-            .cv-container {
-                box-shadow: none;
-                border: none;
-                margin: 0;
-                padding: 0;
-            }
-            section h2 {
-                border-bottom: none;
-                font-size: 1.5rem;
-            }
-        }
-
-        /* -------------------------------------- */
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            body {
-                padding: var(--spacing-base);
-            }
-            .cv-container {
-                padding: 1.5rem;
-                margin-top: 3.5rem;
-            }
-            .switch-mode {
-                top: 1rem;
-                left: 1rem;
-            }
-            header h1 {
-                font-size: 2rem;
-            }
-            section h2 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* -------------------------------------- */
-        /* Accessibility Focus Styles */
-        a:focus, button:focus, h2:focus {
-            outline: 3px dashed #4f46e5;
-            outline-offset: 2px;
-        }
-
-    </style>
-</head>
-<body class="light">
-    <!-- Theme Switch Button -->
-    <div class="switch-mode light-active" id="theme-switch" tabindex="0" aria-label="Toggle theme">
-        <div class="toggle-circle">☀️</div>
-    </div>
-
-    <div class="cv-container">
-        <!-- Header Section -->
-        <header>
-            <h1>Jawad Ali</h1>
-            <p class="subtitle">Aspiring AI Developer | Passionate about Machine Learning & Data Science</p>
-            <div class="contact-info">
-                <p>Email: jawad.ali@example.com | Phone: +92 3XX XXXXXXX</p>
-                <p>LinkedIn: <a href="https://linkedin.com/in/jawadali" target="_blank">linkedin.com/in/jawadali</a> | Location: Pakistan</p>
-            </div>
-        </header>
-
-        <!-- Summary & Objective -->
-        <section id="summary">
-            <h2 tabindex="0">Summary & Objective</h2>
-            <div class="section-content">
-                <p>A 20-year-old highly motivated and enthusiastic individual with an F.Sc. background and 2 years of hands-on programming experience. Eager to transition into the field of Artificial Intelligence development, I possess a strong foundational understanding of programming principles and a keen interest in machine learning algorithms, data analysis, and neural networks. My objective is to leverage my skills and passion to contribute to innovative AI solutions and grow as a professional AI developer.</p>
-            </div>
-        </section>
-
-        <!-- Education -->
-        <section id="education">
-            <h2 tabindex="0">Education</h2>
-            <div class="flex-between section-content">
-                <div>
-                    <h3 class="font-medium text-xl">F.Sc. (Faculty of Science)</h3>
-                    <p>Pre-Engineering/Pre-Medical (Specify which one if applicable)</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">(Institution: Government College University, Lahore; GPA: X.XX/4.00)</p>
-                </div>
-                <p class="text-sm">2021 &ndash; 2023</p>
-            </div>
-            <p class="section-content">Relevant coursework included Mathematics, Physics, Chemistry/Biology, which provided a strong analytical and problem-solving foundation.</p>
-        </section>
-
-        <!-- Skills -->
-        <section id="skills">
-            <h2 tabindex="0">Skills</h2>
-            <div class="grid-2-cols section-content">
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">Programming Languages</h3>
-                    <ul class="list-disc list-inside">
-                        <li>Python (Strong)</li>
-                        <li>JavaScript (Intermediate)</li>
-                        <li>C++ (Basic)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">AI/ML Concepts</h3>
-                    <ul class="list-disc list-inside">
-                        <li>Machine Learning Fundamentals</li>
-                        <li>Data Preprocessing &amp; Analysis</li>
-                        <li>Basic understanding of Neural Networks</li>
-                        <li>Regression, Classification Algorithms</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">Libraries &amp; Frameworks</h3>
-                    <ul class="list-disc list-inside">
-                        <li>NumPy, Pandas (Data Manipulation)</li>
-                        <li>Scikit-learn (Machine Learning)</li>
-                        <li>TensorFlow/Keras (Neural Networks)</li>
-                        <li>PyTorch (Basic Exposure)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">Tools &amp; Platforms</h3>
-                    <ul class="list-disc list-inside">
-                        <li>Git &amp; GitHub</li>
-                        <li>Jupyter Notebooks</li>
-                        <li>VS Code &amp; PyCharm</li>
-                        <li>Google Colab &amp; Kaggle</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Programming Experience -->
-        <section id="experience">
-            <h2 tabindex="0">Programming Experience</h2>
-            <div class="section-content">
-                <h3 class="text-xl font-medium mb-2">Self-Taught / Personal Projects (2 Years)</h3>
-                <p>Developed various programming projects demonstrating strong problem-solving abilities and logical thinking:</p>
-                <ul class="list-disc list-inside">
-                    <li>Built a <span class="highlight-box">Calculator Application</span> with Python for basic arithmetic operations and memory storage.</li>
-                    <li>Created a <span class="highlight-box">Text-Based Adventure Game</span> using Python’s OOP principles and file I/O for saving progress.</li>
-                    <li>Developed a <span class="highlight-box">Data Analysis Script</span> using Pandas to analyze a personal dataset of daily expenses, including visualizing trends in Jupyter Notebook.</li>
-                    <li>Explored fundamental data structures (linked lists, stacks, queues) and algorithms (sorting, searching) through coding challenges on platforms like HackerRank.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects">
-            <h2 tabindex="0">Projects</h2>
-            <div class="section-content">
-                <div class="mb-4">
-                    <h3 class="text-xl font-medium">Simple Regression Model</h3>
-                    <p>Technologies: Python, NumPy, Scikit-learn</p>
-                    <ul class="list-disc list-inside">
-                        <li>Developed a linear regression model to predict housing prices based on a small dataset.</li>
-                        <li>Implemented data preprocessing steps including normalization and feature scaling.</li>
-                        <li>Evaluated model performance using metrics like Mean Squared Error (MSE) and visualized results using Matplotlib.</li>
-                    </ul>
-                </div>
-                <div class="mb-4">
-                    <h3 class="text-xl font-medium">Basic Image Classifier</h3>
-                    <p>Technologies: Python, TensorFlow/Keras</p>
-                    <ul class="list-disc list-inside">
-                        <li>Explored basic concepts of image classification using a pre-trained MobileNet model.</li>
-                        <li>Processed and augmented image datasets (e.g., CIFAR-10) for training.</li>
-                        <li>Evaluated model accuracy and demonstrated predictions on sample images in Jupyter Notebook.</li>
-                    </ul>
-                </div>
-                <div>
-                    <p class="italic text-sm">Consider creating a <a href="https://github.com/jawadali" target="_blank">GitHub portfolio</a> to showcase code and documentation for these projects.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interests -->
-        <section id="interests">
-            <h2 tabindex="0">Interests</h2>
-            <div class="section-content">
-                <ul class="list-disc list-inside">
-                    <li>Deep Learning &amp; Neural Networks</li>
-                    <li>Natural Language Processing (NLP)</li>
-                    <li>Computer Vision &amp; Image Processing</li>
-                    <li>Data Science &amp; Big Data Analytics</li>
-                    <li>Staying updated with the latest AI research &amp; advancements</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <p>&copy; 2025 Jawad Ali. All rights reserved.</p>
-            <p>This CV is designed to be responsive, accessible, and visually appealing.</p>
-        </footer>
-    </div>
-
-    <script>
-        // Theme Switch Functionality
-        const themeSwitch = document.getElementById('theme-switch');
-        const body = document.body;
-        const toggleCircle = themeSwitch.querySelector('.toggle-circle');
-        const cvContainer = document.querySelector('.cv-container');
-
-        function setTheme(theme) {
-            if (theme === 'dark') {
-                body.classList.add('dark');
-                themeSwitch.classList.remove('light-active');
-                themeSwitch.classList.add('dark-active');
-                toggleCircle.textContent = '🌙';
-            } else {
-                body.classList.remove('dark');
-                themeSwitch.classList.remove('dark-active');
-                themeSwitch.classList.add('light-active');
-                toggleCircle.textContent = '☀️';
-            }
-            localStorage.setItem('theme', theme);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-        });
-
-        themeSwitch.addEventListener('click', () => {
-            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
-            setTheme(currentTheme === 'light' ? 'dark' : 'light');
-        });
-
-        // Keyboard Accessibility for Theme Switch
-        themeSwitch.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
-                setTheme(currentTheme === 'light' ? 'dark' : 'light');
-            }
-        });
-    </script>
-</body>
-</html>
