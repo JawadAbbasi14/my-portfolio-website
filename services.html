@@ -128,27 +128,66 @@
     /* Services Section */
     #services {
       flex: 1; padding: 80px 40px;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.95);
       overflow-y: auto;
       border-radius: 12px;
       margin: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     .dark #services {
-      background: rgba(40,40,60,0.9);
+      background: rgba(40,40,60,0.95);
+    }
+
+    #services::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+      z-index: 0;
+    }
+
+    #services::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(33, 150, 243, 0.1), rgba(76, 175, 80, 0.1));
+      z-index: 0;
     }
 
     #services h1 {
-      font-size: 3rem; text-align: center; margin-bottom: 15px;
-      background: linear-gradient(90deg, #4caf50, #d32f2f);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 3.5rem; 
+      text-align: center; 
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #4caf50, #2196F3);
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
       animation: textGradient 4s ease infinite;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     #services p {
-      font-size: 1.2rem; text-align: center;
-      margin-bottom: 50px; max-width: 700px; margin: auto; line-height: 1.5;
+      font-size: 1.2rem; 
+      text-align: center;
+      margin-bottom: 50px; 
+      max-width: 700px; 
+      margin: 30px auto; 
+      line-height: 1.6;
       color: #555;
+      position: relative;
+      z-index: 1;
     }
 
     .dark #services p {
@@ -157,35 +196,85 @@
 
     .services-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px; max-width: 1200px; margin: auto;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px; 
+      max-width: 1200px; 
+      margin: 50px auto;
+      position: relative;
+      z-index: 1;
     }
 
     .service {
       position: relative;
-      background: rgba(255,255,255,0.3);
-      border-radius: 15px; padding: 30px 20px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 15px; 
+      padding: 35px 25px;
       text-align: center;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: background 0.4s, transform 0.5s, box-shadow 0.5s;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      z-index: 1;
     }
 
     .dark .service {
-      background: rgba(40,40,60,0.3);
+      background: rgba(40,40,60,0.7);
       border: 1px solid rgba(76,175,80,0.3);
     }
 
+    .service::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4caf50, #2196F3);
+      opacity: 0.7;
+      transition: height 0.4s ease;
+    }
+
+    .service:hover::before {
+      height: 100%;
+      opacity: 0.1;
+    }
+
+    .service-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
     .service i {
-      font-size: 2.2rem; margin-bottom: 15px;
-      display: block; color: #4caf50;
-      transition: color 0.3s, transform 0.3s;
+      font-size: 2.8rem; 
+      display: block; 
+      background: linear-gradient(45deg, #4caf50, #2196F3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.4s ease;
+    }
+
+    .dark .service i {
+      background: linear-gradient(45deg, #4caf50, #81c784);
     }
 
     .service h2 {
-      font-size: 1.3rem; color: #102a43;
-      margin-bottom: 12px;
+      font-size: 1.5rem; 
+      color: #102a43;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 2;
     }
 
     .dark .service h2 {
@@ -193,59 +282,149 @@
     }
 
     .service p {
-      font-size: 1rem; color: #666; line-height: 1.6;
+      font-size: 1.1rem; 
+      color: #666; 
+      line-height: 1.7;
+      margin: 0 auto;
+      max-width: 90%;
+      position: relative;
+      z-index: 2;
     }
 
     .dark .service p {
       color: #b0b0b0;
     }
 
+    /* Service-specific backgrounds */
+    .fullstack .service-icon {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(33, 150, 243, 0.15));
+    }
+
+    .ai .service-icon {
+      background: linear-gradient(135deg, rgba(255, 152, 0, 0.15), rgba(244, 67, 54, 0.15));
+    }
+
+    .solving .service-icon {
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(103, 58, 183, 0.15));
+    }
+
+    .linux .service-icon {
+      background: linear-gradient(135deg, rgba(3, 169, 244, 0.15), rgba(0, 150, 136, 0.15));
+    }
+
     /* Hover Effects – intensified */
     .service:hover {
-      transform: translateY(-15px) scale(1.05);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
-      background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.3));
+      transform: translateY(-15px) scale(1.03);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
     }
 
     .dark .service:hover {
-      background: linear-gradient(135deg, rgba(76,175,80,0.5), rgba(40,40,60,0.3));
+      background: linear-gradient(135deg, rgba(76,175,80,0.3), rgba(40,40,60,0.5));
+    }
+
+    .service:hover .service-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
 
     .service:hover i {
-      color: #d32f2f;
       transform: scale(1.2);
     }
 
-    .service.fullstack {} /* backgrounds optional */
-    .service.ai {}
-    .service.solving {}
-    .service.linux {}
+    /* Progress bars */
+    .progress-container {
+      width: 90%;
+      height: 8px;
+      background: rgba(0,0,0,0.1);
+      border-radius: 4px;
+      margin: 20px auto 0;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dark .progress-container {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #4caf50, #2196F3);
+      transition: width 1s ease-out;
+      width: 0;
+    }
+
+    .service:hover .progress-bar {
+      width: 85%;
+    }
+
+    .ai .progress-bar {
+      background: linear-gradient(90deg, #FF9800, #F44336);
+    }
+
+    .solving .progress-bar {
+      background: linear-gradient(90deg, #9C27B0, #673AB7);
+    }
+
+    .linux .progress-bar {
+      background: linear-gradient(90deg, #03A9F4, #009688);
+    }
 
     /* Go Home Button */
     .go-home {
-      display: block; margin: 50px auto 0;
-      background: linear-gradient(135deg, #4caf50, #81c784);
-      color: #fff; padding: 12px 28px; border: none;
-      border-radius: 8px; font-size: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: block; 
+      margin: 70px auto 0;
+      background: linear-gradient(135deg, #4caf50, #2196F3);
+      color: #fff; 
+      padding: 14px 35px; 
+      border: none;
+      border-radius: 50px; 
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
       transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
       text-align: center;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.5px;
     }
 
     .go-home:hover {
-      background: linear-gradient(135deg, #388e3c, #66bb6a);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #388e3c, #1976D2);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(76, 175, 80, 0.4);
     }
 
     /* Footer */
     footer {
-      margin-top: 60px; padding: 20px;
-      text-align: center; color: #888; font-size: 0.9rem;
+      margin-top: 80px; 
+      padding: 20px;
+      text-align: center; 
+      color: #888; 
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 1;
     }
 
     .dark footer {
       color: #b0b0b0;
+    }
+
+    /* Animation for floating services */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .service {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .service:hover {
+      animation: none;
     }
 
     @keyframes textGradient {
@@ -267,16 +446,43 @@
       .dark .switch-mode::before {
         transform: translateX(25px);
       }
+      .services-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+      .service-icon {
+        width: 85px;
+        height: 85px;
+      }
+      #services h1 {
+        font-size: 2.8rem;
+      }
     }
 
     @media (max-width: 600px) {
       body { flex-direction: column; }
       .sidebar {
-        width: 100%; position: relative;
+        width: 100%; 
+        position: relative;
         border-radius: 0;
-        display: flex; align-items: center; justify-content: space-between;
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between;
       }
-      #services { margin: 0; border-radius: 0; }
+      #services { 
+        margin: 0; 
+        border-radius: 0;
+        padding: 50px 15px;
+      }
+      .services-container {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-header {
+        text-align: center;
+      }
+      #services h1 {
+        font-size: 2.4rem;
+      }
     }
   </style>
 </head>
@@ -303,28 +509,48 @@
 
   <section id="services">
     <h1>My Learning Paths</h1>
-    <p>I’m currently focusing on building my skills across multiple domains. Here are the key areas I’m working on as a learner:</p>
+    <p>I'm passionately building my expertise across multiple domains. Here are the key areas I'm mastering as a dedicated learner:</p>
 
     <div class="services-container">
       <div class="service fullstack">
-        <i class="fas fa-code"></i>
+        <div class="service-icon">
+          <i class="fas fa-code"></i>
+        </div>
         <h2>Fullstack Developer</h2>
-        <p>Building complete web apps with front-end & back-end skills.</p>
+        <p>Building complete web apps with front-end & back-end skills. Mastering React, Node.js, and database integration.</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
       </div>
       <div class="service ai">
-        <i class="fas fa-brain"></i>
+        <div class="service-icon">
+          <i class="fas fa-brain"></i>
+        </div>
         <h2>AI Developer</h2>
-        <p>Studying ML, neural nets & AI algorithms for smart systems.</p>
+        <p>Studying ML, neural nets & AI algorithms for smart systems. Exploring TensorFlow and PyTorch frameworks.</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
       </div>
       <div class="service solving">
-        <i class="fas fa-lightbulb"></i>
+        <div class="service-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
         <h2>Problem Solving (DSA)</h2>
-        <p>Practicing data structures & algorithms daily for sharper logic.</p>
+        <p>Practicing data structures & algorithms daily for sharper logic. Solving complex challenges on LeetCode.</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
       </div>
       <div class="service linux">
-        <i class="fab fa-linux"></i>
+        <div class="service-icon">
+          <i class="fab fa-linux"></i>
+        </div>
         <h2>Linux CLI Mastery</h2>
-        <p>Mastering Arch Linux CLI for full command-line control.</p>
+        <p>Mastering Arch Linux CLI for full command-line control. Automating tasks with Bash scripting.</p>
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+        </div>
       </div>
     </div>
 
@@ -340,6 +566,19 @@
 
     // Default mode
     document.body.classList.add('light');
+    
+    // Progress bar animation
+    document.querySelectorAll('.service').forEach(service => {
+      service.addEventListener('mouseenter', function() {
+        const progressBar = this.querySelector('.progress-bar');
+        progressBar.style.width = '85%';
+      });
+      
+      service.addEventListener('mouseleave', function() {
+        const progressBar = this.querySelector('.progress-bar');
+        progressBar.style.width = '0';
+      });
+    });
   </script>
 </body>
 </html>
