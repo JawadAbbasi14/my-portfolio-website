@@ -9,18 +9,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Variables from Project Page */
+        /* Enhanced CSS Variables */
         :root {
             --primary: #6e48aa;
             --secondary: #9d50bb;
             --accent: #ff6b6b;
             --light: #f5f7fa;
             --dark: #1a1a2e;
-            --card-light: #ffffff;
-            --card-dark: #16213e;
+            --card-light: rgba(255, 255, 255, 0.95);
+            --card-dark: rgba(22, 33, 62, 0.95);
             --text-light: #333;
             --text-dark: #e6e6e6;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            --glow: 0 0 20px rgba(110, 72, 170, 0.5);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -31,12 +34,13 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             background: linear-gradient(135deg, var(--light) 0%, #e4e7f0 100%);
             color: var(--text-light);
             transition: var(--transition);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         body.dark {
@@ -44,30 +48,57 @@
             color: var(--text-dark);
         }
 
+        /* Glassmorphism Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            z-index: -1;
+            animation: subtlePulse 10s infinite ease-in-out;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
+            perspective: 1000px;
         }
 
-        /* Sidebar Styles (Adapted from Project Page Navigation) */
+        /* Enhanced Sidebar */
         .sidebar {
             position: sticky;
             top: 2rem;
             align-self: start;
-            width: 250px;
+            width: 280px;
             background: rgba(110, 72, 170, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
             transition: var(--transition);
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
         }
 
         body.dark .sidebar {
             background: rgba(26, 26, 46, 0.9);
+        }
+
+        .sidebar:hover {
+            transform: translateZ(30px) translateX(10px);
+            box-shadow: var(--glow);
         }
 
         .sidebar ul {
@@ -76,7 +107,7 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             position: relative;
         }
 
@@ -85,13 +116,14 @@
             align-items: center;
             color: white;
             text-decoration: none;
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 1.8rem;
             border-radius: 50px;
             transition: var(--transition);
-            font-weight: 500;
+            font-weight: 600;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1));
         }
 
         .sidebar-item:before {
@@ -101,7 +133,7 @@
             left: 0;
             width: 0;
             height: 100%;
-            background: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: width 0.5s ease;
             z-index: -1;
         }
@@ -111,63 +143,86 @@
         }
 
         .sidebar-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(8px) translateZ(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .icon {
-            margin-right: 10px;
-            font-size: 1.3em;
+            margin-right: 12px;
+            font-size: 1.4em;
             transition: transform 0.3s ease;
         }
 
         .sidebar-item:hover .icon {
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(5deg);
         }
 
-        /* Main Content Styles */
+        /* Main Content */
         .main-content {
             flex: 1;
-            padding: 3rem 0;
+            padding: 4rem 0;
         }
 
         .animated-heading {
-            font-size: 3rem;
+            font-size: 3.5rem;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             color: var(--primary);
             position: relative;
-            display: inline-block;
-            width: 100%;
             font-weight: 800;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.8px;
             font-family: 'Roboto Slab', serif;
+            transform: translateZ(30px);
+            text-shadow: var(--glow);
+        }
+
+        body.dark .animated-heading {
+            color: #9d50bb;
         }
 
         .animated-heading::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 5px;
+            width: 200px;
+            height: 6px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 3px;
             animation: linePulse 2s infinite;
         }
 
-        /* Blog Post Styles (Adapted from Project Card) */
+        @keyframes linePulse {
+            0% { width: 200px; }
+            50% { width: 240px; }
+            100% { width: 200px; }
+        }
+
+        /* Enhanced Blog Post */
         .blog-post {
             background: var(--card-light);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
             transition: var(--transition);
-            border: 1px solid rgba(238, 238, 238, 0.5);
+            border: 1px solid rgba(238, 238, 238, 0.3);
             position: relative;
             overflow: hidden;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            transform: translateZ(0);
+        }
+
+        body.dark .blog-post {
+            background: var(--card-dark);
+            border-color: rgba(42, 42, 74, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-15px) scale(1.03) translateZ(20px);
+            box-shadow: var(--glow);
         }
 
         .blog-post:before {
@@ -176,7 +231,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             transform: scaleX(0);
             transform-origin: left;
@@ -187,29 +242,31 @@
             transform: scaleX(1);
         }
 
-        body.dark .blog-post {
-            background: var(--card-dark);
-            border-color: rgba(42, 42, 74, 0.5);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        .blog-post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
         }
 
-        .blog-post:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        body.dark .blog-post:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        .blog-post:hover img {
+            transform: scale(1.05);
         }
 
         .blog-post h2 {
             margin-top: 0;
             color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
             position: relative;
-            padding-left: 40px;
+            padding-left: 45px;
             font-family: 'Roboto Slab', serif;
+        }
+
+        body.dark .blog-post h2 {
+            color: #9d50bb;
         }
 
         .blog-post h2:before {
@@ -218,38 +275,101 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
         }
 
-        .blog-post:nth-child(1) h2:before {
-            content: '1';
-        }
-
-        .blog-post:nth-child(2) h2:before {
-            content: '2';
-        }
-
-        body.dark .blog-post h2 {
-            color: #9d50bb;
-        }
+        .blog-post:nth-child(1) h2:before { content: '1'; }
+        .blog-post:nth-child(2) h2:before { content: '2'; }
+        .blog-post:nth-child(3) h2:before { content: '3'; }
+        .blog-post:nth-child(4) h2:before { content: '4'; }
 
         .blog-post p {
             color: #666;
             margin-bottom: 1.5rem;
-            line-height: 1.7;
+            line-height: 1.8;
         }
 
         body.dark .blog-post p {
             color: #b8b8b8;
+        }
+
+        /* Back to Homepage Button */
+        .go-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: 3rem auto;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+
+        .go-home:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .go-home:hover:before {
+            width: 100%;
+        }
+
+        .go-home:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .go-home i {
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .go-home:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            color: #777;
+            font-size: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+        }
+
+        body.dark .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #aaa;
         }
 
         /* Theme Toggle */
@@ -257,25 +377,25 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow);
             transition: var(--transition);
             z-index: 100;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .theme-toggle:hover {
-            transform: translateY(-5px) rotate(15deg);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px) rotate(20deg);
+            box-shadow: var(--glow);
         }
 
         /* Animations */
@@ -285,9 +405,9 @@
         }
 
         @keyframes linePulse {
-            0% { width: 150px; }
-            50% { width: 180px; }
-            100% { width: 150px; }
+            0% { width: 200px; }
+            50% { width: 240px; }
+            100% { width: 200px; }
         }
 
         .animated-heading {
@@ -301,9 +421,11 @@
 
         .blog-post:nth-child(1) { animation-delay: 0.2s; }
         .blog-post:nth-child(2) { animation-delay: 0.4s; }
+        .blog-post:nth-child(3) { animation-delay: 0.6s; }
+        .blog-post:nth-child(4) { animation-delay: 0.8s; }
 
         /* Responsive Design */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
             }
@@ -312,7 +434,7 @@
                 width: 100%;
                 position: relative;
                 top: 0;
-                margin-bottom: 2rem;
+                margin-bottom: 3rem;
             }
 
             .sidebar ul {
@@ -328,26 +450,35 @@
 
         @media (max-width: 768px) {
             .animated-heading {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .blog-post h2 {
-                font-size: 1.4rem;
+                font-size: 1.6rem;
+                padding-left: 40px;
+            }
+
+            .blog-post img {
+                height: 150px;
             }
         }
 
         @media (max-width: 480px) {
             .animated-heading {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .sidebar-item {
-                padding: 0.6rem 1rem;
+                padding: 0.7rem 1.2rem;
                 font-size: 0.9rem;
             }
 
             .blog-post {
                 padding: 1.5rem;
+            }
+
+            .blog-post h2 {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -371,14 +502,35 @@
         <main class="main-content">
             <h1 class="animated-heading">Welcome to My Blog</h1>
             <div class="blog-post">
-                <h2>Blog Post Title 1</h2>
-                <p>This is a sample blog post content. It will contain insights and thoughts on various topics.</p>
+                <img src="https://via.placeholder.com/600x200?text=Blog+Post+1" alt="Blog Post 1">
+                <h2>Exploring Modern Web Development Trends</h2>
+                <p>In this post, I dive into the latest trends shaping web development in 2025, including AI-driven design tools, progressive web apps, and the rise of Web3 technologies. Learn how these advancements can elevate your projects and streamline development workflows.</p>
+                <p>From frameworks like React and Svelte to serverless architectures, the web development landscape is evolving rapidly. This post explores practical tips for staying ahead of the curve.</p>
             </div>
             <div class="blog-post">
-                <h2>Blog Post Title 2</h2>
-                <p>Another sample blog post. More content will be added here to showcase the blog's layout and styling.</p>
+                <img src="https://via.placeholder.com/600x200?text=Blog+Post+2" alt="Blog Post 2">
+                <h2>Mastering Python for Data Science</h2>
+                <p>Python remains a powerhouse for data science. In this article, I share my journey with libraries like Pandas, NumPy, and Matplotlib, along with tips for building efficient data pipelines and visualizations.</p>
+                <p>Whether you're a beginner or an experienced developer, these insights will help you leverage Python's capabilities for data analysis and machine learning projects.</p>
             </div>
+            <div class="blog-post">
+                <img src="https://via.placeholder.com/600x200?text=Blog+Post+3" alt="Blog Post 3">
+                <h2>Building Scalable APIs with Node.js</h2>
+                <p>Creating robust APIs is crucial for modern applications. This post covers best practices for designing scalable RESTful APIs using Node.js, Express, and MongoDB, with a focus on performance and security.</p>
+                <p>Explore techniques for handling authentication, rate limiting, and caching to ensure your APIs can handle high traffic.</p>
+            </div>
+            <div class="blog-post">
+                <img src="https://via.placeholder.com/600x200?text=Blog+Post+4" alt="Blog Post 4">
+                <h2>The Future of UI/UX Design</h2>
+                <p>UI/UX design is evolving with new tools and methodologies. In this post, I discuss how AI-powered design systems and user behavior analytics are shaping the future of intuitive interfaces.</p>
+                <p>Learn how to create user-centric designs that enhance engagement and accessibility across devices.</p>
+            </div>
+            <a href="index.html" class="go-home"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
         </main>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 Jawad's Portfolio. All rights reserved. | Designed with ❤️</p>
     </div>
 
     <button class="theme-toggle" onclick="toggleMode()">
