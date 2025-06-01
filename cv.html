@@ -23,6 +23,7 @@
             --color-indigo-light: #4f46e5;
             --color-indigo-dark: #818cf8;
             --color-accent: #34eb5e;
+            --color-dark-pink: #880e4f; /* Defined dark pink for dark mode gradient */
             --font-primary: 'Inter', sans-serif;
             --font-heading: 'Raleway', sans-serif;
             --transition-fast: 0.3s ease;
@@ -63,9 +64,9 @@
             line-height: 1.6;
         }
 
-        /* Dark Mode Activation - Pure black */
-        body.dark {
-            background: linear-gradient(135deg, var(--color-dark-gradient-1), var(--color-dark-gradient-2));
+        /* Dark Mode Activation - Dark pink and black mixture for the whole page */
+        body.dark-active {
+            background: linear-gradient(135deg, var(--color-dark-pink), var(--color-dark-gradient-2));
             color: var(--color-dark-text);
         }
 
@@ -88,7 +89,7 @@
             overflow-y: auto;
         }
 
-        body.dark .sidebar {
+        body.dark-active .sidebar { /* Changed from body.dark */
             background: var(--sidebar-dark-bg);
             border-color: var(--color-dark-border);
         }
@@ -100,7 +101,7 @@
             border-bottom: 1px solid var(--color-light-border);
         }
 
-        body.dark .sidebar-header {
+        body.dark-active .sidebar-header { /* Changed from body.dark */
             border-color: var(--color-dark-border);
         }
 
@@ -116,7 +117,7 @@
             color: transparent;
         }
 
-        body.dark .sidebar-name {
+        body.dark-active .sidebar-name { /* Changed from body.dark */
             color: var(--color-indigo-dark);
         }
 
@@ -126,7 +127,7 @@
             margin-bottom: 1rem;
         }
 
-        body.dark .sidebar-title {
+        body.dark-active .sidebar-title { /* Changed from body.dark */
             color: #aaa;
         }
 
@@ -167,12 +168,12 @@
             text-align: center;
         }
 
-        body.dark .sidebar a {
+        body.dark-active .sidebar a { /* Changed from body.dark */
             color: var(--sidebar-dark-text);
         }
 
-        body.dark .sidebar a:hover, 
-        body.dark .sidebar a.active {
+        body.dark-active .sidebar a:hover, /* Changed from body.dark */
+        body.dark-active .sidebar a.active { /* Changed from body.dark */
             background: rgba(129, 140, 248, 0.15);
             color: var(--color-indigo-dark);
         }
@@ -185,7 +186,7 @@
             border-top: 1px solid var(--color-light-border);
         }
 
-        body.dark .social-links {
+        body.dark-active .social-links { /* Changed from body.dark */
             border-color: var(--color-dark-border);
         }
 
@@ -208,12 +209,12 @@
             transform: translateY(-3px);
         }
 
-        body.dark .social-link {
+        body.dark-active .social-link { /* Changed from body.dark */
             background: rgba(129, 140, 248, 0.15);
             color: var(--color-indigo-dark);
         }
 
-        body.dark .social-link:hover {
+        body.dark-active .social-link:hover { /* Changed from body.dark */
             background: var(--color-indigo-dark);
             color: white;
         }
@@ -279,7 +280,7 @@
             transition: all var(--transition-slow);
         }
 
-        body.dark .cv-container {
+        body.dark-active .cv-container { /* Changed from body.dark */
             background-color: #121212;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
         }
@@ -308,7 +309,7 @@
         }
 
         .switch-mode.dark-active {
-            background: #444;
+            background: #444; /* Base for dark mode toggle */
         }
 
         .toggle-circle {
@@ -325,12 +326,14 @@
 
         .switch-mode.dark-active .toggle-circle {
             transform: translateX(30px);
-            background: #fdd835;
+            background: var(--color-dark-pink); /* Dark pink for toggle circle in dark mode */
+            color: white; /* Icon color */
         }
 
         .switch-mode.light-active .toggle-circle {
             transform: translateX(0);
             background: #90caf9;
+            color: black; /* Icon color */
         }
 
         /* -------------------------------------- */
@@ -344,7 +347,7 @@
             position: relative;
         }
 
-        body.dark header {
+        body.dark-active header { /* Changed from body.dark */
             border-color: var(--color-dark-border);
         }
 
@@ -367,7 +370,7 @@
             font-weight: 500;
         }
 
-        body.dark header p.subtitle {
+        body.dark-active header p.subtitle { /* Changed from body.dark */
             color: #ccc;
         }
 
@@ -387,7 +390,7 @@
             color: #555;
         }
 
-        body.dark .contact-item {
+        body.dark-active .contact-item { /* Changed from body.dark */
             color: #aaa;
         }
 
@@ -396,7 +399,7 @@
             font-size: 1.2rem;
         }
 
-        body.dark .contact-item .icon {
+        body.dark-active .contact-item .icon { /* Changed from body.dark */
             color: var(--color-indigo-dark);
         }
 
@@ -411,11 +414,25 @@
             border-radius: 12px;
             background: rgba(249, 250, 251, 0.7);
             transition: all var(--transition-slow);
+            position: relative; /* Needed for pseudo-elements */
+            overflow: hidden; /* Ensures hover effect stays within bounds */
         }
 
-        body.dark section {
+        body.dark-active section { /* Changed from body.dark */
             background: rgba(30, 30, 30, 0.3);
         }
+
+        /* Enhanced Hover effect for sections */
+        section:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Larger shadow */
+            transform: translateY(-10px); /* Higher lift */
+            transition: all var(--transition-fast);
+        }
+
+        body.dark-active section:hover { /* Changed from body.dark */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); /* Even darker shadow for dark mode */
+        }
+
 
         section:nth-child(2) {
             animation-delay: 0.1s;
@@ -458,7 +475,7 @@
             font-size: 1.6rem;
         }
 
-        body.dark section h2 {
+        body.dark-active section h2 { /* Changed from body.dark */
             color: var(--color-indigo-dark);
             border-color: var(--color-dark-border);
         }
@@ -471,7 +488,7 @@
             transition: border-color var(--transition-fast);
         }
 
-        body.dark .content-item {
+        body.dark-active .content-item { /* Changed from body.dark */
             border-color: var(--color-dark-border);
         }
 
@@ -494,7 +511,7 @@
             color: var(--color-indigo-light);
         }
 
-        body.dark .content-title {
+        body.dark-active .content-title { /* Changed from body.dark */
             color: var(--color-indigo-dark);
         }
 
@@ -505,7 +522,7 @@
             margin-bottom: 0.5rem;
         }
 
-        body.dark .content-subtitle {
+        body.dark-active .content-subtitle { /* Changed from body.dark */
             color: #bbb;
         }
 
@@ -518,7 +535,7 @@
             font-weight: 500;
         }
 
-        body.dark .content-date {
+        body.dark-active .content-date { /* Changed from body.dark */
             color: #ddd;
             background: rgba(129, 140, 248, 0.15);
         }
@@ -528,7 +545,7 @@
             color: #555;
         }
 
-        body.dark .content-description {
+        body.dark-active .content-description { /* Changed from body.dark */
             color: #ccc;
         }
 
@@ -555,12 +572,12 @@
             transform: translateY(-2px);
         }
 
-        body.dark .skill-tag {
+        body.dark-active .skill-tag { /* Changed from body.dark */
             background: rgba(129, 140, 248, 0.15);
             color: var(--color-indigo-dark);
         }
 
-        body.dark .skill-tag:hover {
+        body.dark-active .skill-tag:hover { /* Changed from body.dark */
             background: var(--color-indigo-dark);
             color: white;
         }
@@ -577,7 +594,7 @@
             margin-top: 0.3rem;
         }
 
-        body.dark .progress-bar {
+        body.dark-active .progress-bar { /* Changed from body.dark */
             background: #33334d;
         }
 
@@ -587,7 +604,7 @@
             border-radius: 4px;
         }
 
-        body.dark .progress {
+        body.dark-active .progress { /* Changed from body.dark */
             background: var(--color-indigo-dark);
         }
 
@@ -601,21 +618,19 @@
             font-size: 0.9rem;
         }
 
-        body.dark footer {
+        body.dark-active footer { /* Changed from body.dark */
             border-color: var(--color-dark-border);
             color: #aaa;
         }
     </style>
 </head>
 <body class="light-active">
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <h2 class="sidebar-name">Jawad Abbasi</h2>
             <p class="sidebar-title">Python Developer</p>
         </div>
         
-        <!-- Requested Navigation Links with Emojis -->
         <ul>
             <li><a href="index.html"><span class="emoji">🏠</span> <span class="text">Home</span></a></li>
             <li><a href="myintro.html"><span class="emoji">👨‍💻</span> <span class="text">My Intro</span></a></li>
@@ -634,15 +649,12 @@
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
-        <!-- Theme Toggle -->
         <div class="switch-mode light-active">
             <div class="toggle-circle"><i class="fas fa-sun"></i></div>
         </div>
         
         <div class="cv-container">
-            <!-- Header -->
             <header>
                 <h1>JAWAD ABBASI</h1>
                 <p class="subtitle">Python Developer & AI Enthusiast</p>
@@ -662,7 +674,6 @@
                 </div>
             </header>
             
-            <!-- About Section -->
             <section id="about">
                 <h2><i class="fas fa-user"></i> About Me</h2>
                 <div class="content-item">
@@ -679,7 +690,6 @@
                 </div>
             </section>
             
-            <!-- Skills Section -->
             <section id="skills">
                 <h2><i class="fas fa-laptop-code"></i> Technical Skills</h2>
                 
@@ -715,7 +725,6 @@
                 </div>
             </section>
             
-            <!-- Education Section -->
             <section id="education">
                 <h2><i class="fas fa-graduation-cap"></i> Education</h2>
                 
@@ -744,7 +753,6 @@
                 </div>
             </section>
             
-            <!-- Projects Section -->
             <section id="projects">
                 <h2><i class="fas fa-project-diagram"></i> Projects</h2>
                 
@@ -773,7 +781,6 @@
                 </div>
             </section>
             
-            <!-- Certifications Section -->
             <section id="certifications">
                 <h2><i class="fas fa-award"></i> Certifications</h2>
                 
@@ -793,7 +800,6 @@
                 </div>
             </section>
             
-            <!-- Footer -->
             <footer>
                 <p>© 2023 Jawad Abbasi. All rights reserved.</p>
                 <p>Abbottabad, KPK, Pakistan</p>
