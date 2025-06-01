@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
     <style>
         /* Base Styles - Enhanced with new effects */
         :root {
@@ -18,6 +19,24 @@
             --text-light: #333;
             --text-dark: #e6e6e6;
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            /* New variables for dark mode consistency */
+            --color-dark-pink: #880e4f; /* Dark pink for dark mode gradient */
+            --color-dark-gradient-2: #000000; /* Black for dark mode gradient */
+            --color-light-gradient-1: #f0f4f8; /* Light background start */
+            --color-light-gradient-2: #d9e2ec; /* Light background end */
+
+            /* Sidebar specific variables */
+            --sidebar-bg: rgba(255,255,255,0.95);
+            --sidebar-dark-bg: rgba(10,10,10,0.95); /* Darker sidebar background for dark mode */
+            --sidebar-text: #333;
+            --sidebar-dark-text: #e0e0e0;
+            --sidebar-width: 280px;
+            --color-light-border: #d9e2ec;
+            --color-dark-border: #444a6b;
+            --color-indigo-light: #4f46e5;
+            --color-indigo-dark: #818cf8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
         
         * {
@@ -27,19 +46,20 @@
         }
         
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif; /* Changed to Inter for consistency with CV */
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            background: linear-gradient(135deg, var(--color-light-gradient-1), var(--color-light-gradient-2)); /* Light background */
             color: var(--text-light);
-            transition: var(--transition);
+            transition: background var(--transition), color var(--transition);
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex; /* Added for sidebar layout */
         }
         
         body.dark {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            background: linear-gradient(135deg, var(--color-dark-pink), var(--color-dark-gradient-2)); /* Dark pink and black mixture */
             color: var(--text-dark);
         }
         
@@ -48,6 +68,162 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        /* Sidebar Styles - Integrated and Enhanced */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            padding: 2rem 1rem;
+            border-right: 1px solid var(--color-light-border);
+            transition: all var(--transition-slow);
+            box-shadow: var(--shadow);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        body.dark .sidebar {
+            background: var(--sidebar-dark-bg);
+            border-color: var(--color-dark-border);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-light-border);
+        }
+
+        body.dark .sidebar-header {
+            border-color: var(--color-dark-border);
+        }
+
+        .sidebar-name {
+            font-family: 'Raleway', sans-serif; /* Consistent with CV */
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--color-indigo-light);
+            background: linear-gradient(135deg, var(--color-indigo-light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.dark .sidebar-name {
+            color: var(--color-indigo-dark);
+        }
+
+        .sidebar-title {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        body.dark .sidebar-title {
+            color: #aaa;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            flex: 1;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.8rem;
+            transition: transform var(--transition-fast);
+        }
+
+        .sidebar li:hover {
+            transform: translateX(5px);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: var(--sidebar-text);
+            display: flex;
+            align-items: center;
+            transition: all var(--transition-fast);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            gap: 1rem;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--color-indigo-light);
+        }
+
+        .sidebar a .emoji {
+            font-size: 1.4rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        body.dark .sidebar a {
+            color: var(--sidebar-dark-text);
+        }
+
+        body.dark .sidebar a:hover, 
+        body.dark .sidebar a.active {
+            background: rgba(129, 140, 248, 0.15);
+            color: var(--color-indigo-dark);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--color-light-border);
+        }
+
+        body.dark .social-links {
+            border-color: var(--color-dark-border);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--color-indigo-light);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .social-link:hover {
+            background: var(--color-indigo-light);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        body.dark .social-link {
+            background: rgba(129, 140, 248, 0.15);
+            color: var(--color-indigo-dark);
+        }
+
+        body.dark .social-link:hover {
+            background: var(--color-indigo-dark);
+            color: white;
+        }
+
+        /* Main Content Shifts Right of Sidebar */
+        .main-content-wrapper {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 0; /* Adjusted padding as container handles it */
+            max-width: calc(100% - var(--sidebar-width));
+        }
         
         /* Navigation Styles - Enhanced */
         nav {
@@ -55,12 +231,13 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
-            background: rgba(110, 72, 170, 0.85);
+            background: rgba(110, 72, 170, 0.85); /* Light mode nav background */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
         
         body.dark nav {
-            background: rgba(26, 26, 46, 0.9);
+            background: rgba(0, 0, 0, 0.9); /* Darker, almost black for dark mode nav */
         }
         
         nav ul {
@@ -221,12 +398,12 @@
         }
         
         .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px) scale(1.03); /* Increased lift and scale */
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25); /* More prominent shadow */
         }
         
         body.dark .project-card:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7); /* Even darker shadow for dark mode */
         }
         
         .project-card h3 {
@@ -337,7 +514,7 @@
         
         /* Go Home Button - Enhanced */
         .go-home {
-            display: inline-flex;
+            display: flex; /* Changed to flex for centering */
             align-items: center;
             justify-content: center;
             width: fit-content;
@@ -455,26 +632,46 @@
         .project-card:nth-child(3) { animation-delay: 0.6s; }
         
         /* Responsive Design - Enhanced */
-        @media (max-width: 900px) {
-            .projects {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        @media (max-width: 992px) { /* Adjusted breakpoint for sidebar collapse */
+            .sidebar {
+                width: 80px;
+                padding: 1.5rem 0.5rem;
             }
-        }
-        
-        @media (max-width: 768px) {
+            .sidebar-header {
+                padding: 0 0.5rem 1rem;
+            }
+            .sidebar-name, .sidebar-title, .text {
+                display: none;
+            }
+            .sidebar a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+            .sidebar a .emoji {
+                font-size: 1.4rem;
+                width: auto;
+            }
+            .main-content-wrapper {
+                margin-left: 80px;
+            }
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
             nav ul {
                 flex-wrap: wrap;
             }
-            
             nav ul li {
                 margin: 0.5rem;
             }
-            
             .nav-item {
                 padding: 0.7rem 1.2rem;
                 font-size: 0.9rem;
             }
-            
+        }
+        
+        @media (max-width: 768px) {
             .projects {
                 grid-template-columns: 1fr;
             }
@@ -488,7 +685,13 @@
             }
         }
         
-        @media (max-width: 480px) {
+        @media (max-width: 576px) { /* New breakpoint for smaller sidebar */
+            .sidebar {
+                width: 60px;
+            }
+            .main-content-wrapper {
+                margin-left: 60px;
+            }
             .animated-heading {
                 font-size: 2rem;
             }
@@ -508,66 +711,88 @@
     </style>
 </head>
 <body class="light">
-    <div class="container">
-        <nav>
-            <ul>
-                <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
-                <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
-                <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
-                <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
-                <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
-                <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
-                <li><a href="myProject.html" class="nav-item"><span class="icon">📽</span>My Projects</a></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <div class="my-projects">
-            <h1 class="animated-heading">Welcome to My Project Portfolio!</h1>
-            <h2>My Featured Projects</h2>
-            <div class="projects">
-                <!-- Todo Project -->
-                <div class="project-card">
-                    <h3><a href="https://hashimthepassionate.github.io/todo-application/">Todo Application</a></h3>
-                    <p>A modern, interactive To-Do list application with task management features, drag and drop functionality, and local storage support.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Local Storage</span>
-                    </div>
-                </div>
-
-                <!-- Quiz Game Project -->
-                <div class="project-card">
-                    <h3><a href="https://jawadabbasi14.github.io/Quiz_game/">Interactive Quiz Game</a></h3>
-                    <p>An engaging quiz platform featuring multiple-choice questions, scoring system, timer, and dynamic feedback for users.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">Responsive</span>
-                        <span class="tech-tag">Animations</span>
-                    </div>
-                </div>
-
-                <!-- Weather API Project -->
-                <div class="project-card">
-                    <h3><a href="https://hashimthepassionate.github.io/weather-app/">Weather Dashboard</a></h3>
-                    <p>A real-time weather application that provides forecasts using geolocation, search functionality, and 5-day predictions.</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">API Integration</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Geolocation</span>
-                        <span class="tech-tag">Bootstrap</span>
-                    </div>
-                </div>
-            </div>
-            
-            <a href="index.html" class="go-home"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-name">Jawad Abbasi</h2>
+            <p class="sidebar-title">Python Developer</p>
         </div>
         
-        <div class="footer">
-            <p>© 2023 My Portfolio. All rights reserved. | Designed with ❤️</p>
+        <ul>
+            <li><a href="index.html" class="nav-item"><span class="emoji">🏠</span> <span class="text">Home</span></a></li>
+            <li><a href="myintro.html" class="nav-item"><span class="emoji">👨‍💻</span> <span class="text">My Intro</span></a></li>
+            <li><a href="services.html" class="nav-item"><span class="emoji">⚙️</span> <span class="text">Services</span></a></li>
+            <li><a href="cv.html" class="nav-item"><span class="emoji">📄</span> <span class="text">CV</span></a></li>
+            <li><a href="blog.html" class="nav-item"><span class="emoji">📝</span> <span class="text">Blog</span></a></li>
+            <li><a href="contactme.html" class="nav-item"><span class="emoji">📞</span> <span class="text">Contact Me</span></a></li>
+            <li><a href="myProject.html" class="nav-item active"><span class="emoji">📽</span> <span class="text">My Projects</span></a></li>
+        </ul>
+        
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        </div>
+    </aside>
+
+    <div class="main-content-wrapper">
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-item"><span class="icon">🏠</span>Home</a></li>
+                    <li><a href="myintro.html" class="nav-item"><span class="icon">👨‍💻</span>My Intro</a></li>
+                    <li><a href="services.html" class="nav-item"><span class="icon">⚙️</span>Services</a></li>
+                    <li><a href="cv.html" class="nav-item"><span class="icon">📄</span>CV</a></li>
+                    <li><a href="blog.html" class="nav-item"><span class="icon">📝</span>Blog</a></li>
+                    <li><a href="contactme.html" class="nav-item"><span class="icon">📞</span>Contact Me</a></li>
+                    <li><a href="myProject.html" class="nav-item active"><span class="icon">📽</span>My Projects</a></li>
+                </ul>
+            </nav>
+
+            <div class="my-projects">
+                <h1 class="animated-heading">Welcome to My Project Portfolio!</h1>
+                <h2>My Featured Projects</h2>
+                <div class="projects">
+                    <div class="project-card">
+                        <h3><a href="https://hashimthepassionate.github.io/todo-application/">Todo Application</a></h3>
+                        <p>A modern, interactive To-Do list application with task management features, drag and drop functionality, and local storage support.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Local Storage</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3><a href="https://jawadabbasi14.github.io/Quiz_game/">Interactive Quiz Game</a></h3>
+                        <p>An engaging quiz platform featuring multiple-choice questions, scoring system, timer, and dynamic feedback for users.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">Responsive</span>
+                            <span class="tech-tag">Animations</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <h3><a href="https://hashimthepassionate.github.io/weather-app/">Weather Dashboard</a></h3>
+                        <p>A real-time weather application that provides forecasts using geolocation, search functionality, and 5-day predictions.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Geolocation</span>
+                            <span class="tech-tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="index.html" class="go-home"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+            </div>
+            
+            <div class="footer">
+                <p>© 2023 My Portfolio. All rights reserved. | Designed with ❤️</p>
+            </div>
         </div>
     </div>
     
@@ -596,6 +821,27 @@
             } else {
                 document.body.classList.add('light');
             }
+
+            // Set active class for current page in sidebar
+            const currentPage = window.location.pathname.split('/').pop();
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            sidebarLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Set active class for current page in top navigation (if different)
+            const topNavLinks = document.querySelectorAll('nav .nav-item');
+            topNavLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         });
     </script>
 </body>
