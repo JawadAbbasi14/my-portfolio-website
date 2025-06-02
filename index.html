@@ -22,6 +22,11 @@
             --glass-border: rgba(255, 255, 255, 0.2); /* Transparent White for glass border */
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Soft shadow */
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, slightly bouncy transition */
+            
+            /* New dark mode specific colors for toggle and icons */
+            --dark-mode-toggle-bg: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            --dark-mode-toggle-hover-shadow: 0 0 25px rgba(199, 21, 133, 0.8), 0 0 50px rgba(0, 0, 0, 0.6);
+            --dark-mode-icon-glow: 0 0 15px rgba(255, 105, 180, 0.8); /* Hot pink glow */
         }
 
         /* General Styles */
@@ -99,11 +104,29 @@
             transform: translateY(-2px);
         }
 
+        /* Dark mode specific styling for switch container */
+        [data-theme="dark"] .switch-container {
+            background: rgba(0, 0, 0, 0.5); /* Darker glass effect */
+            border-color: rgba(199, 21, 133, 0.5); /* Pink border */
+            box-shadow: 0 0 15px rgba(199, 21, 133, 0.4); /* Initial pink glow */
+        }
+
+        [data-theme="dark"] .switch-container:hover {
+            box-shadow: var(--dark-mode-toggle-hover-shadow); /* Enhanced dark pink/black glow on hover */
+            transform: translateY(-3px);
+        }
+
         .theme-label {
             font-size: 0.9rem;
             font-weight: 500;
             opacity: 0.8;
             transition: var(--transition);
+        }
+
+        /* Dark mode specific text color for label */
+        [data-theme="dark"] .theme-label {
+            color: var(--text-light); /* Ensure light text in dark mode */
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.3); /* Subtle pink glow for text */
         }
 
         .switch-mode {
@@ -143,12 +166,22 @@
             background: var(--secondary); /* Orange for light mode toggle */
             border-radius: 50%;
             transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for slider circle */
         }
 
         input:checked + .slider:before {
             transform: translateX(30px);
-            background: var(--primary); /* Blue for dark mode toggle */
+            /* Dark mode specific background for slider circle */
+            background: var(--dark-mode-toggle-bg); /* Black to MediumVioletRed gradient */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 15px rgba(199, 21, 133, 0.7); /* Enhanced pink glow */
         }
+        
+        /* Dark mode specific slider track color */
+        [data-theme="dark"] .slider {
+            background: rgba(0, 0, 0, 0.7); /* Darker track */
+            border-color: rgba(199, 21, 133, 0.7); /* Pink border */
+        }
+
 
         /* Header Styles */
         header {
@@ -333,6 +366,13 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
+        /* Dark mode specific portfolio item hover glow */
+        [data-theme="dark"] .portfolio-item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(199, 21, 133, 0.7); /* Dark pink glow */
+            border-color: rgba(199, 21, 133, 0.5);
+        }
+
+
         .portfolio-item a {
             display: flex;
             flex-direction: column;
@@ -372,6 +412,13 @@
             filter: brightness(120%);
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Stronger glow on hover */
         }
+        
+        /* Dark mode specific portfolio icon hover glow */
+        [data-theme="dark"] .portfolio-item:hover .portfolio-icon {
+            text-shadow: var(--dark-mode-icon-glow); /* Hot pink glow from variable */
+            filter: brightness(150%);
+        }
+
 
         .portfolio-item span {
             font-size: 1.4rem;
@@ -386,6 +433,13 @@
             color: var(--accent); /* Accent color on hover */
             text-shadow: 0 0 10px rgba(52, 235, 94, 0.5); /* Text glow on hover */
         }
+
+        /* Dark mode specific portfolio item text glow */
+        [data-theme="dark"] .portfolio-item:hover span {
+            color: #FF69B4; /* Hot pink text on hover */
+            text-shadow: 0 0 12px rgba(255, 105, 180, 0.8); /* Stronger hot pink glow */
+        }
+
 
         /* Navigation Buttons */
         .nav-buttons {
