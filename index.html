@@ -47,8 +47,8 @@
 
         /* Dark Mode Styles - Applied when data-theme="dark" is set on HTML */
         [data-theme="dark"] {
-            /* Changed to dark black and pink gradient */
-            background: linear-gradient(135deg, #000000 0%, #330033 50%, #C71585 100%);
+            /* Updated to a more prominent dark black and pink gradient for the whole page */
+            background: linear-gradient(135deg, #000000 0%, #1a001a 50%, #8B008B 100%); /* Darker pink for a stronger effect */
             color: var(--text-light); /* Dark mode text color */
         }
 
@@ -71,9 +71,9 @@
         /* Dark Mode Background Pattern - Adapts the pattern for dark mode */
         [data-theme="dark"] body::before {
             background:
-                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.15) 0%, transparent 20%), /* Dark purple for dark mode pattern */
-                radial-gradient(circle at 90% 80%, rgba(199, 21, 133, 0.15) 0%, transparent 20%); /* Dark pink for dark mode pattern */
-            opacity: 0.6; /* Slightly more visible in dark mode for contrast */
+                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.2) 0%, transparent 20%), /* Dark purple for dark mode pattern */
+                radial-gradient(circle at 90% 80%, rgba(199, 21, 133, 0.2) 0%, transparent 20%); /* Dark pink for dark mode pattern */
+            opacity: 0.8; /* Slightly more visible in dark mode for contrast and glow */
         }
 
         /* Dark/Light Mode Toggle Container */
@@ -92,6 +92,11 @@
             padding: 8px 15px;
             box-shadow: var(--shadow);
             transition: var(--transition); /* Smooth transition for container */
+        }
+
+        .switch-container:hover {
+            box-shadow: 0 0 25px rgba(74, 108, 247, 0.6); /* Enhanced glow on hover */
+            transform: translateY(-2px);
         }
 
         .theme-label {
@@ -154,6 +159,7 @@
             position: relative;
         }
 
+        /* Logo Styles - Enhanced with bold border and glow */
         .logo {
             font-family: 'Raleway', sans-serif;
             font-weight: 800;
@@ -164,6 +170,18 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
+            padding: 10px 20px; /* Added padding for the box effect */
+            border-radius: 12px; /* Rounded corners for the box */
+            border: 3px solid transparent; /* Bold border */
+            border-image: linear-gradient(45deg, var(--primary), var(--accent)) 1; /* Gradient border */
+            box-shadow: 0 0 15px rgba(74, 108, 247, 0.5), 0 0 30px rgba(52, 235, 94, 0.3); /* Initial glow */
+            transition: var(--transition), box-shadow 0.6s ease, border-image 0.6s ease; /* Smooth transitions */
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(-1deg); /* Slight scale and rotation on hover */
+            box-shadow: 0 0 25px rgba(74, 108, 247, 0.8), 0 0 50px rgba(52, 235, 94, 0.6); /* Increased glow on hover */
+            border-image: linear-gradient(45deg, var(--accent), var(--primary)) 1; /* Reverse gradient on hover */
         }
 
         .tagline {
@@ -173,30 +191,38 @@
             max-width: 700px;
             margin: 0 auto 40px;
             line-height: 1.6;
+            transition: var(--transition);
         }
 
+        .tagline:hover {
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Replaced Typing Animation */
         .typing-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 25px;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            box-shadow: var(--shadow);
-            transition: var(--transition); /* Smooth transition for typing container */
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
         }
-
-        .typing-text {
-            font-size: 2.8rem;
-            font-weight: 700;
+        
+        .typing-effect {
+            font-size: 3.2rem;
+            font-weight: 800;
             line-height: 1.2;
-            text-align: center;
-            background: linear-gradient(to right, var(--accent), var(--primary), var(--secondary));
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-family: 'Raleway', sans-serif;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .typing-effect:hover {
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3), 0 0 40px rgba(74, 108, 247, 0.5); /* Enhanced glow on hover */
+            transform: translateY(-3px);
         }
 
         .highlighted-para {
@@ -213,6 +239,12 @@
             position: relative;
             overflow: hidden;
             transition: var(--transition); /* Smooth transition for highlighted paragraph */
+        }
+
+        .highlighted-para:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 20px rgba(74, 108, 247, 0.4); /* Enhanced shadow and glow */
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .highlighted-para::before {
@@ -243,6 +275,12 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .section-title:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(74, 108, 247, 0.5);
         }
 
         .section-title::after {
@@ -254,6 +292,13 @@
             height: 4px;
             background: linear-gradient(to right, var(--primary), var(--accent));
             border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .section-title:hover::after {
+            background: linear-gradient(to right, var(--accent), var(--primary)); /* Reverse gradient on hover */
+            width: 110%; /* Extend line slightly */
+            left: -5%;
         }
 
         .portfolio {
@@ -284,7 +329,7 @@
 
         .portfolio-item:hover {
             transform: translateY(-10px) scale(1.03) rotate(1deg);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(74, 108, 247, 0.5); /* Enhanced glow on hover */
             border-color: rgba(255, 255, 255, 0.3);
         }
 
@@ -310,19 +355,22 @@
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle initial glow */
         }
 
-        /* Dark mode icon color - Changed to black and pink gradient */
+        /* Dark mode icon color - Changed to black and pink gradient with enhanced glow */
         [data-theme="dark"] .portfolio-icon {
             background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(199, 21, 133, 0.5); /* Dark mode icon glow */
         }
 
         .portfolio-item:hover .portfolio-icon {
             transform: scale(1.2);
             filter: brightness(120%);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Stronger glow on hover */
         }
 
         .portfolio-item span {
@@ -336,6 +384,7 @@
         .portfolio-item:hover span {
             opacity: 1;
             color: var(--accent); /* Accent color on hover */
+            text-shadow: 0 0 10px rgba(52, 235, 94, 0.5); /* Text glow on hover */
         }
 
         /* Navigation Buttons */
@@ -380,8 +429,8 @@
         }
 
         .nav-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(74, 108, 247, 0.5);
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 15px 35px rgba(74, 108, 247, 0.7); /* Stronger shadow/glow */
         }
 
         .nav-btn a {
@@ -397,7 +446,8 @@
         }
 
         .nav-btn:hover i {
-            transform: rotate(360deg);
+            transform: rotate(360deg) scale(1.1); /* Rotate and slightly scale icon */
+            filter: brightness(150%);
         }
 
         /* Footer */
@@ -406,6 +456,12 @@
             text-align: center;
             padding: 30px 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.6s ease-in-out;
+        }
+
+        /* Dark mode footer background */
+        [data-theme="dark"] footer {
+            background: #1a001a; /* Darker pink-black for footer in dark mode */
         }
 
         footer .social-links {
@@ -430,16 +486,31 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle initial shadow */
         }
 
         [data-theme="light"] .social-link {
             color: var(--text-dark); /* Dark text for social links in light mode */
         }
 
+        /* Dark mode social link styling - now with gradient background */
+        [data-theme="dark"] .social-link {
+            background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            border-color: rgba(199, 21, 133, 0.5);
+            color: var(--text-light); /* Ensure text is light in dark mode */
+        }
+
         .social-link:hover {
-            background: var(--primary); /* Primary color on hover */
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.4);
+            background: var(--primary); /* Primary color on hover for light mode */
+            transform: translateY(-7px) scale(1.1); /* More pronounced lift and scale */
+            box-shadow: 0 10px 25px rgba(74, 108, 247, 0.6); /* Stronger shadow/glow */
+            filter: brightness(130%);
+        }
+
+        /* Dark mode social link hover */
+        [data-theme="dark"] .social-link:hover {
+            background: linear-gradient(135deg, #C71585, #000000); /* Reverse gradient on hover in dark mode */
+            box-shadow: 0 10px 25px rgba(199, 21, 133, 0.8); /* Stronger pink glow */
         }
 
         .copyright {
@@ -459,7 +530,7 @@
                 padding: 60px 20px 30px;
             }
 
-            .typing-text {
+            .typing-effect {
                 font-size: 2rem;
             }
 
@@ -478,7 +549,7 @@
                 height: 250px;
             }
 
-            .typing-text {
+            .typing-effect {
                 font-size: 1.6rem;
             }
 
@@ -532,8 +603,8 @@
         .floating-2 { animation: floating 6s ease-in-out infinite 1s; }
         .floating-3 { animation: floating 6s ease-in-out infinite 2s; }
         .floating-4 { animation: floating 6s ease-in-out infinite 3s; }
-        .floating-5 { animation: floating 6s ease-in-out infinite 4s; }
-        .floating-6 { animation: floating 6s ease-in-out infinite 5s; }
+        .floating-5 { animation: floating 6s ease-in-out infinite 0.5s; } /* Adjusted delay for more variation */
+        .floating-6 { animation: floating 6s ease-in-out infinite 1.5s; } /* Adjusted delay for more variation */
     </style>
 </head>
 <body>
@@ -549,7 +620,7 @@
         <div class="logo animate">JAWAD</div>
         <p class="tagline animate delay-1">Python Developer & Programmer crafting elegant solutions to complex problems</p>
         <div class="typing-container animate delay-2">
-            <div class="typing-text">
+            <div class="typing-effect">
                 <span id="dynamic-text">Hello, I'm Jawad!</span>
             </div>
         </div>
