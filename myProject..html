@@ -1,11 +1,830 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects Portfolio</title>
+    <title>JAWAD</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        /* Base Styles - Enhanced with new effects */
-…</html>
+        /* CSS Variables - Define reusable colors, sizes, and transitions */
+        :root {
+            --primary: #4a6cf7; /* Blue */
+            --primary-dark: #3a58d1; /* Darker Blue */
+            --secondary: #ff7e5f; /* Orange */
+            --accent: #34eb5e; /* Green */
+            --dark-bg: #020d18; /* Very Dark Blue */
+            --light-bg: #f8f9ff; /* Very Light Blue/Grey */
+            --text-dark: #121212; /* Dark Text */
+            --text-light: #ffffff; /* Light Text */
+            --card-bg: rgba(255, 255, 255, 0.08); /* Transparent White for cards */
+            --glass-bg: rgba(255, 255, 255, 0.1); /* Transparent White for glass effect */
+            --glass-border: rgba(255, 255, 255, 0.2); /* Transparent White for glass border */
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Soft shadow */
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, slightly bouncy transition */
+            
+            /* New dark mode specific colors for toggle and icons */
+            --dark-mode-toggle-bg: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            --dark-mode-toggle-hover-shadow: 0 0 25px rgba(199, 21, 133, 0.8), 0 0 50px rgba(0, 0, 0, 0.6);
+            --dark-mode-icon-glow: 0 0 15px rgba(255, 105, 180, 0.8); /* Hot pink glow */
+        }
+
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+            background: linear-gradient(135deg, var(--light-bg) 0%, #dde6ff 100%); /* Light mode background gradient */
+            color: var(--text-dark); /* Light mode text color */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            transition: background 0.6s ease-in-out, color 0.6s ease-in-out; /* Enhanced transition for theme change */
+            position: relative;
+        }
+
+        /* Dark Mode Styles - Applied when data-theme="dark" is set on HTML */
+        [data-theme="dark"] {
+            /* Updated to a more prominent dark black and pink gradient for the whole page */
+            background: linear-gradient(135deg, #000000 0%, #1a001a 50%, #8B008B 100%); /* Darker pink for a stronger effect */
+            color: var(--text-light); /* Dark mode text color */
+        }
+
+        /* Background Pattern - Adds subtle visual texture */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(74, 108, 247, 0.1) 0%, transparent 20%), /* Primary color pattern */
+                radial-gradient(circle at 90% 80%, rgba(255, 126, 95, 0.1) 0%, transparent 20%); /* Secondary color pattern */
+            z-index: -1;
+            opacity: 0.3;
+            transition: opacity 0.6s ease-in-out; /* Smooth transition for pattern opacity */
+        }
+
+        /* Dark Mode Background Pattern - Adapts the pattern for dark mode */
+        [data-theme="dark"] body::before {
+            background:
+                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.2) 0%, transparent 20%), /* Dark purple for dark mode pattern */
+                radial-gradient(circle at 90% 80%, rgba(199, 21, 133, 0.2) 0%, transparent 20%); /* Dark pink for dark mode pattern */
+            opacity: 0.8; /* Slightly more visible in dark mode for contrast and glow */
+        }
+
+        /* Dark/Light Mode Toggle Container */
+        .switch-container {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 8px 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition); /* Smooth transition for container */
+        }
+
+        .switch-container:hover {
+            box-shadow: 0 0 25px rgba(74, 108, 247, 0.6); /* Enhanced glow on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Dark mode specific styling for switch container */
+        [data-theme="dark"] .switch-container {
+            background: rgba(0, 0, 0, 0.5); /* Darker glass effect */
+            border-color: rgba(199, 21, 133, 0.5); /* Pink border */
+            box-shadow: 0 0 15px rgba(199, 21, 133, 0.4); /* Initial pink glow */
+        }
+
+        [data-theme="dark"] .switch-container:hover {
+            box-shadow: var(--dark-mode-toggle-hover-shadow); /* Enhanced dark pink/black glow on hover */
+            transform: translateY(-3px);
+        }
+
+        .theme-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        /* Dark mode specific text color for label */
+        [data-theme="dark"] .theme-label {
+            color: var(--text-light); /* Ensure light text in dark mode */
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.3); /* Subtle pink glow for text */
+        }
+
+        .switch-mode {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .switch-mode input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 34px;
+            transition: var(--transition);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 3px;
+            background: var(--secondary); /* Orange for light mode toggle */
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for slider circle */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            /* Dark mode specific background for slider circle */
+            background: var(--dark-mode-toggle-bg); /* Black to MediumVioletRed gradient */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 15px rgba(199, 21, 133, 0.7); /* Enhanced pink glow */
+        }
+        
+        /* Dark mode specific slider track color */
+        [data-theme="dark"] .slider {
+            background: rgba(0, 0, 0, 0.7); /* Darker track */
+            border-color: rgba(199, 21, 133, 0.7); /* Pink border */
+        }
+
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        /* Logo Styles - Enhanced with bold border and glow */
+        .logo {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            padding: 10px 20px; /* Added padding for the box effect */
+            border-radius: 12px; /* Rounded corners for the box */
+            border: 3px solid transparent; /* Bold border */
+            border-image: linear-gradient(45deg, var(--primary), var(--accent)) 1; /* Gradient border */
+            box-shadow: 0 0 15px rgba(74, 108, 247, 0.5), 0 0 30px rgba(52, 235, 94, 0.3); /* Initial glow */
+            transition: var(--transition), box-shadow 0.6s ease, border-image 0.6s ease; /* Smooth transitions */
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(-1deg); /* Slight scale and rotation on hover */
+            box-shadow: 0 0 25px rgba(74, 108, 247, 0.8), 0 0 50px rgba(52, 235, 94, 0.6); /* Increased glow on hover */
+            border-image: linear-gradient(45deg, var(--accent), var(--primary)) 1; /* Reverse gradient on hover */
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        .tagline:hover {
+            opacity: 1;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Replaced Typing Animation */
+        .typing-container {
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .typing-effect {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .typing-effect:hover {
+            text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3), 0 0 40px rgba(74, 108, 247, 0.5); /* Enhanced glow on hover */
+            transform: translateY(-3px);
+        }
+
+        .highlighted-para {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            padding: 20px;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition); /* Smooth transition for highlighted paragraph */
+        }
+
+        .highlighted-para:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25), 0 0 20px rgba(74, 108, 247, 0.4); /* Enhanced shadow and glow */
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .highlighted-para::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-family: 'Raleway', sans-serif;
+            margin-bottom: 50px;
+            position: relative;
+            padding: 0 20px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .section-title:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 15px rgba(74, 108, 247, 0.5);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .section-title:hover::after {
+            background: linear-gradient(to right, var(--accent), var(--primary)); /* Reverse gradient on hover */
+            width: 110%; /* Extend line slightly */
+            left: -5%;
+        }
+
+        .portfolio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            padding: 20px;
+            justify-items: center; /* Center items in the grid */
+        }
+
+        .portfolio-item {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.03) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(74, 108, 247, 0.5); /* Enhanced glow on hover */
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Dark mode specific portfolio item hover glow */
+        [data-theme="dark"] .portfolio-item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 35px rgba(199, 21, 133, 0.7); /* Dark pink glow */
+            border-color: rgba(199, 21, 133, 0.5);
+        }
+
+
+        .portfolio-item a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            transition: var(--transition);
+            color: var(--primary); /* Default icon color */
+            background: linear-gradient(135deg, var(--primary), var(--accent)); /* Gradient for light mode */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Subtle initial glow */
+        }
+
+        /* Dark mode icon color - Changed to black and pink gradient with enhanced glow */
+        [data-theme="dark"] .portfolio-icon {
+            background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(199, 21, 133, 0.5); /* Dark mode icon glow */
+        }
+
+        .portfolio-item:hover .portfolio-icon {
+            transform: scale(1.2);
+            filter: brightness(120%);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Stronger glow on hover */
+        }
+        
+        /* Dark mode specific portfolio icon hover glow */
+        [data-theme="dark"] .portfolio-item:hover .portfolio-icon {
+            text-shadow: var(--dark-mode-icon-glow); /* Hot pink glow from variable */
+            filter: brightness(150%);
+        }
+
+
+        .portfolio-item span {
+            font-size: 1.4rem;
+            font-weight: 600;
+            transition: var(--transition);
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        .portfolio-item:hover span {
+            opacity: 1;
+            color: var(--accent); /* Accent color on hover */
+            text-shadow: 0 0 10px rgba(52, 235, 94, 0.5); /* Text glow on hover */
+        }
+
+        /* Dark mode specific portfolio item text glow */
+        [data-theme="dark"] .portfolio-item:hover span {
+            color: #FF69B4; /* Hot pink text on hover */
+            text-shadow: 0 0 12px rgba(255, 105, 180, 0.8); /* Stronger hot pink glow */
+        }
+
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            padding: 50px 20px;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--text-light);
+            border: none;
+            padding: 16px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), #2ac84d);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before {
+            width: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 15px 35px rgba(74, 108, 247, 0.7); /* Stronger shadow/glow */
+        }
+
+        .nav-btn a {
+            color: inherit;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn i {
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover i {
+            transform: rotate(360deg) scale(1.1); /* Rotate and slightly scale icon */
+            filter: brightness(150%);
+        }
+
+        /* Footer */
+        footer {
+            background: #2E3A59; /* Dark blue background for footer */
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.6s ease-in-out;
+        }
+
+        /* Dark mode footer background */
+        [data-theme="dark"] footer {
+            background: #1a001a; /* Darker pink-black for footer in dark mode */
+        }
+
+        footer .social-links {
+            margin-bottom: 25px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light); /* Default color for social links */
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle initial shadow */
+        }
+
+        [data-theme="light"] .social-link {
+            color: var(--text-dark); /* Dark text for social links in light mode */
+        }
+
+        /* Dark mode social link styling - now with gradient background */
+        [data-theme="dark"] .social-link {
+            background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            border-color: rgba(199, 21, 133, 0.5);
+            color: var(--text-light); /* Ensure text is light in dark mode */
+        }
+
+        .social-link:hover {
+            background: var(--primary); /* Primary color on hover for light mode */
+            transform: translateY(-7px) scale(1.1); /* More pronounced lift and scale */
+            box-shadow: 0 10px 25px rgba(74, 108, 247, 0.6); /* Stronger shadow/glow */
+            filter: brightness(130%);
+        }
+
+        /* Dark mode social link hover */
+        [data-theme="dark"] .social-link:hover {
+            background: linear-gradient(135deg, #C71585, #000000); /* Reverse gradient on hover in dark mode */
+            box-shadow: 0 10px 25px rgba(199, 21, 133, 0.8); /* Stronger pink glow */
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 15px;
+            color: var(--text-light);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .portfolio {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header {
+                padding: 60px 20px 30px;
+            }
+
+            .typing-effect {
+                font-size: 2rem;
+            }
+
+            .portfolio-icon {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .portfolio {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-item {
+                max-width: 100%;
+                height: 250px;
+            }
+
+            .typing-effect {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .portfolio-icon {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Animation Effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Hidden by default until animated */
+        }
+
+        /* Animation delays for staggered appearance */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.4s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Floating animations with different delays for a dynamic effect */
+        .floating-1 { animation: floating 6s ease-in-out infinite; }
+        .floating-2 { animation: floating 6s ease-in-out infinite 1s; }
+        .floating-3 { animation: floating 6s ease-in-out infinite 2s; }
+        .floating-4 { animation: floating 6s ease-in-out infinite 3s; }
+        .floating-5 { animation: floating 6s ease-in-out infinite 0.5s; } /* Adjusted delay for more variation */
+        .floating-6 { animation: floating 6s ease-in-out infinite 1.5s; } /* Adjusted delay for more variation */
+    </style>
+</head>
+<body>
+    <div class="switch-container">
+        <span class="theme-label">LIGHT MODE</span>
+        <label class="switch-mode">
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <header class="animate">
+        <div class="logo animate">JAWAD</div>
+        <p class="tagline animate delay-1">Python Developer & Programmer crafting elegant solutions to complex problems</p>
+        <div class="typing-container animate delay-2">
+            <div class="typing-effect">
+                <span id="dynamic-text">Hello, I'm Jawad!</span>
+            </div>
+        </div>
+        <p class="highlighted-para animate delay-3">
+            Explore my portfolio to see how I transform ideas into functional, efficient, and beautiful digital solutions.
+        </p>
+    </header>
+
+    <section class="portfolio-section">
+        <h2 class="section-title animate delay-1">My Portfolio</h2>
+        <div class="portfolio">
+            <div class="portfolio-item animate delay-1 floating-1">
+                <a href="myintro.html" aria-label="Go to About Page">
+                    <i class="fas fa-user-tie portfolio-icon"></i>
+                    <span>ABOUT ME</span>
+                </a>
+            </div>
+
+            <div class="portfolio-item animate delay-2 floating-2">
+                <a href="services.html" aria-label="Go to Skills Page">
+                    <i class="fas fa-laptop-code portfolio-icon"></i>
+                    <span>MY SKILLS</span>
+                </a>
+            </div>
+
+            <div class="portfolio-item animate delay-3 floating-3">
+                <a href="cv.html" aria-label="Go to CV Page">
+                    <i class="fas fa-file-alt portfolio-icon"></i>
+                    <span>MY CV</span>
+                </a>
+            </div>
+
+            <div class="portfolio-item animate delay-4 floating-4">
+                <a href="myProject.html" aria-label="Go to Projects Page">
+                    <i class="fas fa-project-diagram portfolio-icon"></i>
+                    <span>PROJECTS</span>
+                </a>
+            </div>
+
+            <div class="portfolio-item animate delay-5 floating-5">
+                <a href="contactme.html" aria-label="Go to Contact Page">
+                    <i class="fas fa-envelope portfolio-icon"></i>
+                    <span>CONTACT</span>
+                </a>
+            </div>
+
+            <div class="portfolio-item animate delay-6 floating-6">
+                <a href="blog.html" aria-label="Go to Blog Page">
+                    <i class="fas fa-blog portfolio-icon"></i>
+                    <span>BLOG</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="nav-buttons">
+        <button class="nav-btn animate delay-4">
+            <a href="index.html" aria-label="Refresh Page"><i class="fas fa-sync-alt"></i> Refresh</a>
+        </button>
+        <button class="nav-btn animate delay-5">
+            <a href="contactme.html" aria-label="Go to Contact Page"><i class="fas fa-envelope"></i> Contact Me</a>
+        </button>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="copyright">© 2025 Jawad. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Dark/Light Mode Toggle functionality
+        const modeToggle = document.getElementById('modeToggle');
+        const html = document.documentElement; // Target the root HTML element for data-theme attribute
+
+        modeToggle.addEventListener('change', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            // Toggle the data-theme attribute between 'light' and 'dark'
+            html.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+            // Update the text label for the theme switch
+            document.querySelector('.theme-label').textContent = currentTheme === 'light' ? 'DARK MODE' : 'LIGHT MODE';
+        });
+
+        // Dynamic Text Animation for the header
+        const textElement = document.getElementById('dynamic-text');
+        const texts = [
+            "Hello, I'm Jawad!",
+            "Python Developer",
+            "Problem Solver",
+            "Creative Programmer",
+            "Full Stack Developer"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 120; // Initial typing speed
+
+        function typeText() {
+            const currentText = texts[textIndex];
+            if (isDeleting) {
+                // If deleting, remove characters one by one
+                textElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 60; // Faster deleting speed
+            } else {
+                // If typing, add characters one by one
+                textElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 120; // Normal typing speed
+            }
+
+            // Check if typing is complete for current text
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true; // Start deleting
+                typingSpeed = 1000; // Pause before deleting
+            } else if (isDeleting && charIndex === 0) {
+                // If deleting is complete, switch to next text
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length; // Cycle through texts
+            }
+            setTimeout(typeText, typingSpeed); // Call function recursively after a delay
+        }
+        setTimeout(typeText, 1000); // Start typing animation after 1 second on load
+
+        // Scroll Animations - Elements fade in as they become visible
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate');
+            animatedElements.forEach(element => {
+                element.style.opacity = '0'; // Hide elements initially
+            });
+
+            // Intersection Observer to trigger animations when elements enter viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running'; // Play animation
+                        entry.target.style.opacity = '1'; // Make element visible
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of element is visible
+
+            animatedElements.forEach(element => observer.observe(element)); // Observe all animated elements
+        });
+
+        // Set default theme on page load (can be overridden by user toggle)
+        html.setAttribute('data-theme', 'light');
+    </script>
+</body>
+</html>
