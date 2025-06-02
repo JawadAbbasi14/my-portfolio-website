@@ -24,7 +24,12 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, slightly bouncy transition */
             
             /* New dark mode specific colors for toggle and icons */
-            --dark-mode-toggle-bg: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            --dark-mode-main-pink: #8B008B; /* Dark Magenta */
+            --dark-mode-light-pink: #C71585; /* MediumVioletRed */
+            --dark-mode-hot-pink: #FF69B4; /* Hot Pink */
+            --dark-mode-black: #000000; /* Pure Black */
+
+            --dark-mode-toggle-bg: linear-gradient(135deg, var(--dark-mode-black), var(--dark-mode-light-pink));
             --dark-mode-toggle-hover-shadow: 0 0 25px rgba(199, 21, 133, 0.8), 0 0 50px rgba(0, 0, 0, 0.6);
             --dark-mode-icon-glow: 0 0 15px rgba(255, 105, 180, 0.8); /* Hot pink glow */
         }
@@ -53,8 +58,10 @@
         /* Dark Mode Styles - Applied when data-theme="dark" is set on HTML */
         [data-theme="dark"] {
             /* Updated to a more prominent dark black and pink gradient for the whole page */
-            background: linear-gradient(135deg, #000000 0%, #1a001a 50%, #8B008B 100%); /* Darker pink for a stronger effect */
+            background: linear-gradient(135deg, var(--dark-mode-black) 0%, #1a001a 50%, var(--dark-mode-main-pink) 100%); /* Darker pink for a stronger effect */
             color: var(--text-light); /* Dark mode text color */
+            /* Added subtle overall glow to the body in dark mode */
+            box-shadow: inset 0 0 50px rgba(139, 0, 139, 0.1); /* Inner glow effect */
         }
 
         /* Background Pattern - Adds subtle visual texture */
@@ -258,6 +265,21 @@
             transform: translateY(-3px);
         }
 
+        /* Dark mode specific text animation color and glow */
+        [data-theme="dark"] .typing-effect {
+            background: linear-gradient(45deg, var(--dark-mode-black), var(--dark-mode-light-pink), var(--dark-mode-hot-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 105, 180, 0.6); /* Dark pink glow */
+        }
+
+        [data-theme="dark"] .typing-effect:hover {
+            text-shadow: 0 5px 30px rgba(0, 0, 0, 0.6), 0 0 50px rgba(255, 105, 180, 0.9); /* Stronger dark pink glow on hover */
+            transform: translateY(-5px);
+        }
+
+
         .highlighted-para {
             text-align: center;
             font-size: 1.3rem;
@@ -280,6 +302,20 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
+        /* Dark mode specific styling for highlighted-para (text box) */
+        [data-theme="dark"] .highlighted-para {
+            background: rgba(0, 0, 0, 0.4); /* Darker glass effect */
+            border: 1px solid rgba(199, 21, 133, 0.5); /* Pink border */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(199, 21, 133, 0.6); /* Dark pink glow */
+            color: var(--text-light); /* Ensure text is light */
+        }
+
+        [data-theme="dark"] .highlighted-para:hover {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 105, 180, 0.8); /* Stronger hot pink glow */
+            transform: translateY(-7px);
+            border-color: rgba(255, 105, 180, 0.7);
+        }
+
         .highlighted-para::before {
             content: "";
             position: absolute;
@@ -289,6 +325,12 @@
             height: 100%;
             background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
+
+        /* Dark mode specific vertical line gradient */
+        [data-theme="dark"] .highlighted-para::before {
+            background: linear-gradient(to bottom, var(--dark-mode-light-pink), var(--dark-mode-hot-pink));
+        }
+
 
         /* Portfolio Section */
         .portfolio-section {
@@ -400,7 +442,7 @@
 
         /* Dark mode icon color - Changed to black and pink gradient with enhanced glow */
         [data-theme="dark"] .portfolio-icon {
-            background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            background: linear-gradient(135deg, var(--dark-mode-black), var(--dark-mode-light-pink)); /* Black to MediumVioletRed */
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -436,7 +478,7 @@
 
         /* Dark mode specific portfolio item text glow */
         [data-theme="dark"] .portfolio-item:hover span {
-            color: #FF69B4; /* Hot pink text on hover */
+            color: var(--dark-mode-hot-pink); /* Hot pink text on hover */
             text-shadow: 0 0 12px rgba(255, 105, 180, 0.8); /* Stronger hot pink glow */
         }
 
@@ -549,7 +591,7 @@
 
         /* Dark mode social link styling - now with gradient background */
         [data-theme="dark"] .social-link {
-            background: linear-gradient(135deg, #000000, #C71585); /* Black to MediumVioletRed */
+            background: linear-gradient(135deg, var(--dark-mode-black), var(--dark-mode-light-pink)); /* Black to MediumVioletRed */
             border-color: rgba(199, 21, 133, 0.5);
             color: var(--text-light); /* Ensure text is light in dark mode */
         }
@@ -563,7 +605,7 @@
 
         /* Dark mode social link hover */
         [data-theme="dark"] .social-link:hover {
-            background: linear-gradient(135deg, #C71585, #000000); /* Reverse gradient on hover in dark mode */
+            background: linear-gradient(135deg, var(--dark-mode-light-pink), var(--dark-mode-black)); /* Reverse gradient on hover in dark mode */
             box-shadow: 0 10px 25px rgba(199, 21, 133, 0.8); /* Stronger pink glow */
         }
 
