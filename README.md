@@ -27,11 +27,11 @@ This site represents my work, skills, and creativity as a tech enthusiast. It’
 
 ### ☀️ Light Mode
 
-![Light Mode](litemode.png)
+![Light Mode](f939d711-8c9d-4bef-9e75-8bc7745974b6.png)
 
 ### 🌑 Dark Mode
 
-![Dark Mode](darkmode.png)
+![Dark Mode](024f3d31-1b37-4585-a89d-7d3b64716d2e.png)
 
 ---
 
@@ -50,4 +50,3 @@ This website is built using:
 
 Thanks for visiting! Feel free to explore, fork, or share your feedback.  
 I’m always learning and building — this is just the beginning! 💻🚀
-
