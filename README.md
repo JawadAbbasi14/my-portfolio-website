@@ -27,11 +27,11 @@ This site represents my work, skills, and creativity as a tech enthusiast. It’
 
 ### ☀️ Light Mode
 
-![Light Mode](f939d711-8c9d-4bef-9e75-8bc7745974b6.png)
+![Light Mode](litemode.png)
 
 ### 🌑 Dark Mode
 
-![Dark Mode](024f3d31-1b37-4585-a89d-7d3b64716d2e.png)
+![Dark Mode](darkmode.png)
 
 ---
 
