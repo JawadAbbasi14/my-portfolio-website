@@ -6,6 +6,8 @@
     <title>JAWAD</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <style>
         /* CSS Variables - Define reusable colors, sizes, and transitions */
         :root {
@@ -27,7 +29,7 @@
             --dark-mode-main-pink: #8B008B; /* Dark Magenta */
             --dark-mode-light-pink: #C71585; /* MediumVioletRed */
             --dark-mode-hot-pink: #FF69B4; /* Hot Pink */
-            --dark-mode-black: #000000; /* Pure Black */
+            --dark-mode-black: #1A1A1A; /* Pure Dark Black */
 
             --dark-mode-toggle-bg: linear-gradient(135deg, var(--dark-mode-black), var(--dark-mode-light-pink));
             --dark-mode-toggle-hover-shadow: 0 0 25px rgba(199, 21, 133, 0.8), 0 0 50px rgba(0, 0, 0, 0.6);
@@ -55,13 +57,15 @@
             position: relative;
         }
 
-        /* Dark Mode Styles - Applied when data-theme="dark" is set on HTML */
+        /* Enhanced Dark Mode Styles - Applied when data-theme="dark" is set on HTML */
+        [data-theme="dark"] body {
+            background: var(--dark-mode-black) !important; /* Force dark black background */
+            color: #D3D3D3 !important; /* Light gray text for professional look */
+        }
+
         [data-theme="dark"] {
-            /* Updated to a more prominent dark black and pink gradient for the whole page */
-            background: linear-gradient(135deg, var(--dark-mode-black) 0%, #1a001a 50%, var(--dark-mode-main-pink) 100%); /* Darker pink for a stronger effect */
-            color: var(--text-light); /* Dark mode text color */
-            /* Added subtle overall glow to the body in dark mode */
-            box-shadow: inset 0 0 50px rgba(139, 0, 139, 0.1); /* Inner glow effect */
+            /* Remove conflicting gradients and patterns */
+            box-shadow: inset 0 0 50px rgba(139, 0, 139, 0.1);
         }
 
         /* Background Pattern - Adds subtle visual texture */
@@ -80,12 +84,9 @@
             transition: opacity 0.6s ease-in-out; /* Smooth transition for pattern opacity */
         }
 
-        /* Dark Mode Background Pattern - Adapts the pattern for dark mode */
+        /* Dark Mode Background Pattern - Disabled to ensure solid dark background */
         [data-theme="dark"] body::before {
-            background:
-                radial-gradient(circle at 10% 20%, rgba(75, 0, 130, 0.2) 0%, transparent 20%), /* Dark purple for dark mode pattern */
-                radial-gradient(circle at 90% 80%, rgba(199, 21, 133, 0.2) 0%, transparent 20%); /* Dark pink for dark mode pattern */
-            opacity: 0.8; /* Slightly more visible in dark mode for contrast and glow */
+            display: none; /* Disable pattern in dark mode to avoid interference */
         }
 
         /* Dark/Light Mode Toggle Container */
@@ -701,6 +702,29 @@
         .floating-4 { animation: floating 6s ease-in-out infinite 3s; }
         .floating-5 { animation: floating 6s ease-in-out infinite 0.5s; } /* Adjusted delay for more variation */
         .floating-6 { animation: floating 6s ease-in-out infinite 1.5s; } /* Adjusted delay for more variation */
+
+        /* 3D Report Section */
+        .report-section {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .report-title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #reportChart {
+            max-width: 800px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -781,6 +805,11 @@
         </button>
     </div>
 
+    <section class="report-section">
+        <h2 class="report-title animate delay-1">Project Progress Report</h2>
+        <canvas id="reportChart"></canvas>
+    </section>
+
     <footer>
         <div class="social-links">
             <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -829,7 +858,7 @@
                 // If typing, add characters one by one
                 textElement.textContent = currentText.substring(0, charIndex + 1);
                 charIndex++;
-                typingSpeed = 120; // Normal typing speed
+                typingSpeed = 120; /* Normal typing speed */
             }
 
             // Check if typing is complete for current text
@@ -863,6 +892,45 @@
             }, { threshold: 0.1 }); // Trigger when 10% of element is visible
 
             animatedElements.forEach(element => observer.observe(element)); // Observe all animated elements
+        });
+
+        // 3D Report Chart
+        const ctx = document.getElementById('reportChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Projects', 'Skills', 'CV', 'Blog'],
+                datasets: [{
+                    label: 'Progress (%)',
+                    data: [85, 90, 75, 60],
+                    backgroundColor: 'rgba(74, 108, 247, 0.8)',
+                    borderColor: 'rgba(74, 108, 247, 1)',
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    barPercentage: 0.6,
+                    categoryPercentage: 0.8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    datalabels: {
+                        color: '#fff',
+                        font: { weight: 'bold' },
+                        formatter: (value) => value + '%'
+                    }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Sections' } },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: { display: true, text: 'Progress' },
+                        ticks: { stepSize: 20 }
+                    }
+                }
+            }
         });
 
         // Set default theme on page load (can be overridden by user toggle)
